@@ -1,20 +1,19 @@
-package org.example.Models;
+package org.example.models.move;
 
 import lombok.Data;
 
 @Data
-public class Transport1 {
-    private Velocity anomalyAcceleration;
+public class Transport {
+    private Vector2D anomalyAcceleration;
     private int attackCooldownMs;
     private int deathCount;
     private int health;
     private String id;
-    private Velocity selfAcceleration;
+    private Vector2D selfAcceleration;
     private int shieldCooldownMs;
     private int shieldLeftMs;
     private String status;
-    private Velocity velocity;
-    private int x;
-    private int y;
-
+    private Vector2D velocity;
+    private double x;
+    private double y;
 }
