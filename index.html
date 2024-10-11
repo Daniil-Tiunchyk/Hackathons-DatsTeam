@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scalable Map Visualization</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      h1 {
+        margin: 10px 0;
+      }
+
+      canvas {
+        border: 2px solid #333;
+        background-color: white;
+      }
+
+      .info-box {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        width: 300px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+
+      .info-box h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        color: #333;
+      }
+
+      .info-box p {
+        margin: 5px 0;
+        font-size: 14px;
+        color: #555;
+      }
+
+      /* Стили для кнопок масштабирования */
+      .zoom-controls {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .zoom-controls button {
+        padding: 10px 15px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+
+      .zoom-controls button:hover {
+        background-color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Scalable Map Visualization</h1>
+
+    <!-- Холст для отображения карты -->
+    <canvas id="mapCanvas" width="900" height="900"></canvas>
+
+    <div class="info-box" id="infoBox">
+      <h2>Object Info</h2>
+      <p>Select an object on the map to view its details.</p>
+    </div>
+
+    <!-- Кнопки управления масштабом -->
+    <div class="zoom-controls">
+      <button id="zoomInBtn">+</button>
+      <button id="zoomOutBtn">-</button>
+    </div>
+
+    <script>
+      // Получение ссылки на элементы
+      const canvas = document.getElementById("mapCanvas");
+      const ctx = canvas.getContext("2d");
+      let jsonData;
+
+      // Параметры для масштабирования и перемещения
+      let scale = 0.1; // Начальный масштаб, чтобы увидеть всю карту (9000x9000 на 900x900)
+      const maxScale = 16; // Максимальный масштаб x16
+      const minScale = 0.1; // Минимальный масштаб 0.1 (чтобы видеть всю карту)
+      let offsetX = 0;
+      let offsetY = 0;
+      let isDragging = false;
+      let startX, startY;
+
+      // Размер карты
+      const mapSize = { x: 9000, y: 9000 };
+
+      // Загрузка JSON файла
+      fetch("response.json")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to load JSON");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          jsonData = data;
+          drawMap();
+        })
+        .catch((error) => {
+          console.error("Error loading JSON:", error);
+        });
+
+      // Функция для отрисовки карты
+      function drawMap() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Применяем масштабирование и смещение
+        ctx.save();
+        ctx.translate(offsetX, offsetY);
+        ctx.scale(scale, scale);
+
+        // Рисуем сетку
+        drawGrid();
+
+        // Рисуем объекты карты
+        if (jsonData) {
+          drawObjects(jsonData.anomalies, "rgba(255, 0, 0, 0.5)", 20); // Аномалии
+          drawObjects(jsonData.enemies, "rgba(0, 0, 255, 0.5)", 15); // Враги
+          drawObjects(jsonData.transports, "rgba(0, 255, 0, 0.5)", 10); // Транспорт
+          drawObjects(jsonData.bounties, "rgba(255, 255, 0, 0.5)", 8); // Награды
+        }
+
+        ctx.restore();
+      }
+
+      // Функция для рисования объектов
+      function drawObjects(objects, color, radius) {
+        ctx.fillStyle = color;
+        objects.forEach((obj) => {
+          ctx.beginPath();
+          ctx.arc(obj.x, obj.y, radius, 0, 2 * Math.PI);
+          ctx.fill();
+        });
+      }
+
+      // Функция для рисования сетки
+      function drawGrid() {
+        const gridSpacing = 1000; // Шаг сетки 1000px
+
+        ctx.strokeStyle = "#ddd";
+        ctx.lineWidth = 0.5;
+
+        // Горизонтальные линии
+        for (let i = 0; i <= mapSize.y; i += gridSpacing) {
+          ctx.beginPath();
+          ctx.moveTo(0, i);
+          ctx.lineTo(mapSize.x, i);
+          ctx.stroke();
+        }
+
+        // Вертикальные линии
+        for (let i = 0; i <= mapSize.x; i += gridSpacing) {
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i, mapSize.y);
+          ctx.stroke();
+        }
+
+        // Добавление координат на сетке
+        ctx.fillStyle = "#000";
+        ctx.font = "12px Arial";
+        for (let i = 0; i <= mapSize.x; i += gridSpacing) {
+          for (let j = 0; j <= mapSize.y; j += gridSpacing) {
+            ctx.fillText(`(${i}, ${j})`, i + 5, j - 5);
+          }
+        }
+      }
+
+      // Функция для масштабирования
+      function adjustScale(multiplier) {
+        const newScale = Math.max(
+          minScale,
+          Math.min(maxScale, scale * multiplier)
+        );
+
+        // Корректируем смещение для правильного зума
+        offsetX -= (canvas.width / 2 - offsetX) * (newScale / scale - 1);
+        offsetY -= (canvas.height / 2 - offsetY) * (newScale / scale - 1);
+
+        // Обновляем масштаб
+        scale = newScale;
+
+        // Перерисовываем карту
+        drawMap();
+      }
+
+      // Обработка нажатий на клавиатуру (стрелки для изменения масштаба)
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowUp") {
+          adjustScale(1.1); // Увеличиваем масштаб на 10%
+        } else if (e.key === "ArrowDown") {
+          adjustScale(0.9); // Уменьшаем масштаб на 10%
+        }
+      });
+
+      // Обработка кнопок для изменения масштаба
+      document
+        .getElementById("zoomInBtn")
+        .addEventListener("click", function () {
+          adjustScale(1.1); // Увеличиваем масштаб на 10%
+        });
+
+      document
+        .getElementById("zoomOutBtn")
+        .addEventListener("click", function () {
+          adjustScale(0.9); // Уменьшаем масштаб на 10%
+        });
+
+      // Обработка колеса мыши для масштабирования
+      canvas.addEventListener("wheel", function (e) {
+        e.preventDefault();
+
+        const zoomIntensity = 0.1;
+        const zoom = e.deltaY > 0 ? 1 / (1 + zoomIntensity) : 1 + zoomIntensity;
+
+        const mouseX = e.offsetX;
+        const mouseY = e.offsetY;
+
+        // Вычисляем текущий и новый масштаб
+        const newScale = Math.max(minScale, Math.min(maxScale, scale * zoom));
+
+        // Корректируем смещение для зума
+        offsetX -= (mouseX - offsetX) * (newScale / scale - 1);
+        offsetY -= (mouseY - offsetY) * (newScale / scale - 1);
+
+        // Обновляем масштаб
+        scale = newScale;
+
+        // Перерисовываем карту
+        drawMap();
+      });
+
+      // Обработка начала перетаскивания карты
+      canvas.addEventListener("mousedown", function (e) {
+        isDragging = true;
+        startX = e.clientX - offsetX;
+        startY = e.clientY - offsetY;
+      });
+
+      // Обработка перемещения карты
+      canvas.addEventListener("mousemove", function (e) {
+        if (isDragging) {
+          offsetX = e.clientX - startX;
+          offsetY = e.clientY - startY;
+          drawMap();
+        }
+      });
+
+      // Обработка окончания перетаскивания карты
+      canvas.addEventListener("mouseup", function () {
+        isDragging = false;
+      });
+
+      canvas.addEventListener("mouseleave", function () {
+        isDragging = false;
+      });
+    </script>
+  </body>
+</html>
