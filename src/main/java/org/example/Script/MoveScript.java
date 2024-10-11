@@ -13,12 +13,46 @@ import java.util.List;
 
 public class MoveScript {
 
+    // Константа радиуса поиска Bounty
+    private static final double BOUNTY_SEARCH_RADIUS = 400.0;
+
     // Основной метод, который принимает объект GameState и возвращает массив Transport
     public static MoveResponse processGameState(GameState gameState) {
         List<TransportAction> transportActions = new ArrayList<>();
 
         for (Transport transport : gameState.getTransports()) {
-            // Заглушку - действия для транспорта
+            // Проверяем статус транспорта (только для "alive")
+            if (!"alive".equals(transport.getStatus())) {
+                continue;
+            }
+
+            // Вывод начальной информации по каждому транспорту
+            System.out.println("Транспорт ID: " + transport.getId());
+            System.out.println("Координаты: (" + transport.getX() + ", " + transport.getY() + ")");
+            System.out.println("Ускорение от аномалии: (" + transport.getAnomalyAcceleration().getX() + ", " + transport.getAnomalyAcceleration().getY() + ")");
+            System.out.println("Собственное ускорение: (" + transport.getSelfAcceleration().getX() + ", " + transport.getSelfAcceleration().getY() + ")");
+            System.out.println("Скорость: (" + transport.getVelocity().getX() + ", " + transport.getVelocity().getY() + ")");
+            System.out.println("Статус: " + transport.getStatus());
+
+            // Найдём все Bounty в радиусе 400 от транспорта
+            List<Bounty> nearbyBounties = findNearbyBounties(transport, gameState.getBounties());
+
+            // Вывод найденных Bounty
+            if (!nearbyBounties.isEmpty()) {
+                System.out.println("Bounty в радиусе " + BOUNTY_SEARCH_RADIUS + ":");
+                for (Bounty bounty : nearbyBounties) {
+                    System.out.println("Bounty Points: " + bounty.getPoints());
+                    System.out.println("Координаты: (" + bounty.getX() + ", " + bounty.getY() + ")");
+                    System.out.println("Радиус Bounty: " + bounty.getRadius());
+                    System.out.println("-----");
+                }
+            } else {
+                System.out.println("В радиусе " + BOUNTY_SEARCH_RADIUS + " нет Bounty.");
+            }
+
+            System.out.println("=====\n");
+
+            // Заглушка для действий транспорта
             TransportAction action = new TransportAction();
             action.setId(transport.getId());
 
@@ -39,6 +73,28 @@ public class MoveScript {
         moveResponse.setTransports(transportActions);
 
         return moveResponse;
+    }
+
+    // Метод для поиска Bounty в радиусе 400 от транспорта
+    private static List<Bounty> findNearbyBounties(Transport transport, List<Bounty> bounties) {
+        List<Bounty> nearbyBounties = new ArrayList<>();
+
+        for (Bounty bounty : bounties) {
+            // Рассчитываем Евклидово расстояние между транспортом и Bounty
+            double distance = calculateDistance(transport.getX(), transport.getY(), bounty.getX(), bounty.getY());
+
+            // Если Bounty находится в радиусе BOUNTY_SEARCH_RADIUS
+            if (distance <= BOUNTY_SEARCH_RADIUS) {
+                nearbyBounties.add(bounty);
+            }
+        }
+
+        return nearbyBounties;
+    }
+
+    // Метод для расчета Евклидова расстояния между двумя точками (x1, y1) и (x2, y2)
+    private static double calculateDistance(double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
     // Метод для тестирования
