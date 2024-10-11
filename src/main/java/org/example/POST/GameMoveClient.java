@@ -2,31 +2,23 @@ package org.example.POST;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-
-class Acceleration {
-    private double x;
-    private double y;
-}
+import java.util.ArrayList;
+import java.util.List;
 
 class Attack {
     private double x;
     private double y;
 }
 
-class Transport {
-    private String id;
-    private Acceleration acceleration;
-    private boolean activateShield;
-    private Attack attack;
-}
-
 class MoveRequest {
-    private Transport[] transports;
+    private List<Transport> transports = new ArrayList<>();
 }
 
 public class GameMoveClient {
@@ -47,6 +39,7 @@ public class GameMoveClient {
 
         // Преобразуем объект MoveRequest с пустым массивом в JSON
         Gson gson = new GsonBuilder().create();
+
         String jsonInputString = gson.toJson(new MoveRequest());
 
         try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8)) {
@@ -108,6 +101,7 @@ public class GameMoveClient {
 
             System.out.println("Ответ сервера:");
             System.out.println(prettyPrintJson(response));
+
 
             // Сохраняем ответ в файл в корневой папке проекта
             String filePath = System.getProperty("user.dir") + "/response.json";
