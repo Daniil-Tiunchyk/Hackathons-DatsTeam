@@ -2,15 +2,11 @@ package org.example.POST;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameMoveClient {
 

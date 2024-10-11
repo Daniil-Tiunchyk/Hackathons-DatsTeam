@@ -1,7 +1,10 @@
-package org.example.Models;
+package org.example.models.move;
+
 import lombok.Data;
+import org.example.models.move.*;
 
 import java.util.List;
+
 @Data
 public class GameState {
     private List<Anomaly> anomalies;
@@ -20,9 +23,6 @@ public class GameState {
     private int shieldCooldownMs;
     private int shieldTimeMs;
     private int transportRadius;
-    private List<Transport1> transports;
+    private List<Transport> transports;
     private List<Wanted> wantedList;
-
 }
-
-
