@@ -17,40 +17,11 @@
         height: 100vh;
       }
 
-      h1 {
-        margin: 10px 0;
-      }
-
       canvas {
         border: 2px solid #333;
         background-color: white;
       }
 
-      .info-box {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        padding: 16px;
-        width: 300px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        position: absolute;
-        top: 20px;
-        right: 20px;
-      }
-
-      .info-box h2 {
-        margin: 0 0 10px;
-        font-size: 18px;
-        color: #333;
-      }
-
-      .info-box p {
-        margin: 5px 0;
-        font-size: 14px;
-        color: #555;
-      }
-
-      /* Стили для кнопок масштабирования */
       .zoom-controls {
         position: absolute;
         right: 20px;
@@ -77,15 +48,7 @@
     </style>
   </head>
   <body>
-    <h1>Scalable Map Visualization</h1>
-
-    <!-- Холст для отображения карты -->
     <canvas id="mapCanvas" width="900" height="900"></canvas>
-
-    <div class="info-box" id="infoBox">
-      <h2>Object Info</h2>
-      <p>Select an object on the map to view its details.</p>
-    </div>
 
     <!-- Кнопки управления масштабом -->
     <div class="zoom-controls">
@@ -94,193 +57,257 @@
     </div>
 
     <script>
-      // Получение ссылки на элементы
       const canvas = document.getElementById("mapCanvas");
       const ctx = canvas.getContext("2d");
       let jsonData;
 
-      // Параметры для масштабирования и перемещения
-      let scale = 0.1; // Начальный масштаб, чтобы увидеть всю карту (9000x9000 на 900x900)
-      const maxScale = 16; // Максимальный масштаб x16
-      const minScale = 0.1; // Минимальный масштаб 0.1 (чтобы видеть всю карту)
+      let scale = 0.1;
+      const maxScale = 16;
+      const minScale = 0.1;
       let offsetX = 0;
       let offsetY = 0;
       let isDragging = false;
       let startX, startY;
 
-      // Размер карты
-      const mapSize = { x: 9000, y: 9000 };
+      const mapSize = { x: 9000, y: 9000 }; // Реальные размеры карты
 
-      // Загрузка JSON файла
+      // Загрузка JSON данных
       fetch("response.json")
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Failed to load JSON");
-          }
-          return response.json();
-        })
+        .then((response) => response.json())
         .then((data) => {
           jsonData = data;
           drawMap();
         })
-        .catch((error) => {
-          console.error("Error loading JSON:", error);
-        });
+        .catch((error) => console.error("Error loading JSON:", error));
 
-      // Функция для отрисовки карты
       function drawMap() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Применяем масштабирование и смещение
         ctx.save();
         ctx.translate(offsetX, offsetY);
         ctx.scale(scale, scale);
 
-        // Рисуем сетку
         drawGrid();
-
-        // Рисуем объекты карты
         if (jsonData) {
-          drawObjects(jsonData.anomalies, "rgba(255, 0, 0, 0.5)", 20); // Аномалии
-          drawObjects(jsonData.enemies, "rgba(0, 0, 255, 0.5)", 15); // Враги
-          drawObjects(jsonData.transports, "rgba(0, 255, 0, 0.5)", 10); // Транспорт
-          drawObjects(jsonData.bounties, "rgba(255, 255, 0, 0.5)", 8); // Награды
+          drawAnomalies(jsonData.anomalies);
+          drawBounties(jsonData.bounties);
+          drawEnemies(jsonData.enemies);
+          drawTransports(jsonData.transports);
         }
 
         ctx.restore();
       }
 
-      // Функция для рисования объектов
-      function drawObjects(objects, color, radius) {
-        ctx.fillStyle = color;
-        objects.forEach((obj) => {
-          ctx.beginPath();
-          ctx.arc(obj.x, obj.y, radius, 0, 2 * Math.PI);
-          ctx.fill();
-        });
-      }
-
       // Функция для рисования сетки
       function drawGrid() {
-        const gridSpacing = 1000; // Шаг сетки 1000px
-
+        const gridSpacing = 1000;
         ctx.strokeStyle = "#ddd";
         ctx.lineWidth = 0.5;
 
-        // Горизонтальные линии
-        for (let i = 0; i <= mapSize.y; i += gridSpacing) {
-          ctx.beginPath();
-          ctx.moveTo(0, i);
-          ctx.lineTo(mapSize.x, i);
-          ctx.stroke();
-        }
-
-        // Вертикальные линии
+        // Горизонтальные и вертикальные линии
         for (let i = 0; i <= mapSize.x; i += gridSpacing) {
           ctx.beginPath();
           ctx.moveTo(i, 0);
           ctx.lineTo(i, mapSize.y);
           ctx.stroke();
-        }
-
-        // Добавление координат на сетке
-        ctx.fillStyle = "#000";
-        ctx.font = "12px Arial";
-        for (let i = 0; i <= mapSize.x; i += gridSpacing) {
-          for (let j = 0; j <= mapSize.y; j += gridSpacing) {
-            ctx.fillText(`(${i}, ${j})`, i + 5, j - 5);
-          }
+          ctx.moveTo(0, i);
+          ctx.lineTo(mapSize.x, i);
+          ctx.stroke();
         }
       }
 
-      // Функция для масштабирования
+      // Рисуем аномалии
+      function drawAnomalies(anomalies) {
+        anomalies.forEach((anomaly) => {
+          // Радиус воздействия (R2) — темнее и тусклее
+          ctx.fillStyle = "rgba(0, 0, 255, 0.1)";
+          ctx.beginPath();
+          ctx.arc(
+            anomaly.x,
+            anomaly.y,
+            anomaly.effectiveRadius,
+            0,
+            Math.PI * 2
+          );
+          ctx.fill();
+
+          // Радиус самой аномалии (R1) — светлее и тусклее
+          ctx.fillStyle = "rgba(0, 0, 255, 0.2)";
+          ctx.beginPath();
+          ctx.arc(anomaly.x, anomaly.y, anomaly.radius, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Нарисуем стрелку направления движения аномалии
+          drawArrow(
+            anomaly.x,
+            anomaly.y,
+            anomaly.x + anomaly.velocity.x * 20,
+            anomaly.y + anomaly.velocity.y * 20,
+            "blue"
+          );
+        });
+      }
+
+      // Рисуем баунти с их радиусами
+      function drawBounties(bounties) {
+        ctx.fillStyle = "rgba(255, 255, 0, 0.5)";
+        bounties.forEach((bounty) => {
+          ctx.beginPath();
+          ctx.arc(bounty.x, bounty.y, bounty.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      }
+
+      // Рисуем врагов
+      function drawEnemies(enemies) {
+        enemies.forEach((enemy) => {
+          // Радиус стрельбы (200 м)
+          ctx.fillStyle = "rgba(255, 0, 0, 0.2)";
+          ctx.beginPath();
+          ctx.arc(enemy.x, enemy.y, 200, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Враг (красный круг)
+          ctx.fillStyle = "rgba(255, 0, 0, 0.6)";
+          ctx.beginPath();
+          ctx.arc(enemy.x, enemy.y, 15, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Направление движения врага
+          drawArrow(
+            enemy.x,
+            enemy.y,
+            enemy.x + enemy.velocity.x * 20,
+            enemy.y + enemy.velocity.y * 20,
+            "red"
+          );
+        });
+      }
+
+      // Рисуем ковры
+      function drawTransports(transports) {
+        transports.forEach((transport) => {
+          // Радиус видимости (400 м)
+          ctx.fillStyle = "rgba(0, 255, 0, 0.2)";
+          ctx.beginPath();
+          ctx.arc(transport.x, transport.y, 400, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Радиус стрельбы (200 м)
+          ctx.fillStyle = "rgba(0, 255, 0, 0.4)";
+          ctx.beginPath();
+          ctx.arc(transport.x, transport.y, 200, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Ковёр (зелёный круг)
+          ctx.fillStyle = "rgba(0, 255, 0, 0.6)";
+          ctx.beginPath();
+          ctx.arc(transport.x, transport.y, 10, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Направление движения ковра
+          drawArrow(
+            transport.x,
+            transport.y,
+            transport.x + transport.velocity.x * 20,
+            transport.y + transport.velocity.y * 20,
+            "green"
+          );
+        });
+      }
+
+      // Функция для рисования стрелки (направление движения)
+      function drawArrow(fromX, fromY, toX, toY, color) {
+        const headLength = 10; // Длина головки стрелки
+        const dx = toX - fromX;
+        const dy = toY - fromY;
+        const angle = Math.atan2(dy, dx);
+
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+
+        // Линия
+        ctx.beginPath();
+        ctx.moveTo(fromX, fromY);
+        ctx.lineTo(toX, toY);
+        ctx.stroke();
+
+        // Головка стрелки
+        ctx.beginPath();
+        ctx.moveTo(toX, toY);
+        ctx.lineTo(
+          toX - headLength * Math.cos(angle - Math.PI / 6),
+          toY - headLength * Math.sin(angle - Math.PI / 6)
+        );
+        ctx.lineTo(
+          toX - headLength * Math.cos(angle + Math.PI / 6),
+          toY - headLength * Math.sin(angle + Math.PI / 6)
+        );
+        ctx.lineTo(toX, toY);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      // Ограничение смещения карты по границам
+      function clampOffsets() {
+        // Вычисляем максимальные смещения по X и Y с учётом масштаба
+        const maxOffsetX = 0;
+        const maxOffsetY = 0;
+        const minOffsetX = canvas.width - mapSize.x * scale;
+        const minOffsetY = canvas.height - mapSize.y * scale;
+
+        // Корректируем смещение, чтобы оно не выходило за границы карты
+        offsetX = Math.min(maxOffsetX, Math.max(minOffsetX, offsetX));
+        offsetY = Math.min(maxOffsetY, Math.max(minOffsetY, offsetY));
+      }
+
+      // Функции масштабирования
       function adjustScale(multiplier) {
         const newScale = Math.max(
           minScale,
           Math.min(maxScale, scale * multiplier)
         );
 
-        // Корректируем смещение для правильного зума
+        // Центрирование зума
         offsetX -= (canvas.width / 2 - offsetX) * (newScale / scale - 1);
         offsetY -= (canvas.height / 2 - offsetY) * (newScale / scale - 1);
 
-        // Обновляем масштаб
+        // Обновляем масштаб и ограничиваем смещение
         scale = newScale;
-
-        // Перерисовываем карту
+        clampOffsets();
         drawMap();
       }
 
-      // Обработка нажатий на клавиатуру (стрелки для изменения масштаба)
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "ArrowUp") {
-          adjustScale(1.1); // Увеличиваем масштаб на 10%
-        } else if (e.key === "ArrowDown") {
-          adjustScale(0.9); // Уменьшаем масштаб на 10%
-        }
-      });
-
-      // Обработка кнопок для изменения масштаба
       document
         .getElementById("zoomInBtn")
-        .addEventListener("click", function () {
-          adjustScale(1.1); // Увеличиваем масштаб на 10%
-        });
-
+        .addEventListener("click", () => adjustScale(1.1));
       document
         .getElementById("zoomOutBtn")
-        .addEventListener("click", function () {
-          adjustScale(0.9); // Уменьшаем масштаб на 10%
-        });
+        .addEventListener("click", () => adjustScale(0.9));
 
-      // Обработка колеса мыши для масштабирования
-      canvas.addEventListener("wheel", function (e) {
+      canvas.addEventListener("wheel", (e) => {
         e.preventDefault();
-
-        const zoomIntensity = 0.1;
-        const zoom = e.deltaY > 0 ? 1 / (1 + zoomIntensity) : 1 + zoomIntensity;
-
-        const mouseX = e.offsetX;
-        const mouseY = e.offsetY;
-
-        // Вычисляем текущий и новый масштаб
-        const newScale = Math.max(minScale, Math.min(maxScale, scale * zoom));
-
-        // Корректируем смещение для зума
-        offsetX -= (mouseX - offsetX) * (newScale / scale - 1);
-        offsetY -= (mouseY - offsetY) * (newScale / scale - 1);
-
-        // Обновляем масштаб
-        scale = newScale;
-
-        // Перерисовываем карту
-        drawMap();
+        adjustScale(e.deltaY > 0 ? 0.9 : 1.1);
       });
 
-      // Обработка начала перетаскивания карты
-      canvas.addEventListener("mousedown", function (e) {
+      // Обработка перетаскивания карты
+      canvas.addEventListener("mousedown", (e) => {
         isDragging = true;
         startX = e.clientX - offsetX;
         startY = e.clientY - offsetY;
       });
 
-      // Обработка перемещения карты
-      canvas.addEventListener("mousemove", function (e) {
+      canvas.addEventListener("mousemove", (e) => {
         if (isDragging) {
           offsetX = e.clientX - startX;
           offsetY = e.clientY - startY;
+          clampOffsets(); // Ограничиваем смещение при перетаскивании
           drawMap();
         }
       });
 
-      // Обработка окончания перетаскивания карты
-      canvas.addEventListener("mouseup", function () {
-        isDragging = false;
-      });
-
-      canvas.addEventListener("mouseleave", function () {
-        isDragging = false;
-      });
+      canvas.addEventListener("mouseup", () => (isDragging = false));
+      canvas.addEventListener("mouseleave", () => (isDragging = false));
     </script>
   </body>
 </html>
