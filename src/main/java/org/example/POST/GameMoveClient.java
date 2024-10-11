@@ -12,15 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-class Attack {
-    private double x;
-    private double y;
-}
-
-class MoveRequest {
-    private List<Transport> transports = new ArrayList<>();
-}
-
 public class GameMoveClient {
 
     // Токен авторизации

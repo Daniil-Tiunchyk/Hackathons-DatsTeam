@@ -9,21 +9,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-class Round {
-    private String name;
-    private String startAt;
-    private String endAt;
-    private int duration;
-    private String status;
-    private int repeat;
-}
-
-class GameRoundsResponse {
-    private String gameName;
-    private String now;
-    private Round[] rounds;
-}
-
 public class GameRoundsClient {
 
     private static final String AUTH_TOKEN = "67038c0234b8867038c0234b8a";
@@ -69,7 +54,7 @@ public class GameRoundsClient {
         // String serverUrl = "https://games.datsteam.dev/rounds/magcarp";
 
         // Тестовый сервер
-         String serverUrl = "https://games-test.datsteam.dev/rounds/magcarp";
+        String serverUrl = "https://games-test.datsteam.dev/rounds/magcarp";
 
         try {
             GameRoundsResponse response = getGameRounds(serverUrl);
