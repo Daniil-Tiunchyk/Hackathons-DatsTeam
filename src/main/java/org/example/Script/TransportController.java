@@ -3,11 +3,13 @@ package org.example.Script;
 import org.example.models.move.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TransportController {
 
-    private static final Vector2D TARGET_POINT = new Vector2D(5000, 5000); // Целевая точка 5000:5000
+    private static final Vector2D TARGET_POINT = new Vector2D(5000, 5000); // Целевая точка
 
     public MoveResponse planTransportMovements(GameState gameState) {
         List<TransportAction> commands = new ArrayList<>();
@@ -21,22 +23,22 @@ public class TransportController {
             // Используем готовое значение ускорения от аномалий
             Vector2D providedAnomalyAcceleration = transport.getAnomalyAcceleration();
 
-            // Шаг 2: Выбираем наиболее оптимальный Bounty или двигаемся к точке 5000:5000
-            Bounty targetBounty = selectOptimalBounty(transport, gameState);
+            // Построение маршрута для сбора всех возможных баунти
+            List<Bounty> route = buildGreedyRoute(transport, gameState);
 
             Vector2D targetPosition;
-            if (targetBounty != null) {
-                // Если найден баунти, целевая позиция - это позиция баунти
-                targetPosition = targetBounty.getPosition();
+            if (!route.isEmpty()) {
+                // Если есть баунти на маршруте, выбираем ближайший
+                targetPosition = route.get(0).getPosition(); // Первая цель на маршруте
             } else {
-                // Если баунти нет, целевая позиция - точка 5000:5000
+                // Если баунти нет, целевая позиция — точка 5000:5000
                 targetPosition = TARGET_POINT;
             }
 
-            // Шаг 3: Вычисляем желаемое ускорение в направлении цели
+            // Вычисляем желаемое ускорение в направлении цели
             Vector2D desiredAcceleration = calculateDesiredAcceleration(transport, targetPosition, providedAnomalyAcceleration, gameState.getMaxAccel());
 
-            // Шаг 4: Создаем команду для ковра
+            // Создаем команду для ковра
             TransportAction command = new TransportAction();
             command.setId(transport.getId());
             command.setAcceleration(desiredAcceleration);
@@ -50,59 +52,84 @@ public class TransportController {
         return response;
     }
 
-    private Bounty selectOptimalBounty(TransportResponse transport, GameState gameState) {
-        Bounty bestBounty = null;
-        double bestScore = Double.NEGATIVE_INFINITY;
+    /**
+     * Построение жадного маршрута для сбора всех баунти.
+     */
+    private List<Bounty> buildGreedyRoute(TransportResponse transport, GameState gameState) {
+        Set<Bounty> remainingBounties = new HashSet<>(gameState.getBounties());
+        List<Bounty> route = new ArrayList<>();
 
-        for (Bounty bounty : gameState.getBounties()) {
-            // Пропускаем баунти, которые слишком близки к аномалиям (для безопасности)
-            if (isNearAnomaly(bounty.getPosition(), gameState.getAnomalies(), gameState.getTransportRadius())) {
-                continue;
+        Vector2D currentPosition = transport.getPosition();
+        Vector2D currentVelocity = transport.getVelocity();
+
+        while (!remainingBounties.isEmpty()) {
+            Bounty closestBounty = null;
+            double minTime = Double.MAX_VALUE;
+
+            // Ищем ближайший баунти (по времени достижения)
+            for (Bounty bounty : remainingBounties) {
+                if (isNearAnomaly(bounty.getPosition(), gameState.getAnomalies(), gameState.getTransportRadius())) {
+                    continue; // Пропускаем баунти, которые слишком близки к аномалиям
+                }
+
+                double estimatedTime = estimateTimeToReach(currentPosition, currentVelocity, bounty.getPosition(), gameState);
+
+                if (estimatedTime < minTime) {
+                    minTime = estimatedTime;
+                    closestBounty = bounty;
+                }
             }
 
-            // Оцениваем время для достижения баунти
-            double estimatedTime = estimateTimeToReach(transport, bounty.getPosition(), gameState);
-
-            if (estimatedTime <= 0) {
-                continue; // Невозможно достичь этот баунти
-            }
-
-            // Вычисляем оценку (например, ценность за единицу времени)
-            double score = bounty.getPoints() / estimatedTime;
-
-            if (score > bestScore) {
-                bestScore = score;
-                bestBounty = bounty;
+            if (closestBounty != null) {
+                // Добавляем ближайший баунти в маршрут
+                route.add(closestBounty);
+                remainingBounties.remove(closestBounty);
+                // Обновляем текущую позицию
+                currentPosition = closestBounty.getPosition();
+            } else {
+                // Если не осталось доступных баунти, выходим
+                break;
             }
         }
 
-        return bestBounty;
+        return route;
     }
 
-    private double estimateTimeToReach(TransportResponse transport, Vector2D targetPosition, GameState gameState) {
-        // Упрощенная оценка: движение по прямой при максимальном ускорении
-        Vector2D position = transport.getPosition();
-        Vector2D deltaPosition = targetPosition.subtract(position);
+    /**
+     * Оценка времени достижения цели, учитывая текущее ускорение и скорость транспорта.
+     */
+    private double estimateTimeToReach(Vector2D currentPosition, Vector2D currentVelocity, Vector2D targetPosition, GameState gameState) {
+        Vector2D deltaPosition = targetPosition.subtract(currentPosition);
         double distance = deltaPosition.magnitude();
-
-        // Текущая скорость
-        Vector2D velocity = transport.getVelocity();
-        double currentSpeed = velocity.magnitude();
 
         // Максимальное ускорение и скорость
         double maxAcceleration = gameState.getMaxAccel();
         double maxSpeed = gameState.getMaxSpeed();
 
-        // Упрощенная оценка времени при постоянном ускорении
-        double timeToMaxSpeed = (maxSpeed - currentSpeed) / maxAcceleration;
-        double distanceToMaxSpeed = (currentSpeed + maxSpeed) / 2 * timeToMaxSpeed;
+        // Направление к цели
+        Vector2D directionToTarget = deltaPosition.normalize();
+
+        // Проекция скорости на направление к цели
+        double velocityInTargetDirection = currentVelocity.dot(directionToTarget);
+
+        // Теперь определим, как быстро транспорт может ускориться к цели:
+        if (velocityInTargetDirection >= maxSpeed) {
+            // Если уже движемся быстрее или на максимальной скорости — просто время = расстояние / скорость
+            return distance / velocityInTargetDirection;
+        }
+
+        // Шаг 1: Время для достижения максимальной скорости
+        double timeToMaxSpeed = (maxSpeed - velocityInTargetDirection) / maxAcceleration;
+
+        // Шаг 2: Расстояние, которое мы пройдем за время разгона до максимальной скорости
+        double distanceToMaxSpeed = velocityInTargetDirection * timeToMaxSpeed + 0.5 * maxAcceleration * Math.pow(timeToMaxSpeed, 2);
 
         if (distanceToMaxSpeed >= distance) {
-            // Можем достичь цели до достижения максимальной скорости
-            double time = (-currentSpeed + Math.sqrt(currentSpeed * currentSpeed + 2 * maxAcceleration * distance)) / maxAcceleration;
+            // Если можем достичь цели до того, как наберем максимальную скорость
+            double time = (-velocityInTargetDirection + Math.sqrt(velocityInTargetDirection * velocityInTargetDirection + 2 * maxAcceleration * distance)) / maxAcceleration;
             return time;
         } else {
-            // Время для преодоления оставшегося расстояния на максимальной скорости
+            // Если не можем достичь цели до достижения максимальной скорости — учитываем движение на максимальной скорости
             double remainingDistance = distance - distanceToMaxSpeed;
             double timeAtMaxSpeed = remainingDistance / maxSpeed;
             return timeToMaxSpeed + timeAtMaxSpeed;

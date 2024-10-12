@@ -38,4 +38,8 @@ public class Vector2D {
     public Vector2D scale(double scalar) {
         return new Vector2D(x * scalar, y * scalar);
     }
+
+    public double dot(Vector2D other) {
+        return this.x * other.x + this.y * other.y;
+    }
 }
