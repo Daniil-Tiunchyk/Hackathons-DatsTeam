@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.example.POST.Transport;
 import org.example.models.move.GameState;
+import org.example.models.move.TransportAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -1863,10 +1864,10 @@ public class TestShoot {
                 "}";
         Gson gson = new GsonBuilder().create();
         GameState gameState = gson.fromJson(test, GameState.class);
-        List<Transport> transportList = new ArrayList<>();
+        List<TransportAction> transportList = new ArrayList<>();
         transportList = gameState.getTransports()
                 .stream().map(transport1 -> {
-                    Transport transport =  new Transport();
+                    TransportAction transport =  new TransportAction();
                     transport.setId(transport1.getId());
                     return transport;
                 }).collect(Collectors.toList());
