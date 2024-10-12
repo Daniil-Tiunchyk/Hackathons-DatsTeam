@@ -1,11 +1,12 @@
 package org.example.scripts;
 
 
-
 import org.example.POST.Attack;
 import org.example.models.move.*;
+
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ShootScript {
@@ -26,8 +27,8 @@ public class ShootScript {
             // Получаем состояние игры
             Attack attack = decideAttack(gameState.getEnemies(), currentTransport, gameState.getAttackRange(), gameState.getAttackExplosionRadius());
             //TODO
-            if(attack != null){
-                System.out.println("Корабль - " + currentTransport.toString() + "выстрелил по " + attack.getX() + ":" + attack.getY());
+            if (attack != null) {
+                System.out.println("Корабль - " + currentTransport + "выстрелил по " + attack.getX() + ":" + attack.getY());
             }
             transport.setAttack(attack);
         }
@@ -41,19 +42,8 @@ public class ShootScript {
         // 1) Проверяем шотных врагов в радиусе атаки
         for (Enemy enemy : enemies) {
             if (enemy.getHealth() <= 30) {
-                double distance = Math.sqrt(Math.pow(enemy.getX() - currentTransport.getX(), 2) + Math.pow(enemy.getY() - currentTransport.getY(), 2));
-                if (distance <= attackRange + attackExplosionRadius - 10) {
-                    // 1.1) Если враг без щита
-                    if (enemy.getShieldLeftMs() <= 0) {
-                        // Проверяем возможность задетия нескольких врагов
-                        Attack newAttack = canHitMultipleEnemies(enemies, new Attack(enemy.getX(), enemy.getY()), attackExplosionRadius - 5, attackRange, enemy, currentTransport);
-                        if (newAttack != null) {
-                            return newAttack; // Возвращаем новые координаты
-                        } else {
-                            return new Attack(enemy.getX(), enemy.getY()); // Возвращаем атаку, если только один враг
-                        }
-                    }
-                }
+                Attack newAttack = getAttack(enemies, currentTransport, attackRange, attackExplosionRadius, enemy);
+                if (newAttack != null) return newAttack;
             }
         }
 
@@ -62,7 +52,7 @@ public class ShootScript {
             if (enemy.getHealth() <= 30) {
                 double distance = Math.sqrt(Math.pow(enemy.getX() - currentTransport.getX(), 2) + Math.pow(enemy.getY() - currentTransport.getY(), 2));
                 if (distance <= attackRange + attackExplosionRadius && enemy.getShieldLeftMs() > 0) {
-                    System.out.println("Транспорт " + currentTransport.toString() + "Не стрелял, так как есть шотные враги со щитом в мин дальности");
+                    System.out.println("Транспорт " + currentTransport + "Не стрелял, так как есть шотные враги со щитом в мин дальности");
                     return null;
                 }
             }
@@ -70,12 +60,12 @@ public class ShootScript {
 
         // 2) Если врагов меньше 4, выбираем ближайшего
         if (enemies.size() <= 4) {
-            System.out.println("Транспорт " + currentTransport.toString() + "Не стрелял");
-           return  findClosestEnemy(enemies, currentTransport.getX(), currentTransport.getY(),attackRange);
+            System.out.println("Транспорт " + currentTransport + "Не стрелял");
+            return findClosestEnemy(enemies, currentTransport.getX(), currentTransport.getY(), attackRange);
         }
 
-        if(currentTransport.getShieldLeftMs()>0){
-            System.out.println("Транспорт " + currentTransport.toString() + "Не стрелял, так как щит активен");
+        if (currentTransport.getShieldLeftMs() > 0) {
+            System.out.println("Транспорт " + currentTransport + "Не стрелял, так как щит активен");
             return null;
         }
 
@@ -84,23 +74,28 @@ public class ShootScript {
         // 3) Если врагов 4 или больше, действуем в зависимости от здоровья
         if (currentHealth < 100) {
             for (Enemy enemy : enemies) {
-                    double distance = Math.sqrt(Math.pow(enemy.getX() - currentTransport.getX(), 2) + Math.pow(enemy.getY() - currentTransport.getY(), 2));
-                    if (distance <= attackRange + attackExplosionRadius - 10) {
-                        if (enemy.getShieldLeftMs() <= 0) {
-                            Attack newAttack = canHitMultipleEnemies(enemies, new Attack(enemy.getX(), enemy.getY()), attackExplosionRadius - 5, attackRange, enemy, currentTransport);
-                            if (newAttack != null) {
-                                return newAttack; // Возвращаем новые координаты
-                            } else {
-                                return new Attack(enemy.getX(), enemy.getY()); // Возвращаем атаку, если только один враг
-                            }
-                        }
-                    }
-                }
+                Attack newAttack = getAttack(enemies, currentTransport, attackRange, attackExplosionRadius, enemy);
+                if (newAttack != null) return newAttack;
+            }
 
         }
-        System.out.println("Транспорт " + currentTransport.toString() + "Не стрелял, так как никого нет в радиусе действия или у всех 100 хп");
+        System.out.println("Транспорт " + currentTransport + "Не стрелял, так как никого нет в радиусе действия или у всех 100 хп");
 
         return null; // Если ничего не подходит
+    }
+
+    private Attack getAttack(List<Enemy> enemies, TransportResponse currentTransport, int attackRange, int attackExplosionRadius, Enemy enemy) {
+        double distance = Math.sqrt(Math.pow(enemy.getX() - currentTransport.getX(), 2) + Math.pow(enemy.getY() - currentTransport.getY(), 2));
+        if (distance <= attackRange + attackExplosionRadius - 10) {
+            // 1.1) Если враг без щита
+            if (enemy.getShieldLeftMs() <= 0) {
+                // Проверяем возможность задетия нескольких врагов
+                Attack newAttack = canHitMultipleEnemies(enemies, new Attack(enemy.getX(), enemy.getY()), attackExplosionRadius - 5, attackRange, enemy, currentTransport);
+                // Возвращаем атаку, если только один враг
+                return Objects.requireNonNullElseGet(newAttack, () -> new Attack(enemy.getX(), enemy.getY())); // Возвращаем новые координаты
+            }
+        }
+        return null;
     }
 
 
@@ -127,8 +122,8 @@ public class ShootScript {
         int lastHitCount = 0;
 
         // Проверяем возможность смещения точки атаки для достижения большего количества врагов
-        for (int offsetX =  - explosionRadius; offsetX <= explosionRadius; offsetX += explosionRadius / 5) {
-            for (int offsetY = - explosionRadius; offsetY <= explosionRadius; offsetY += explosionRadius / 5) {
+        for (int offsetX = -explosionRadius; offsetX <= explosionRadius; offsetX += explosionRadius / 5) {
+            for (int offsetY = -explosionRadius; offsetY <= explosionRadius; offsetY += explosionRadius / 5) {
                 int newAttackX = currentEnemy.getX() + offsetX;
                 int newAttackY = currentEnemy.getY() + offsetY;
                 double newDistance1 = Math.sqrt(Math.pow(currentTransport.getX() - newAttackX, 2) + Math.pow(currentTransport.getY() - newAttackY, 2));
@@ -168,7 +163,4 @@ public class ShootScript {
                 .map(enemy -> new Attack(enemy.getX(), enemy.getY()))
                 .orElse(null);
     }
-
-
-
 }
