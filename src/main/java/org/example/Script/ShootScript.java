@@ -10,13 +10,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ShootScript {
-    public List<Transport> shoot(List<Transport> transports, GameState gameState) {
+    public List<TransportAction> shoot(List<TransportAction> transports, GameState gameState) {
         return transports.stream()
                 .map(transport -> findGoal(transport, gameState)) // Обновляем каждый транспорт
                 .collect(Collectors.toList());
     }
 
-    private Transport findGoal(Transport transport, GameState gameState) {
+    private TransportAction findGoal(TransportAction transport, GameState gameState) {
         // Находим соответствующий Transport1 по id
         TransportResponse currentTransport = gameState.getTransports().stream()
                 .filter(t1 -> t1.getId().equals(transport.getId()))
@@ -25,7 +25,7 @@ public class ShootScript {
 
         if (currentTransport != null) {
             // Получаем состояние игры
-            Attack attack = decideAttack(gameState.getEnemies(), currentTransport, gameState.getAttackRange(), gameState.getAttackExplosionRadius());
+            Vector2D attack = decideAttack(gameState.getEnemies(), currentTransport, gameState.getAttackRange(), gameState.getAttackExplosionRadius());
             //TODO
             if(attack != null){
                 System.out.println("Корабль - " + currentTransport.toString() + "выстрелил по " + attack.getX() + ":" + attack.getY());
@@ -36,7 +36,7 @@ public class ShootScript {
         return transport;
     }
 
-    private Attack decideAttack(List<Enemy> enemies, TransportResponse currentTransport, int attackRange, int attackExplosionRadius) {
+    private Vector2D decideAttack(List<Enemy> enemies, TransportResponse currentTransport, int attackRange, int attackExplosionRadius) {
         int currentHealth = currentTransport.getHealth(); // Текущее здоровье транспорта
 
         // 1) Проверяем шотных врагов в радиусе атаки
@@ -47,11 +47,11 @@ public class ShootScript {
                     // 1.1) Если враг без щита
                     if (enemy.getShieldLeftMs() <= 0) {
                         // Проверяем возможность задетия нескольких врагов
-                        Attack newAttack = canHitMultipleEnemies(enemies, new Attack(enemy.getX(), enemy.getY()), attackExplosionRadius - 5, attackRange, enemy, currentTransport);
+                        Vector2D newAttack = canHitMultipleEnemies(enemies, new Vector2D(enemy.getX(), enemy.getY()), attackExplosionRadius - 5, attackRange, enemy, currentTransport);
                         if (newAttack != null) {
                             return newAttack; // Возвращаем новые координаты
                         } else {
-                            return new Attack(enemy.getX(), enemy.getY()); // Возвращаем атаку, если только один враг
+                            return new Vector2D(enemy.getX(), enemy.getY()); // Возвращаем атаку, если только один враг
                         }
                     }
                 }
@@ -88,11 +88,11 @@ public class ShootScript {
                     double distance = Math.sqrt(Math.pow(enemy.getX() - currentTransport.getX(), 2) + Math.pow(enemy.getY() - currentTransport.getY(), 2));
                     if (distance <= attackRange + attackExplosionRadius - 10) {
                         if (enemy.getShieldLeftMs() <= 0) {
-                            Attack newAttack = canHitMultipleEnemies(enemies, new Attack(enemy.getX(), enemy.getY()), attackExplosionRadius - 5, attackRange, enemy, currentTransport);
+                            Vector2D newAttack = canHitMultipleEnemies(enemies, new Vector2D(enemy.getX(), enemy.getY()), attackExplosionRadius - 5, attackRange, enemy, currentTransport);
                             if (newAttack != null) {
                                 return newAttack; // Возвращаем новые координаты
                             } else {
-                                return new Attack(enemy.getX(), enemy.getY()); // Возвращаем атаку, если только один враг
+                                return new Vector2D(enemy.getX(), enemy.getY()); // Возвращаем атаку, если только один враг
                             }
                         }
                     }
@@ -105,7 +105,7 @@ public class ShootScript {
     }
 
 
-    private Attack canHitMultipleEnemies(List<Enemy> enemies, Attack attack, int explosionRadius, int attackRange, Enemy currentEnemy, TransportResponse currentTransport) {
+    private Vector2D canHitMultipleEnemies(List<Enemy> enemies, Vector2D attack, int explosionRadius, int attackRange, Enemy currentEnemy, TransportResponse currentTransport) {
         int hitCount = 0;
 
         // Перебираем врагов и проверяем, можем ли мы задеть их в радиусе взрыва
@@ -122,9 +122,9 @@ public class ShootScript {
         // Если мы можем задеть 2 и более врагов, возвращаем текущую позицию как объект Attack
         if (hitCount >= 2) {
             System.out.println("Задеваем 2");
-            return new Attack(attack.getX(), attack.getY());
+            return new Vector2D(attack.getX(), attack.getY());
         }
-        Attack lastAttack = null;
+        Vector2D lastAttack = null;
         int lastHitCount = 0;
 
         // Проверяем возможность смещения точки атаки для достижения большего количества врагов
@@ -137,7 +137,7 @@ public class ShootScript {
                     continue;
                 }
                 int newHitCount = 0;
-                Attack newAttack = null;
+                Vector2D newAttack = null;
                 for (Enemy innerEnemy : enemies) {
                     if (currentEnemy.getY() == innerEnemy.getY() && currentEnemy.getX() == innerEnemy.getX()) {
                         continue;
@@ -145,7 +145,7 @@ public class ShootScript {
                     double newDistance = Math.sqrt(Math.pow(innerEnemy.getX() - newAttackX, 2) + Math.pow(innerEnemy.getY() - newAttackY, 2));
                     if (newDistance <= explosionRadius) {
                         newHitCount++;
-                        newAttack = new Attack(newAttackX, newAttackY);
+                        newAttack = new Vector2D(newAttackX, newAttackY);
                     }
 
                 }
@@ -162,11 +162,11 @@ public class ShootScript {
 
     }
 
-    private Attack findClosestEnemy(List<Enemy> enemies, double shooterX, double shooterY, int rangeAttack) {
+    private Vector2D findClosestEnemy(List<Enemy> enemies, double shooterX, double shooterY, int rangeAttack) {
         return enemies.stream()
                 .filter(enemy -> Math.sqrt(Math.pow(enemy.getX() - shooterX, 2) + Math.pow(enemy.getY() - shooterY, 2)) < rangeAttack) // Игнорируем мертвых врагов
                 .min(Comparator.comparingDouble(enemy -> Math.sqrt(Math.pow(enemy.getX() - shooterX, 2) + Math.pow(enemy.getY() - shooterY, 2))))
-                .map(enemy -> new Attack(enemy.getX(), enemy.getY()))
+                .map(enemy -> new Vector2D(enemy.getX(), enemy.getY()))
                 .orElse(null);
     }
 

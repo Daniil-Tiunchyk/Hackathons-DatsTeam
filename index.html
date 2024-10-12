@@ -79,7 +79,19 @@
           drawMap();
         })
         .catch((error) => console.error("Error loading JSON:", error));
+      function updateMap() {
+        fetch("response.json")
+                .then((response) => response.json())
+                .then((data) => {
+                  jsonData = data;
+                  drawMap();
+                })
+                .catch((error) => console.error("Error loading JSON:", error));
+        console.log(123)
+      }
 
+      // Установка интервала обновления карты
+      setInterval(updateMap, 500); // Обновление каждые 300 миллисекунд
       function drawMap() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -181,6 +193,10 @@
             enemy.y + enemy.velocity.y * 20,
             "red"
           );
+          // Нарисуем количество хп
+          ctx.fillStyle = "black"; // Цвет текста
+          ctx.font = "12px Arial"; // Шрифт текста
+          ctx.fillText(`HP: ${enemy.health}`, enemy.x + 20, enemy.y); // Отображаем HP
         });
       }
 
@@ -213,6 +229,10 @@
             transport.y + transport.velocity.y * 20,
             "green"
           );
+
+          ctx.fillStyle = "black"; // Цвет текста
+          ctx.font = "12px Arial"; // Шрифт текста
+          ctx.fillText(`HP: ${transport.health}`, transport.x + 20, transport.y); // Отображаем HP
         });
       }
 
