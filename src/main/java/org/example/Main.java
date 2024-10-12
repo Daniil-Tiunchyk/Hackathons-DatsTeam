@@ -2,6 +2,7 @@ package org.example;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.example.POST.Attack;
 import org.example.Script.TransportController;
 import org.example.models.move.GameState;
 import org.example.models.move.MoveResponse;
@@ -39,7 +40,7 @@ public class Main {
                 } else {
                     System.out.println("Ускорение: нет данных");
                 }
-                Vector2D attack = action.getAttack();
+                Attack attack = action.getAttack();
                 if (attack != null) {
                     System.out.println("Атака по координатам: (" + attack.getX() + ", " + attack.getY() + ")");
                 } else {

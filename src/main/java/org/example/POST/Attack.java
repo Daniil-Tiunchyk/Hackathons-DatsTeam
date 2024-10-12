@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Attack {
-    private double x;
-    private double y;
+    private int x;
+    private int y;
 }
