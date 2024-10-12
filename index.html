@@ -104,7 +104,7 @@
     const radius = 30;
 
     data.transports.forEach(transport => {
-      if (transport.attack) {
+      if (transport.attack && transport.attackCooldownMs >= 8500) {
         const x = transport.attack.x * scale + offsetX;
         const y = transport.attack.y * scale + offsetY;
 
@@ -250,7 +250,7 @@
 
       ctx.fillStyle = "white";
       ctx.font = "12px Arial";
-      ctx.fillText(`HP: ${transport.health} + КД: ${transport.attackCooldownMs/100}`, transport.x + 20, transport.y);
+      ctx.fillText(`HP: ${transport.health} + КД: ${transport.attackCooldownMs/1000}`, transport.x + 20, transport.y);
     });
   }
 
