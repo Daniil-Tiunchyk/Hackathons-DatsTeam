@@ -1,9 +1,8 @@
-package org.example.Script;
+package org.example.scripts;
 
 
 
 import org.example.POST.Attack;
-import org.example.POST.Transport;
 import org.example.models.move.*;
 import java.util.Comparator;
 import java.util.List;

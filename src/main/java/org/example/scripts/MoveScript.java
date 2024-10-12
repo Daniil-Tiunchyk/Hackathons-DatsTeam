@@ -1,4 +1,4 @@
-package org.example.Script;
+package org.example.scripts;
 
 import org.example.models.move.*;
 
@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class TransportController {
+public class MoveScript {
 
     private static final Vector2D TARGET_POINT = new Vector2D(5000, 5000); // Целевая точка
 

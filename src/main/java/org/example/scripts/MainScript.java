@@ -1,4 +1,4 @@
-package org.example.Script;
+package org.example.scripts;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -100,8 +100,8 @@ public class MainScript {
                 ShieldScript shieldScript = new ShieldScript();
 
                 //moveResponse = MoveScript.processGameState(gameState);
-                TransportController transportController = new TransportController();
-                moveResponse = transportController.planTransportMovements(gameState);
+                MoveScript moveScript = new MoveScript();
+                moveResponse = moveScript.planTransportMovements(gameState);
 
                 moveResponse.setTransports(shootScript.shoot(moveResponse.getTransports(), gameState));
                 moveResponse.setTransports(shieldScript.shieldSuitability(moveResponse.getTransports(), gameState));
