@@ -82,6 +82,13 @@
           .catch((error) => console.error("Error loading JSON:", error));
 
   function updateMap() {
+    fetch("request.json")
+            .then((response) => response.json())
+            .then((data) => {
+              jsonDataRequest = data;
+              drawAttackCircles(jsonDataRequest);
+            })
+            .catch((error) => console.error("Error loading JSON:", error));
     fetch("response.json")
             .then((response) => response.json())
             .then((data) => {
@@ -91,13 +98,7 @@
             })
             .catch((error) => console.error("Error loading JSON:", error));
 
-    fetch("request.json")
-            .then((response) => response.json())
-            .then((data) => {
-              jsonDataRequest = data;
-              drawAttackCircles(jsonDataRequest);
-            })
-            .catch((error) => console.error("Error loading JSON:", error));
+
   }
 
   function drawAttackCircles(data) {
@@ -237,7 +238,7 @@
       ctx.beginPath();
       ctx.arc(transport.x, transport.y, 10, 0, Math.PI * 2);
       ctx.fill();
-      drawArrow(transport.x, transport.y, transport.x + transport.velocity.x * 20, transport.y + transport.velocity.y * 20, "green");
+      drawArrow(transport.x, transport.y, transport.x + transport.velocity.x * 20, transport.y + transport.velocity.y * 20, "white");
 
       // Отображение состояния щита транспорта
       if (transport.shieldLeftMs > 0) {
@@ -250,7 +251,9 @@
 
       ctx.fillStyle = "white";
       ctx.font = "12px Arial";
-      ctx.fillText(`HP: ${transport.health} + КД: ${transport.attackCooldownMs/1000}`, transport.x + 20, transport.y);
+      const speed = Math.ceil(Math.sqrt(transport.velocity.x * transport.velocity.x + transport.velocity.y * transport.velocity.y));
+
+      ctx.fillText(`HP: ${transport.health}  КД: ${transport.attackCooldownMs/1000}  C: ${speed}`, transport.x + 20, transport.y);
     });
   }
 
