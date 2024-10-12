@@ -162,11 +162,12 @@ public class MoveScript {
         double maxAcceleration = gameState.getMaxAccel();
         double maxSpeed = gameState.getMaxSpeed();
 
-        // Направление к цели
-        Vector2D directionToTarget = deltaPosition.normalize();
+        /*// Направление к цели
+        Vector2D directionToTarget = deltaPosition.normalize();*/
 
         // Проекция скорости на направление к цели
-        double velocityInTargetDirection = currentVelocity.dot(directionToTarget);
+        double velocityInTargetDirection = currentVelocity.dot(deltaPosition);
+
 
         // Теперь определим, как быстро транспорт может ускориться к цели:
         if (velocityInTargetDirection >= maxSpeed) {
@@ -233,7 +234,7 @@ public class MoveScript {
         Vector2D desiredDirection = toTarget.normalize();
 
         // Рассчитываем желаемую скорость в направлении цели
-        double desiredSpeed = 50; // Стремимся к максимальной скорости
+        double desiredSpeed = 45; // Стремимся к максимальной скорости
         Vector2D desiredVelocity = desiredDirection.scale(desiredSpeed); // Вектор желаемой скорости
 
         // Разница между желаемой скоростью и текущей скоростью ковра
