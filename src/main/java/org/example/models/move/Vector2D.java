@@ -1,13 +1,11 @@
-package org.example.POST;
+package org.example.models.move;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Acceleration {
+public class Vector2D {
     private double x;
     private double y;
 }
