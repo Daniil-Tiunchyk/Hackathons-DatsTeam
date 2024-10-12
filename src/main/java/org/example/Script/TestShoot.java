@@ -2,8 +2,8 @@ package org.example.Script;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.Models.GameState;
 import org.example.POST.Transport;
+import org.example.models.move.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
