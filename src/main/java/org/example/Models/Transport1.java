@@ -17,4 +17,15 @@ public class Transport1 {
     private int x;
     private int y;
 
+    @Override
+    public String toString() {
+        return "Transport1{" +
+                "id='" + id + '\'' +
+                ", health=" + health +
+                ", coordinates=(" + x + ", " + y + ")" +
+                ", attackCooldownMs=" + attackCooldownMs +
+                '}';
+    }
 }
+
+

@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class Anomaly {
-    private int effectiveRadius;
+    private double effectiveRadius;
     private String id;
-    private int radius;
+    private double radius;
     private int strength;
     private Velocity velocity;
     private int x;
