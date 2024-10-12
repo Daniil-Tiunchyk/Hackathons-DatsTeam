@@ -7,7 +7,6 @@ import java.util.List;
 
 public class TransportController {
 
-    private static final double EPSILON = 1e-6;
     private static final Vector2D TARGET_POINT = new Vector2D(5000, 5000); // Целевая точка 5000:5000
 
     public MoveResponse planTransportMovements(GameState gameState) {
@@ -19,12 +18,11 @@ public class TransportController {
                 continue; // Пропускаем уничтоженные ковры
             }
 
-            // Шаг 1: Вычисляем суммарное ускорение от аномалий в текущей позиции
-            Vector2D position = transport.getPosition();
-            Vector2D anomalyAcceleration = calculateAnomalyAcceleration(position, gameState.getAnomalies());
+            // Используем готовое значение ускорения от аномалий
+            Vector2D providedAnomalyAcceleration = transport.getAnomalyAcceleration();
 
             // Шаг 2: Выбираем наиболее оптимальный Bounty или двигаемся к точке 5000:5000
-            Bounty targetBounty = selectOptimalBounty(transport, gameState, anomalyAcceleration);
+            Bounty targetBounty = selectOptimalBounty(transport, gameState);
 
             Vector2D targetPosition;
             if (targetBounty != null) {
@@ -35,8 +33,8 @@ public class TransportController {
                 targetPosition = TARGET_POINT;
             }
 
-            // Шаг 3: Вычисляем желаемое ускорение в направлении цели (баунти или точки 5000:5000)
-            Vector2D desiredAcceleration = calculateDesiredAcceleration(transport, targetPosition, anomalyAcceleration, gameState.getMaxAccel());
+            // Шаг 3: Вычисляем желаемое ускорение в направлении цели
+            Vector2D desiredAcceleration = calculateDesiredAcceleration(transport, targetPosition, providedAnomalyAcceleration, gameState.getMaxAccel());
 
             // Шаг 4: Создаем команду для ковра
             TransportAction command = new TransportAction();
@@ -52,42 +50,7 @@ public class TransportController {
         return response;
     }
 
-    private Vector2D calculateAnomalyAcceleration(Vector2D position, List<Anomaly> anomalies) {
-        Vector2D netAcceleration = new Vector2D(0, 0);
-
-        for (Anomaly anomaly : anomalies) {
-            Vector2D anomalyPosition = anomaly.getPosition();
-            double dx = anomalyPosition.getX() - position.getX();
-            double dy = anomalyPosition.getY() - position.getY();
-            double distanceSquared = dx * dx + dy * dy;
-
-            if (distanceSquared < EPSILON) {
-                continue; // Избегаем деления на ноль
-            }
-
-            double distance = Math.sqrt(distanceSquared);
-            if (distance > anomaly.getEffectiveRadius()) {
-                continue; // Вне зоны действия аномалии
-            }
-
-            // Вычисляем величину ускорения от аномалии
-            double strength = anomaly.getStrength();
-            double accelerationMagnitude = (strength * strength) / distanceSquared;
-            if (strength < 0) {
-                accelerationMagnitude = -accelerationMagnitude; // Корректируем для отталкивающих аномалий
-            }
-
-            // Направление к центру аномалии
-            Vector2D direction = new Vector2D(dx / distance, dy / distance);
-            Vector2D acceleration = direction.scale(accelerationMagnitude);
-
-            netAcceleration = netAcceleration.add(acceleration);
-        }
-
-        return netAcceleration;
-    }
-
-    private Bounty selectOptimalBounty(TransportResponse transport, GameState gameState, Vector2D anomalyAcceleration) {
+    private Bounty selectOptimalBounty(TransportResponse transport, GameState gameState) {
         Bounty bestBounty = null;
         double bestScore = Double.NEGATIVE_INFINITY;
 
@@ -98,7 +61,7 @@ public class TransportController {
             }
 
             // Оцениваем время для достижения баунти
-            double estimatedTime = estimateTimeToReach(transport, bounty.getPosition(), anomalyAcceleration, gameState);
+            double estimatedTime = estimateTimeToReach(transport, bounty.getPosition(), gameState);
 
             if (estimatedTime <= 0) {
                 continue; // Невозможно достичь этот баунти
@@ -116,7 +79,7 @@ public class TransportController {
         return bestBounty;
     }
 
-    private double estimateTimeToReach(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, GameState gameState) {
+    private double estimateTimeToReach(TransportResponse transport, Vector2D targetPosition, GameState gameState) {
         // Упрощенная оценка: движение по прямой при максимальном ускорении
         Vector2D position = transport.getPosition();
         Vector2D deltaPosition = targetPosition.subtract(position);
@@ -178,7 +141,7 @@ public class TransportController {
         // Требуемое ускорение (предполагаем dt = 1с)
         Vector2D requiredAcceleration = velocityDifference;
 
-        // Компенсируем ускорение от аномалий
+        // Компенсируем ускорение от аномалий (используем предоставленное значение)
         Vector2D controlAcceleration = requiredAcceleration.subtract(anomalyAcceleration);
 
         // Ограничиваем ускорение до максимального значения
