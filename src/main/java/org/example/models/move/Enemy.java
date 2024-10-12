@@ -9,7 +9,7 @@ public class Enemy {
     private int shieldLeftMs;
     private String status;
     private Vector2D velocity;
-    private double x;
-    private double y;
+    private int x;
+    private int y;
 }
 

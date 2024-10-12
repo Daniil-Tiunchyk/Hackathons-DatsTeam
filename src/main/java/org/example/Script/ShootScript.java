@@ -1,12 +1,10 @@
 package org.example.Script;
 
 
-import org.example.Models.Enemy;
-import org.example.Models.GameState;
-import org.example.Models.Transport1;
+
 import org.example.POST.Attack;
 import org.example.POST.Transport;
-
+import org.example.models.move.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,7 +18,7 @@ public class ShootScript {
 
     private Transport findGoal(Transport transport, GameState gameState) {
         // Находим соответствующий Transport1 по id
-        Transport1 currentTransport = gameState.getTransports().stream()
+        TransportResponse currentTransport = gameState.getTransports().stream()
                 .filter(t1 -> t1.getId().equals(transport.getId()))
                 .findFirst()
                 .orElse(null);
@@ -38,7 +36,7 @@ public class ShootScript {
         return transport;
     }
 
-    private Attack decideAttack(List<Enemy> enemies, Transport1 currentTransport, int attackRange, int attackExplosionRadius) {
+    private Attack decideAttack(List<Enemy> enemies, TransportResponse currentTransport, int attackRange, int attackExplosionRadius) {
         int currentHealth = currentTransport.getHealth(); // Текущее здоровье транспорта
 
         // 1) Проверяем шотных врагов в радиусе атаки
@@ -107,7 +105,7 @@ public class ShootScript {
     }
 
 
-    private Attack canHitMultipleEnemies(List<Enemy> enemies, Attack attack, int explosionRadius, int attackRange, Enemy currentEnemy, Transport1 currentTransport) {
+    private Attack canHitMultipleEnemies(List<Enemy> enemies, Attack attack, int explosionRadius, int attackRange, Enemy currentEnemy, TransportResponse currentTransport) {
         int hitCount = 0;
 
         // Перебираем врагов и проверяем, можем ли мы задеть их в радиусе взрыва
@@ -143,12 +141,6 @@ public class ShootScript {
                 for (Enemy innerEnemy : enemies) {
                     if (currentEnemy.getY() == innerEnemy.getY() && currentEnemy.getX() == innerEnemy.getX()) {
                         continue;
-                    }
-
-                    if(currentEnemy.getX() == 5826 && currentEnemy.getY() == 897 && innerEnemy.getX() == 5827 && innerEnemy.getY() == 898 ){
-                        if(newAttackX == 5826 && newAttackY == 897){
-                            int i = 0;
-                        }
                     }
                     double newDistance = Math.sqrt(Math.pow(innerEnemy.getX() - newAttackX, 2) + Math.pow(innerEnemy.getY() - newAttackY, 2));
                     if (newDistance <= explosionRadius) {
