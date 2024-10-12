@@ -12,8 +12,9 @@ public class MoveScript {
     private static final Vector2D TARGET_POINT = new Vector2D(5000, 5000); // Целевая точка (центр карты)
     private static final double BOUNTY_DETECTION_RADIUS = 400.0; // Радиус обнаружения баунти
     private static final double SAFE_DISTANCE_FROM_BOUNDARY = 200.0; // Безопасное расстояние от границы карты
-    private static final double ANOMALY_SAFE_BUFFER = 100.0; // Запас безопасности для аномалий
-    private static final double MAX_SPEED = 40.0; // Запас безопасности для аномалий
+    private static final double MAX_SPEED = 55.0; // Запас безопасности для аномалий
+    private static final double ENEMY_COLLISION_RADIUS = 10.0; // Радиус столкновения с врагами
+    private static final double AVOIDANCE_TIME_THRESHOLD = 2.0; // Время для предсказания столкновения (в секундах)
 
     public MoveResponse planTransportMovements(GameState gameState) {
         List<TransportAction> commands = new ArrayList<>();
@@ -34,7 +35,6 @@ public class MoveScript {
                 continue; // Пропускаем уничтоженные ковры
             }
 
-            Vector2D providedAnomalyAcceleration = transport.getAnomalyAcceleration();
             // Проверяем, не находимся ли слишком близко к границе карты
             if (isNearBoundary(transport, gameState)) {
                 // Если ковёр слишком близко к границе, поворачиваем его к центру карты
@@ -44,11 +44,11 @@ public class MoveScript {
                 continue; // Переходим к следующему ковру
             }
 
-            // Проверяем, не находимся ли слишком близко к аномалиям (учитывая их движение)
-            if (isNearAnyMovingAnomaly(transport, gameState)) {
-                // Если слишком близко к аномалиям, разворачиваем ковёр в безопасное направление
-                Vector2D desiredAcceleration = calculateAccelerationAwayFromAnomalies(transport, gameState);
-                TransportAction command = createTransportCommand(transport, desiredAcceleration);
+            // Проверяем возможные столкновения с врагами через 2 секунды
+            if (willCollideWithEnemies(transport, gameState)) {
+                // Избегаем столкновения с врагами
+                Vector2D avoidanceAcceleration = calculateAvoidanceFromEnemies(transport, gameState);
+                TransportAction command = createTransportCommand(transport, avoidanceAcceleration);
                 commands.add(command);
                 continue; // Переходим к следующему ковру
             }
@@ -72,15 +72,14 @@ public class MoveScript {
             Vector2D desiredAcceleration = calculateDesiredAcceleration(
                     transport,
                     targetPosition,
-                    providedAnomalyAcceleration,
-                    (double) gameState.getMaxAccel(), // Преобразование int в double
-                    (double) gameState.getMaxSpeed()  // Преобразование int в double
+                    transport.getAnomalyAcceleration(),
+                    gameState.getMaxAccel()
             );
 
             // Проверяем, не приведет ли желаемое ускорение к столкновению
             if (willCollide(transport, desiredAcceleration, gameState)) {
                 // Если столкновение возможно, корректируем ускорение
-                desiredAcceleration = calculateSafeAcceleration(transport, targetPosition, providedAnomalyAcceleration, gameState);
+                desiredAcceleration = calculateSafeAcceleration(transport, targetPosition, transport.getAnomalyAcceleration(), gameState);
             }
 
             // Создаем команду для ковра
@@ -105,6 +104,32 @@ public class MoveScript {
     }
 
     /**
+     * Проверяет, столкнётся ли ковёр с врагами через заданное время.
+     */
+    private boolean willCollideWithEnemies(TransportResponse transport, GameState gameState) {
+        Vector2D currentPosition = transport.getPosition();
+        Vector2D currentVelocity = transport.getVelocity();
+
+        for (Enemy enemy : gameState.getEnemies()) {
+            if ("alive".equals(enemy.getStatus())) {
+                Vector2D enemyPosition = new Vector2D(enemy.getX(), enemy.getY());
+                Vector2D enemyVelocity = new Vector2D(enemy.getVelocity().getX(), enemy.getVelocity().getY());
+
+                // Прогнозируем положение ковра и врага через AVOIDANCE_TIME_THRESHOLD секунд
+                Vector2D futureTransportPosition = currentPosition.add(currentVelocity.scale(AVOIDANCE_TIME_THRESHOLD));
+                Vector2D futureEnemyPosition = enemyPosition.add(enemyVelocity.scale(AVOIDANCE_TIME_THRESHOLD));
+
+                // Проверяем, будет ли расстояние между ними меньше радиуса столкновения
+                if (futureTransportPosition.subtract(futureEnemyPosition).magnitude() < ENEMY_COLLISION_RADIUS) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
      * Проверяет, находится ли ковёр слишком близко к границе карты.
      */
     private boolean isNearBoundary(TransportResponse transport, GameState gameState) {
@@ -125,19 +150,6 @@ public class MoveScript {
         return toCenter.scale(maxAccel); // Ускоряемся в сторону центра карты
     }
 
-    /**
-     * Проверяет, находится ли ковёр слишком близко к аномалиям и учитывает их движение.
-     */
-    private boolean isNearAnyMovingAnomaly(TransportResponse transport, GameState gameState) {
-        Vector2D position = transport.getPosition();
-        for (Anomaly anomaly : gameState.getAnomalies()) {
-            Vector2D futureAnomalyPosition = anomaly.getPosition().add(anomaly.getVelocity()); // Перемещаем аномалию
-            if (position.subtract(futureAnomalyPosition).magnitude() < anomaly.getRadius() + ANOMALY_SAFE_BUFFER) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Рассчитывает безопасное направление, чтобы уйти от аномалий.
@@ -146,14 +158,19 @@ public class MoveScript {
         return String.format("(%.2f, %.2f)", vector.getX(), vector.getY());
     }
 
-    private Vector2D calculateAccelerationAwayFromAnomalies(TransportResponse transport, GameState gameState) {
-        Vector2D position = transport.getPosition();
+    /**
+     * Рассчитывает ускорение для избегания столкновения с врагами.
+     */
+    private Vector2D calculateAvoidanceFromEnemies(TransportResponse transport, GameState gameState) {
+        Vector2D currentPosition = transport.getPosition();
         Vector2D totalAvoidanceVector = new Vector2D(0, 0);
 
-        for (Anomaly anomaly : gameState.getAnomalies()) {
-            Vector2D futureAnomalyPosition = anomaly.getPosition().add(anomaly.getVelocity()); // Перемещаем аномалию
-            Vector2D avoidanceVector = position.subtract(futureAnomalyPosition).normalize().scale(ANOMALY_SAFE_BUFFER);
-            totalAvoidanceVector = totalAvoidanceVector.add(avoidanceVector);
+        for (Enemy enemy : gameState.getEnemies()) {
+            if ("alive".equals(enemy.getStatus())) {
+                Vector2D enemyPosition = new Vector2D(enemy.getX(), enemy.getY());
+                Vector2D avoidanceVector = currentPosition.subtract(enemyPosition).normalize().scale(ENEMY_COLLISION_RADIUS);
+                totalAvoidanceVector = totalAvoidanceVector.add(avoidanceVector);
+            }
         }
 
         return totalAvoidanceVector.normalize().scale(gameState.getMaxAccel()); // Ускоряемся в безопасное направление
@@ -299,7 +316,7 @@ public class MoveScript {
     /**
      * Вычисляет желаемое ускорение к цели, учитывая ограничение на максимальное ускорение и скорость.
      */
-    private Vector2D calculateDesiredAcceleration(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, double maxAccel, double maxSpeed) {
+    private Vector2D calculateDesiredAcceleration(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, double maxAccel) {
         Vector2D position = transport.getPosition();
         Vector2D velocity = transport.getVelocity();
         Vector2D toTarget = targetPosition.subtract(position);
@@ -308,8 +325,7 @@ public class MoveScript {
         Vector2D desiredDirection = toTarget.normalize();
 
         // Рассчитываем желаемую скорость в направлении цели
-        double desiredSpeed = MAX_SPEED; // Стремимся к максимальной скорости
-        Vector2D desiredVelocity = desiredDirection.scale(desiredSpeed); // Вектор желаемой скорости
+        Vector2D desiredVelocity = desiredDirection.scale(MAX_SPEED); // Вектор желаемой скорости
 
         // Разница между желаемой скоростью и текущей скоростью ковра
         Vector2D velocityDifference = desiredVelocity.subtract(velocity);
@@ -332,7 +348,7 @@ public class MoveScript {
      * Вычисляет безопасное ускорение, избегая столкновений.
      */
     private Vector2D calculateSafeAcceleration(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, GameState gameState) {
-        Vector2D safeAcceleration = calculateDesiredAcceleration(transport, targetPosition, anomalyAcceleration, gameState.getMaxAccel(), gameState.getMaxSpeed());
+        Vector2D safeAcceleration = calculateDesiredAcceleration(transport, targetPosition, anomalyAcceleration, gameState.getMaxAccel());
 
         int i = 0;
 
