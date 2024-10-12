@@ -94,12 +94,14 @@ public class MainScript {
                 String response = sendMoveRequest(serverUrl, new MoveResponse());
                 Gson gson = new Gson();
                 GameState gameState = gson.fromJson(response, GameState.class);
-                MoveResponse moveResponse ;
+                MoveResponse moveResponse;
 
                 ShootScript shootScript = new ShootScript();
                 ShieldScript shieldScript = new ShieldScript();
 
-                moveResponse = MoveScript.processGameState(gameState);
+                //moveResponse = MoveScript.processGameState(gameState);
+                TransportController transportController = new TransportController();
+                moveResponse = transportController.planTransportMovements(gameState);
 
                 moveResponse.setTransports(shootScript.shoot(moveResponse.getTransports(), gameState));
                 moveResponse.setTransports(shieldScript.shieldSuitability(moveResponse.getTransports(), gameState));
