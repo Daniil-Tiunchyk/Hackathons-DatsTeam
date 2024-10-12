@@ -39,6 +39,12 @@ public class ShieldScript {
 
         // 1 Если >=2 врагов, в радиусе стрельбы и хп <= 59хп, то ставим щит
         if (radiusEnemyCount >= 2 && currentHealth <= ENEMY_AROUND_MINIMAL_HEALTH_WOUT_SHIELD) {
+            System.out.printf("Активация щита для: %s, Здоровье: %d, Врагов вокруг: %d, Координаты: (%.2f, %.2f)%n",
+                    currentTransport.getId(),
+                    currentTransport.getHealth(),
+                    radiusEnemyCount,
+                    currentTransport.getX(),
+                    currentTransport.getY());
             return true;
         }
         // 2 Если враг = 1, то при хп <= 30 ставим щит
