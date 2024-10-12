@@ -1,19 +1,19 @@
-package org.example;
+package org.example.tests;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.example.POST.Attack;
-import org.example.Script.TransportController;
 import org.example.models.move.GameState;
 import org.example.models.move.MoveResponse;
 import org.example.models.move.TransportAction;
 import org.example.models.move.Vector2D;
+import org.example.scripts.MoveScript;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class Main {
+public class MoveTest {
     public static void main(String[] args) {
         String filePath = System.getProperty("user.dir") + "/response.json";
 
@@ -24,10 +24,10 @@ public class Main {
 
             GameState gameState = gson.fromJson(jsonContent, GameState.class);
 
-            TransportController transportController = new TransportController();
+            MoveScript moveScript = new MoveScript();
 
             // Обработка состояния игры
-            MoveResponse response = transportController.planTransportMovements(gameState);
+            MoveResponse response = moveScript.planTransportMovements(gameState);
 
             // Вывод результата в консоль
             System.out.println("Ответ на действия ковров:");
