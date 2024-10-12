@@ -83,7 +83,7 @@ public class ShootScript {
 
         //TODO Заменить на <100
         // 3) Если врагов 4 или больше, действуем в зависимости от здоровья
-        if (currentHealth <= 100) {
+        if (currentHealth < 100) {
             for (Enemy enemy : enemies) {
                     double distance = Math.sqrt(Math.pow(enemy.getX() - currentTransport.getX(), 2) + Math.pow(enemy.getY() - currentTransport.getY(), 2));
                     if (distance <= attackRange + attackExplosionRadius - 10) {
