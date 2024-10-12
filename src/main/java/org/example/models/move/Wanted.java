@@ -1,4 +1,4 @@
-package org.example.Models;
+package org.example.models.move;
 
 import lombok.Data;
 
@@ -8,8 +8,7 @@ public class Wanted {
     private int killBounty;
     private int shieldLeftMs;
     private String status;
-    private Velocity velocity;
-    private int x;
-    private int y;
-
+    private Vector2D velocity;
+    private double x;
+    private double y;
 }
