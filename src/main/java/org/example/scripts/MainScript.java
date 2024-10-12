@@ -85,7 +85,7 @@ public class MainScript {
         // String serverUrl = "https://games.datsteam.dev/";
 
         // Тестовый сервер
-        String serverUrl = "https://games-test.datsteam.dev/play/magcarp/player/move";
+        String serverUrl = "https://games.datsteam.dev/play/magcarp/player/move";
 
         try {
             while (true) {
@@ -118,7 +118,8 @@ public class MainScript {
                 saveJsonToFile(gson.toJson(moveResponse), fileRequestPath);
 
                 // System.out.println("JSON-ответ сохранен в файл: " + filePath);
-                Thread.sleep(500);
+                Thread.sleep(250);
+
             }
         } catch (IOException e) {
             System.err.println("Произошла ошибка при выполнении запроса: " + e.getMessage());
