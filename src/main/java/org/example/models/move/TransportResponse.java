@@ -3,7 +3,7 @@ package org.example.models.move;
 import lombok.Data;
 
 @Data
-public class Transport {
+public class TransportResponse {
     private Vector2D anomalyAcceleration;
     private int attackCooldownMs;
     private int deathCount;

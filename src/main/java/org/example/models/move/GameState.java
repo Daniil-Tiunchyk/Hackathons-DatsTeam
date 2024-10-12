@@ -1,7 +1,6 @@
 package org.example.models.move;
 
 import lombok.Data;
-import org.example.models.move.*;
 
 import java.util.List;
 
@@ -23,6 +22,6 @@ public class GameState {
     private int shieldCooldownMs;
     private int shieldTimeMs;
     private int transportRadius;
-    private List<Transport> transports;
+    private List<TransportResponse> transports;
     private List<Wanted> wantedList;
 }

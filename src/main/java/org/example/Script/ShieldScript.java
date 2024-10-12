@@ -1,9 +1,10 @@
 package org.example.Script;
 
-import org.example.Models.Enemy;
-import org.example.Models.GameState;
-import org.example.Models.Transport1;
+
 import org.example.POST.Transport;
+import org.example.models.move.Enemy;
+import org.example.models.move.GameState;
+import org.example.models.move.TransportResponse;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,12 +24,12 @@ public class ShieldScript {
 
     private Transport decideToActivate(Transport transport, GameState gameState) {
 
-        Transport1 currentTransport = getCurrentTransport(transport, gameState);
+        TransportResponse currentTransport = getCurrentTransport(transport, gameState);
         transport.setActivateShield(checkShieldSuitability(currentTransport, gameState));
         return transport;
     }
 
-    private boolean checkShieldSuitability(Transport1 currentTransport, GameState gameState) {
+    private boolean checkShieldSuitability(TransportResponse currentTransport, GameState gameState) {
 
         List<Enemy> enemies = gameState.getEnemies();
         long radiusEnemyCount = enemies.stream()
@@ -44,11 +45,11 @@ public class ShieldScript {
         return radiusEnemyCount == 1 && currentHealth <= MINIMAL_HEALTH_WOUT_SHIELD;
     }
 
-    private double getDistance(Transport1 currentTransport, Enemy enemy) {
+    private double getDistance(TransportResponse currentTransport, Enemy enemy) {
         return Math.sqrt(Math.pow(enemy.getX() - currentTransport.getX(), 2) + Math.pow(enemy.getY() - currentTransport.getY(), 2));
     }
 
-    private Transport1 getCurrentTransport(Transport transport, GameState gameState) {
+    private TransportResponse getCurrentTransport(Transport transport, GameState gameState) {
         return gameState.getTransports().stream()
                 .filter(t1 -> t1.getId().equals(transport.getId()))
                 .findFirst()

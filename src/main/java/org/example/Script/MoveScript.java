@@ -20,7 +20,7 @@ public class MoveScript {
     public static MoveResponse processGameState(GameState gameState) {
         List<TransportAction> transportActions = new ArrayList<>();
 
-        for (Transport transport : gameState.getTransports()) {
+        for (TransportResponse transport : gameState.getTransports()) {
             // Проверяем статус транспорта (только для "alive")
             if (!"alive".equals(transport.getStatus())) {
                 continue;
@@ -76,7 +76,7 @@ public class MoveScript {
     }
 
     // Метод для поиска Bounty в радиусе 400 от транспорта
-    private static List<Bounty> findNearbyBounties(Transport transport, List<Bounty> bounties) {
+    private static List<Bounty> findNearbyBounties(TransportResponse transport, List<Bounty> bounties) {
         List<Bounty> nearbyBounties = new ArrayList<>();
 
         for (Bounty bounty : bounties) {

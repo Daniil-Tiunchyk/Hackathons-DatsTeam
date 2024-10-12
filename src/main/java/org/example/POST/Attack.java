@@ -1,6 +1,13 @@
 package org.example.POST;
 
-class Attack {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Attack {
     private double x;
     private double y;
 }
