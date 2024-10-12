@@ -13,8 +13,15 @@ import java.util.List;
 
 public class MoveScript {
 
+    // Константа максимального ускорения
+    private static final double MAX_ACCELERATION = 10.0;
+
     // Константа радиуса поиска Bounty
     private static final double BOUNTY_SEARCH_RADIUS = 400.0;
+
+    // Координаты fallback-цели (9000, 9000)
+    private static final double FALLBACK_X = 9000.0;
+    private static final double FALLBACK_Y = 9000.0;
 
     // Основной метод, который принимает объект GameState и возвращает массив Transport
     public static MoveResponse processGameState(GameState gameState) {
@@ -26,45 +33,30 @@ public class MoveScript {
                 continue;
             }
 
-            // Вывод начальной информации по каждому транспорту
-            System.out.println("Транспорт ID: " + transport.getId());
-            System.out.println("Координаты: (" + transport.getX() + ", " + transport.getY() + ")");
-            System.out.println("Ускорение от аномалии: (" + transport.getAnomalyAcceleration().getX() + ", " + transport.getAnomalyAcceleration().getY() + ")");
-            System.out.println("Собственное ускорение: (" + transport.getSelfAcceleration().getX() + ", " + transport.getSelfAcceleration().getY() + ")");
-            System.out.println("Скорость: (" + transport.getVelocity().getX() + ", " + transport.getVelocity().getY() + ")");
-            System.out.println("Статус: " + transport.getStatus());
-
             // Найдём все Bounty в радиусе 400 от транспорта
             List<Bounty> nearbyBounties = findNearbyBounties(transport, gameState.getBounties());
 
-            // Вывод найденных Bounty
+            Vector2D optimalAcceleration;
+
             if (!nearbyBounties.isEmpty()) {
-                System.out.println("Bounty в радиусе " + BOUNTY_SEARCH_RADIUS + ":");
-                for (Bounty bounty : nearbyBounties) {
-                    System.out.println("Bounty Points: " + bounty.getPoints());
-                    System.out.println("Координаты: (" + bounty.getX() + ", " + bounty.getY() + ")");
-                    System.out.println("Радиус Bounty: " + bounty.getRadius());
-                    System.out.println("-----");
-                }
+                // Если есть Bounty, находим лучший и целимся к нему
+                Bounty bestBounty = findBestBounty(transport, nearbyBounties);
+                optimalAcceleration = calculateOptimalAcceleration(transport, bestBounty.getX(), bestBounty.getY());
             } else {
-                System.out.println("В радиусе " + BOUNTY_SEARCH_RADIUS + " нет Bounty.");
+                // Если Bounty нет, движемся к координатам (9000, 9000)
+                System.out.println("Нет Bounty в радиусе действия для транспорта с ID: " + transport.getId() + ". Двигаемся к (9000, 9000).");
+                optimalAcceleration = calculateOptimalAcceleration(transport, FALLBACK_X, FALLBACK_Y);
             }
 
-            System.out.println("=====\n");
-
-            // Заглушка для действий транспорта
+            // Создаём действие с рассчитанным ускорением
             TransportAction action = new TransportAction();
             action.setId(transport.getId());
+            action.setAcceleration(optimalAcceleration);
 
-            // Заглушка для ускорения - берём текущее ускорение транспорта
-            action.setAcceleration(new Vector2D(1.2, 1.2));
+            // Для простоты оставляем атаку и щит выключенными
+            action.setActivateShield(false);
 
-            // Заглушка для атаки - выбираем точку для атаки
-            action.setAttack(new Vector2D(1, 1));
-
-            // Заглушка для активации щита
-            action.setActivateShield(true);
-
+            // Добавляем действие в список
             transportActions.add(action);
         }
 
@@ -80,16 +72,78 @@ public class MoveScript {
         List<Bounty> nearbyBounties = new ArrayList<>();
 
         for (Bounty bounty : bounties) {
-            // Рассчитываем Евклидово расстояние между транспортом и Bounty
             double distance = calculateDistance(transport.getX(), transport.getY(), bounty.getX(), bounty.getY());
-
-            // Если Bounty находится в радиусе BOUNTY_SEARCH_RADIUS
             if (distance <= BOUNTY_SEARCH_RADIUS) {
                 nearbyBounties.add(bounty);
             }
         }
 
         return nearbyBounties;
+    }
+
+    // Метод для расчета наилучшего Bounty (пока заглушка, можно улучшить)
+    private static Bounty findBestBounty(TransportResponse transport, List<Bounty> bounties) {
+        // Выбираем ближайший баунти с наибольшей ценностью
+        Bounty bestBounty = null;
+        double bestScore = Double.MIN_VALUE;
+
+        for (Bounty bounty : bounties) {
+            double distance = calculateDistance(transport.getX(), transport.getY(), bounty.getX(), bounty.getY());
+            // Простой коэффициент: ценность / расстояние
+            double score = bounty.getPoints() / distance;
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestBounty = bounty;
+            }
+        }
+
+        return bestBounty;
+    }
+
+    // Метод для расчета оптимального ускорения к указанной цели (цель может быть как Bounty, так и (9000, 9000))
+    private static Vector2D calculateOptimalAcceleration(TransportResponse transport, double targetX, double targetY) {
+        // Вектор от транспорта к цели (или к (9000, 9000))
+        double dx = targetX - transport.getX();
+        double dy = targetY - transport.getY();
+
+        // Длина вектора до цели
+        double distanceToTarget = Math.sqrt(dx * dx + dy * dy);
+
+        // Текущая скорость транспорта
+        double velocityX = transport.getVelocity().getX();
+        double velocityY = transport.getVelocity().getY();
+
+        // Вектор скорости
+        double velocityMagnitude = Math.sqrt(velocityX * velocityX + velocityY * velocityY);
+
+        // Вектор до цели
+        Vector2D targetDirection = new Vector2D(dx, dy);
+
+        // Если движение уже направлено к цели
+        if (velocityMagnitude > 0) {
+            // Нормализуем вектор скорости
+            Vector2D velocityDirection = new Vector2D(velocityX / velocityMagnitude, velocityY / velocityMagnitude);
+            // Рассчитываем угол между текущей скоростью и направлением на цель
+            double dotProduct = velocityDirection.getX() * targetDirection.getX() +
+                    velocityDirection.getY() * targetDirection.getY();
+            double angle = Math.acos(dotProduct / (distanceToTarget * velocityMagnitude));
+
+            // Если угол велик, корректируем ускорение
+            if (angle > Math.PI / 6) { // 30 градусов
+                // Корректируем направление ускорения в сторону цели
+                targetDirection = new Vector2D(
+                        targetDirection.getX() - velocityDirection.getX(),
+                        targetDirection.getY() - velocityDirection.getY());
+            }
+        }
+
+        // Нормализуем вектор ускорения к максимальному значению
+        double scalingFactor = MAX_ACCELERATION / distanceToTarget;
+        double scaledDx = targetDirection.getX() * scalingFactor;
+        double scaledDy = targetDirection.getY() * scalingFactor;
+
+        return new Vector2D(scaledDx, scaledDy);
     }
 
     // Метод для расчета Евклидова расстояния между двумя точками (x1, y1) и (x2, y2)
@@ -116,8 +170,6 @@ public class MoveScript {
             for (TransportAction action : response.getTransports()) {
                 System.out.println("ID транспорта: " + action.getId());
                 System.out.println("Ускорение: (" + action.getAcceleration().getX() + ", " + action.getAcceleration().getY() + ")");
-                System.out.println("Атака: (" + action.getAttack().getX() + ", " + action.getAttack().getY() + ")");
-                System.out.println("Активировать щит: " + action.isActivateShield());
                 System.out.println("-----");
             }
 
