@@ -1,6 +1,5 @@
 package org.example.Script;
 
-
 import org.example.models.move.*;
 
 import java.util.ArrayList;
@@ -9,6 +8,7 @@ import java.util.List;
 public class TransportController {
 
     private static final double EPSILON = 1e-6;
+    private static final Vector2D TARGET_POINT = new Vector2D(5000, 5000); // Целевая точка 5000:5000
 
     public MoveResponse planTransportMovements(GameState gameState) {
         List<TransportAction> commands = new ArrayList<>();
@@ -23,20 +23,27 @@ public class TransportController {
             Vector2D position = transport.getPosition();
             Vector2D anomalyAcceleration = calculateAnomalyAcceleration(position, gameState.getAnomalies());
 
-            // Шаг 2: Выбираем наиболее оптимальный Bounty
+            // Шаг 2: Выбираем наиболее оптимальный Bounty или двигаемся к точке 5000:5000
             Bounty targetBounty = selectOptimalBounty(transport, gameState, anomalyAcceleration);
 
+            Vector2D targetPosition;
             if (targetBounty != null) {
-                // Шаг 3: Вычисляем желаемое ускорение в направлении баунти
-                Vector2D desiredAcceleration = calculateDesiredAcceleration(transport, targetBounty, anomalyAcceleration, gameState.getMaxAccel());
-
-                // Шаг 4: Создаем команду для ковра
-                TransportAction command = new TransportAction();
-                command.setId(transport.getId());
-                command.setAcceleration(desiredAcceleration);
-
-                commands.add(command);
+                // Если найден баунти, целевая позиция - это позиция баунти
+                targetPosition = targetBounty.getPosition();
+            } else {
+                // Если баунти нет, целевая позиция - точка 5000:5000
+                targetPosition = TARGET_POINT;
             }
+
+            // Шаг 3: Вычисляем желаемое ускорение в направлении цели (баунти или точки 5000:5000)
+            Vector2D desiredAcceleration = calculateDesiredAcceleration(transport, targetPosition, anomalyAcceleration, gameState.getMaxAccel());
+
+            // Шаг 4: Создаем команду для ковра
+            TransportAction command = new TransportAction();
+            command.setId(transport.getId());
+            command.setAcceleration(desiredAcceleration);
+
+            commands.add(command);
         }
 
         // Возвращаем объект MoveResponse с командами для ковров
@@ -154,10 +161,10 @@ public class TransportController {
         return false;
     }
 
-    private Vector2D calculateDesiredAcceleration(TransportResponse transport, Bounty targetBounty, Vector2D anomalyAcceleration, double maxAccel) {
+    private Vector2D calculateDesiredAcceleration(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, double maxAccel) {
         Vector2D position = transport.getPosition();
         Vector2D velocity = transport.getVelocity();
-        Vector2D toTarget = targetBounty.getPosition().subtract(position);
+        Vector2D toTarget = targetPosition.subtract(position);
 
         // Направление к цели
         Vector2D desiredDirection = toTarget.normalize();
