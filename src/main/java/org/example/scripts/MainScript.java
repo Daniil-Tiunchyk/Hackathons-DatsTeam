@@ -101,7 +101,10 @@ public class MainScript {
 
                 //moveResponse = MoveScript.processGameState(gameState);
                 MoveScript moveScript = new MoveScript();
+
+              //  NewMoveScript = new NewMoveScript();
                 moveResponse = moveScript.planTransportMovements(gameState);
+                // moveResponse = moveScript.planTransportMovements(gameState);
 
                 moveResponse.setTransports(shootScript.shoot(moveResponse.getTransports(), gameState));
                 moveResponse.setTransports(shieldScript.shieldSuitability(moveResponse.getTransports(), gameState));
@@ -115,7 +118,7 @@ public class MainScript {
                 saveJsonToFile(gson.toJson(moveResponse), fileRequestPath);
 
                 // System.out.println("JSON-ответ сохранен в файл: " + filePath);
-                Thread.sleep(1000);
+                Thread.sleep(500);
             }
         } catch (IOException e) {
             System.err.println("Произошла ошибка при выполнении запроса: " + e.getMessage());

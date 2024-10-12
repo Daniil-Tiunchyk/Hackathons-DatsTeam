@@ -9,7 +9,8 @@ import java.util.Set;
 
 public class MoveScript {
 
-    private static final Vector2D TARGET_POINT = new Vector2D(7500, 7500); // Целевая точка (центр карты)
+    private static final Vector2D TARGET_POINT = new Vector2D(5000, 5000); // Целевая точка (центр карты)
+    private static final double BOUNTY_DETECTION_RADIUS = 400.0; // Радиус обнаружения баунти
 
     public MoveResponse planTransportMovements(GameState gameState) {
         List<TransportAction> commands = new ArrayList<>();
@@ -48,8 +49,14 @@ public class MoveScript {
             // Используем текущее ускорение из TransportResponse
             Vector2D selfAcceleration = transport.getSelfAcceleration();
 
-            // Вычисляем желаемое ускорение в направлении цели
-            Vector2D desiredAcceleration = calculateDesiredAcceleration(transport, targetPosition, providedAnomalyAcceleration, gameState.getMaxAccel());
+            // Вычисляем желаемое ускорение в направлении цели с учётом максимальной скорости и ускорения
+            Vector2D desiredAcceleration = calculateDesiredAcceleration(
+                    transport,
+                    targetPosition,
+                    providedAnomalyAcceleration,
+                    (double) gameState.getMaxAccel(), // Преобразование int в double
+                    (double) gameState.getMaxSpeed()  // Преобразование int в double
+            );
 
             // Проверяем, не приведет ли желаемое ускорение к столкновению
             if (willCollide(transport, desiredAcceleration, gameState)) {
@@ -88,7 +95,7 @@ public class MoveScript {
     }
 
     /**
-     * Построение жадного маршрута для сбора всех баунти с приоритетом для монет, находящихся ближе к центру карты.
+     * Построение жадного маршрута для сбора всех баунти в радиусе 400 метров.
      */
     private List<Bounty> buildGreedyRoute(TransportResponse transport, GameState gameState) {
         Set<Bounty> remainingBounties = new HashSet<>(gameState.getBounties());
@@ -101,8 +108,13 @@ public class MoveScript {
             Bounty bestBounty = null;
             double bestScore = Double.MAX_VALUE; // Минимальный скоринг
 
-            // Ищем баунти с наилучшим приоритетом (по времени и расстоянию до центра)
+            // Ищем баунти в радиусе 400 метров
             for (Bounty bounty : remainingBounties) {
+                // Проверяем, находится ли баунти в радиусе 400 метров от текущего ковра
+                if (bounty.getPosition().subtract(currentPosition).magnitude() > BOUNTY_DETECTION_RADIUS) {
+                    continue; // Пропускаем баунти вне радиуса
+                }
+
                 if (isNearAnomaly(bounty.getPosition(), gameState.getAnomalies(), gameState.getTransportRadius())) {
                     continue; // Пропускаем баунти, которые слишком близки к аномалиям
                 }
@@ -110,20 +122,15 @@ public class MoveScript {
                 // Оценка времени достижения баунти
                 double estimatedTime = estimateTimeToReach(currentPosition, currentVelocity, bounty.getPosition(), bounty.getRadius(), gameState);
 
-                // Оценка расстояния баунти до центра карты
-                double distanceToCenter = bounty.getPosition().subtract(TARGET_POINT).magnitude();
-
-                // Взвешенное значение, где приоритетом является и время, и близость к центру
-                double score = estimatedTime + (distanceToCenter / 100.0); // Чем ближе к центру, тем меньше значение score
-
-                if (score < bestScore) {
-                    bestScore = score;
+                // Оценка только по времени достижения
+                if (estimatedTime < bestScore) {
+                    bestScore = estimatedTime;
                     bestBounty = bounty;
                 }
             }
 
             if (bestBounty != null) {
-                // Добавляем баунти с наилучшим приоритетом в маршрут
+                // Добавляем ближайший баунти в маршрут
                 route.add(bestBounty);
                 remainingBounties.remove(bestBounty);
                 // Обновляем текущую позицию
@@ -161,49 +168,26 @@ public class MoveScript {
         // Проекция скорости на направление к цели
         double velocityInTargetDirection = currentVelocity.dot(directionToTarget);
 
-        // Если ковёр движется в противоположную сторону, нужно учитывать это
-        if (velocityInTargetDirection < 0) {
-            // Рассчитаем время для торможения и разворота
-            double timeToStop = -velocityInTargetDirection / maxAcceleration;
-
-            // Расстояние, которое ковёр пройдёт, прежде чем остановится
-            double distanceToStop = 0.5 * maxAcceleration * Math.pow(timeToStop, 2);
-
-            if (distanceToStop >= distance) {
-                // Если можем остановиться до того, как достигнем цели
-                return (-velocityInTargetDirection + Math.sqrt(velocityInTargetDirection * velocityInTargetDirection + 2 * maxAcceleration * distance)) / maxAcceleration;
-            } else {
-                // Если необходимо сначала остановиться, а потом разгоняться к цели
-                double remainingDistance = distance - distanceToStop;
-                double timeToMaxSpeed = maxSpeed / maxAcceleration;
-                double distanceToMaxSpeed = 0.5 * maxAcceleration * Math.pow(timeToMaxSpeed, 2);
-
-                if (distanceToMaxSpeed >= remainingDistance) {
-                    // Если можем достичь цели до того, как достигнем максимальной скорости
-                    return timeToStop + (-0 + Math.sqrt(0 + 2 * maxAcceleration * remainingDistance)) / maxAcceleration;
-                } else {
-                    // Если достигнем максимальной скорости и будем двигаться с ней
-                    double timeAtMaxSpeed = (remainingDistance - distanceToMaxSpeed) / maxSpeed;
-                    return timeToStop + timeToMaxSpeed + timeAtMaxSpeed;
-                }
-            }
-        } else if (velocityInTargetDirection >= maxSpeed) {
+        // Теперь определим, как быстро транспорт может ускориться к цели:
+        if (velocityInTargetDirection >= maxSpeed) {
             // Если уже движемся с максимальной скоростью или быстрее
             return distance / velocityInTargetDirection;
-        } else {
-            // Если ковёр движется в сторону цели, но скорость меньше максимальной
-            double timeToMaxSpeed = (maxSpeed - velocityInTargetDirection) / maxAcceleration;
-            double distanceToMaxSpeed = velocityInTargetDirection * timeToMaxSpeed + 0.5 * maxAcceleration * Math.pow(timeToMaxSpeed, 2);
+        }
 
-            if (distanceToMaxSpeed >= distance) {
-                // Если можем достичь цели до того, как наберём максимальную скорость
-                return (-velocityInTargetDirection + Math.sqrt(velocityInTargetDirection * velocityInTargetDirection + 2 * maxAcceleration * distance)) / maxAcceleration;
-            } else {
-                // Если достигнем максимальной скорости и будем двигаться с ней
-                double remainingDistance = distance - distanceToMaxSpeed;
-                double timeAtMaxSpeed = remainingDistance / maxSpeed;
-                return timeToMaxSpeed + timeAtMaxSpeed;
-            }
+        // Шаг 1: Время для достижения максимальной скорости
+        double timeToMaxSpeed = (maxSpeed - velocityInTargetDirection) / maxAcceleration;
+
+        // Шаг 2: Расстояние, которое мы пройдем за время разгона до максимальной скорости
+        double distanceToMaxSpeed = velocityInTargetDirection * timeToMaxSpeed + 0.5 * maxAcceleration * Math.pow(timeToMaxSpeed, 2);
+
+        if (distanceToMaxSpeed >= distance) {
+            // Если можем достичь цели до того, как наберем максимальную скорость
+            return (-velocityInTargetDirection + Math.sqrt(velocityInTargetDirection * velocityInTargetDirection + 2 * maxAcceleration * distance)) / maxAcceleration;
+        } else {
+            // Если достигнем максимальной скорости и будем двигаться с ней
+            double remainingDistance = distance - distanceToMaxSpeed;
+            double timeAtMaxSpeed = remainingDistance / maxSpeed;
+            return timeToMaxSpeed + timeAtMaxSpeed;
         }
     }
 
@@ -238,9 +222,9 @@ public class MoveScript {
     }
 
     /**
-     * Вычисляет желаемое ускорение к цели, учитывая ограничение на максимальное ускорение.
+     * Вычисляет желаемое ускорение к цели, учитывая ограничение на максимальное ускорение и скорость.
      */
-    private Vector2D calculateDesiredAcceleration(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, double maxAccel) {
+    private Vector2D calculateDesiredAcceleration(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, double maxAccel, double maxSpeed) {
         Vector2D position = transport.getPosition();
         Vector2D velocity = transport.getVelocity();
         Vector2D toTarget = targetPosition.subtract(position);
@@ -248,14 +232,15 @@ public class MoveScript {
         // Направление к цели
         Vector2D desiredDirection = toTarget.normalize();
 
-        // Желаемая скорость (стремимся достичь максимального ускорения)
-        Vector2D desiredVelocity = desiredDirection.scale(maxAccel);
+        // Рассчитываем желаемую скорость в направлении цели
+        double desiredSpeed = 50; // Стремимся к максимальной скорости
+        Vector2D desiredVelocity = desiredDirection.scale(desiredSpeed); // Вектор желаемой скорости
 
-        // Разница скоростей
+        // Разница между желаемой скоростью и текущей скоростью ковра
         Vector2D velocityDifference = desiredVelocity.subtract(velocity);
 
-        // Требуемое ускорение (предполагаем dt = 1с)
-        Vector2D requiredAcceleration = velocityDifference;
+        // Рассчитываем необходимое ускорение для достижения желаемой скорости
+        Vector2D requiredAcceleration = velocityDifference; // Предполагаем dt = 1 сек
 
         // Компенсируем ускорение от аномалий (используем предоставленное значение)
         Vector2D controlAcceleration = requiredAcceleration.subtract(anomalyAcceleration);
@@ -272,11 +257,14 @@ public class MoveScript {
      * Вычисляет безопасное ускорение, избегая столкновений.
      */
     private Vector2D calculateSafeAcceleration(TransportResponse transport, Vector2D targetPosition, Vector2D anomalyAcceleration, GameState gameState) {
-        Vector2D safeAcceleration = calculateDesiredAcceleration(transport, targetPosition, anomalyAcceleration, gameState.getMaxAccel());
+        Vector2D safeAcceleration = calculateDesiredAcceleration(transport, targetPosition, anomalyAcceleration, gameState.getMaxAccel(), gameState.getMaxSpeed());
+
+        int i = 0;
 
         // Если безопасное ускорение все еще ведет к столкновению, уменьшаем его
-        while (willCollide(transport, safeAcceleration, gameState)) {
+        while (willCollide(transport, safeAcceleration, gameState) && i <= 50) {
             safeAcceleration = safeAcceleration.scale(0.9); // Постепенно уменьшаем ускорение
+            i++;
         }
 
         return safeAcceleration;
