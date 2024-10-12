@@ -14,6 +14,16 @@ public class MoveScript {
     public MoveResponse planTransportMovements(GameState gameState) {
         List<TransportAction> commands = new ArrayList<>();
 
+        // Заголовок таблицы
+        System.out.printf("%-10s %-25s %-25s %-25s %-25s %-25s\n",
+                "ID",
+                "Current Position",
+                "Current Velocity",
+                "Self Acceleration",
+                "Target Position",
+                "Desired Acceleration");
+        System.out.println("------------------------------------------------------------------------------------------------------------");
+
         // Для каждого ковра
         for (TransportResponse transport : gameState.getTransports()) {
             if (!"alive".equals(transport.getStatus())) {
@@ -35,6 +45,9 @@ public class MoveScript {
                 targetPosition = TARGET_POINT;
             }
 
+            // Используем текущее ускорение из TransportResponse
+            Vector2D selfAcceleration = transport.getSelfAcceleration();
+
             // Вычисляем желаемое ускорение в направлении цели
             Vector2D desiredAcceleration = calculateDesiredAcceleration(transport, targetPosition, providedAnomalyAcceleration, gameState.getMaxAccel());
 
@@ -42,14 +55,30 @@ public class MoveScript {
             TransportAction command = new TransportAction();
             command.setId(transport.getId());
             command.setAcceleration(desiredAcceleration);
-
             commands.add(command);
+
+            // Выводим информацию о текущем транспортном средстве в виде строки таблицы
+            System.out.printf("%-10s %-25s %-25s %-25s %-25s %-25s\n",
+                    transport.getId(),
+                    formatVector(transport.getPosition()),
+                    formatVector(transport.getVelocity()),
+                    formatVector(selfAcceleration),  // Текущее ускорение из TransportResponse
+                    formatVector(targetPosition),
+                    formatVector(desiredAcceleration) // Желаемое ускорение, которое мы посчитали
+            );
         }
 
         // Возвращаем объект MoveResponse с командами для ковров
         MoveResponse response = new MoveResponse();
         response.setTransports(commands);
         return response;
+    }
+
+    /**
+     * Форматирует вектор для вывода в виде строки.
+     */
+    private String formatVector(Vector2D vector) {
+        return String.format("(%.2f, %.2f)", vector.getX(), vector.getY());
     }
 
     /**
