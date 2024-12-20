@@ -9,10 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Snake {
     private String id;
-    private Direction3D direction;
-    private Direction3D oldDirection;
-    private List<Point3D> geometry;
-    private int deathCount;
+    private int[] direction;
+    private int[] oldDirection;
+    private List<List<Integer>> geometry;
     private String status;
-    private int reviveRemainMs;
 }

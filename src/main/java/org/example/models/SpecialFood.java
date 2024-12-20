@@ -8,6 +8,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class SpecialFood {
-    private List<Point3D> golden;
-    private List<Point3D> suspicious;
+    private List<List<Integer>> golden;
+    private List<List<Integer>> suspicious;
 }
