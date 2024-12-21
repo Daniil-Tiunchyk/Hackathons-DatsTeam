@@ -73,6 +73,9 @@ async function loadJSON() {
         const response = await fetch("../data/response_move.json");
         const jsonData = await response.json();
 
+        const spawnPoints = await fetch("../spawn_points.csv");
+        const csvData = await spawnPoints.text();
+
         const mapSize = jsonData.mapSize || [300, 300, 90];
 
         function isWithinVisibility(head, target) {
@@ -277,8 +280,31 @@ async function loadJSON() {
             return [edgeTrace, ...faceTraces];
         });
 
+        const rows = csvData.trim().split("\n").slice(1); // Убираем заголовок
+        const points = rows.map((row) => {
+            const [snakeId, x, y, z] = row.split(",").slice(0, 4); // Берём только snakeId, x, y, z
+            return { snakeId, x: +x, y: +y, z: +z };
+        });
+
+        // Создаём трейс точек
+        const pointTrace = {
+            x: points.map((p) => p.x),
+            y: points.map((p) => p.y),
+            z: points.map((p) => p.z),
+            mode: "markers", // Режим отображения точек
+            type: "scatter3d",
+            marker: {
+                size: 5, // Размер точек
+                color: "blue", // Цвет точек
+                opacity: 0.8, // Прозрачность
+            },
+            text: points.map((p) => `SnakeID: ${p.snakeId}`), // Подписи
+            name: "Spawn Points",
+        };
+
         const allTraces = [
             ...chunkTraces,
+            pointTrace,
             ...snakeTraces,
             ...fenceTraces,
             ...foodTraces,
