@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/*
+ * Объект запроса на движение
+ * direction: [dx, dy, dz]
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
