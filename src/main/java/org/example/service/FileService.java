@@ -2,12 +2,22 @@ package org.example.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/* ---------------------------------------------------
+ * FileService — для сохранения данных в файл
+ * --------------------------------------------------- */
 public class FileService {
-    public void saveToFile(String content, String path) throws IOException {
-        Files.createDirectories(Paths.get(path).getParent());
-        Files.write(Paths.get(path), content.getBytes());
-        System.out.println("[INFO] JSON сохранён в " + path);
+    private static final Logger logger = Logger.getLogger(FileService.class.getName());
+
+    public void saveToFile(String content, String filePath) {
+        try {
+            Files.writeString(Path.of(filePath), content);
+            logger.info("[FileService] Данные успешно сохранены в файл: " + filePath);
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "[FileService] Ошибка при сохранении в файл: " + e.getMessage(), e);
+        }
     }
 }

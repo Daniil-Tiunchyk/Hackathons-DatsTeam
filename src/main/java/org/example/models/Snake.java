@@ -16,13 +16,9 @@ public class Snake {
 
     // Возвращает координаты головы змеи как Point3D
     public Point3D getHead() {
-        if (geometry != null && !geometry.isEmpty()) {
-            List<Integer> headCoordinates = geometry.get(0);
-            if (headCoordinates.size() == 3) {
-                return new Point3D(headCoordinates.get(0), headCoordinates.get(1), headCoordinates.get(2));
-            }
-        }
-        return null;
+        if (geometry == null || geometry.isEmpty()) return null;
+        List<Integer> headCoords = geometry.get(0);
+        return new Point3D(headCoords.get(0), headCoords.get(1), headCoords.get(2));
     }
 
     // Возвращает длину змеи
