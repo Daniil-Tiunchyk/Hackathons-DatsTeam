@@ -24,7 +24,7 @@ public class MovementService {
     private final FoodService foodService;
 
     // Настройки для локального поиска
-    private static final int SEARCH_RADIUS = 30;  // Радиус, в пределах которого учитываем препятствия
+    private static final int SEARCH_RADIUS = 5;  // Радиус, в пределах которого учитываем препятствия
     private static final int DISTANCE_LIMIT = 50; // Максимальная дистанция до фрукта, чтобы пытаться найти путь
 
     public MovementService(String baseUrl,
