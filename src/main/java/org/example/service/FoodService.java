@@ -1,37 +1,41 @@
 package org.example.service;
 
 import org.example.models.Food;
+import org.example.models.GameState;
 import org.example.models.Point3D;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class FoodService {
     private static final Logger logger = Logger.getLogger(FoodService.class.getName());
 
-    public Food findNearestFood(Point3D head, List<Food> foodList, List<Integer> mapSize) {
+    public Food findNearestFood(Point3D head, List<Food> foodList, List<Integer> mapSize, Set<Point3D> obstacles) {
         if (foodList == null || foodList.isEmpty()) {
             logger.warning("Список фруктов пуст. Невозможно найти ближайший фрукт.");
             return createCenterFood(mapSize); // Возвращаем фиктивный фрукт в центре карты
         }
 
-        // Исключаем фрукты с ценностью 0
-        List<Food> valuableFood = foodList.stream()
-                .filter(food -> food.getPoints() > 0)
+        // Исключаем фрукты, находящиеся в препятствиях
+        List<Food> accessibleFood = foodList.stream()
+                .filter(food -> !obstacles.contains(food.getCoordinates()))
+                .filter(food -> food.getPoints() > 0) // Исключаем фрукты с ценностью 0
                 .toList();
 
-        // Если есть ценные фрукты, ищем ближайший
-        if (!valuableFood.isEmpty()) {
-            return valuableFood.stream()
+        // Если есть доступные ценные фрукты, ищем ближайший
+        if (!accessibleFood.isEmpty()) {
+            return accessibleFood.stream()
                     .min(Comparator.comparingInt(food -> calculateManhattanDistance(head, food.getCoordinates())))
                     .orElse(null);
         }
 
-        // Если нет ценных фруктов, направляемся к центру карты
-        logger.info("Нет ценных фруктов. Направляемся к центру карты.");
+        // Если нет доступных ценных фруктов, направляемся к центру карты
+        logger.info("Нет доступных ценных фруктов. Направляемся к центру карты.");
         return createCenterFood(mapSize);
     }
+
 
     /**
      * Создает фиктивный фрукт в центре карты.
@@ -69,7 +73,7 @@ public class FoodService {
      * @param snakes   Список змей.
      * @param foodList Список фруктов.
      */
-    public void displayGameStateInfo(int points, List<org.example.models.Snake> snakes, List<Food> foodList, List<Integer> mapSize) {
+    public void displayGameStateInfo(int points, List<org.example.models.Snake> snakes, List<Food> foodList, List<Integer> mapSize, GameState gameState) {
         System.out.println("[INFO] Текущий счёт: " + points);
         System.out.println();
 
@@ -86,7 +90,7 @@ public class FoodService {
 
             // Если змея живая, ищем ближайший фрукт
             if ("alive".equals(status) && head != null && !foodList.isEmpty()) {
-                Food nearestFood = findNearestFood(head, foodList, mapSize);
+                Food nearestFood = findNearestFood(head, foodList, mapSize, gameState.getObstacles());
                 if (nearestFood != null) {
                     Point3D foodPoint = nearestFood.getCoordinates();
                     int distance = calculateManhattanDistance(head, foodPoint);

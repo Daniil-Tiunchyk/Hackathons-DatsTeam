@@ -60,7 +60,7 @@ public class GameEngine {
             displayErrors(gameState);
 
             // Вывод информации о состоянии игры
-            foodService.displayGameStateInfo(gameState.getPoints(), gameState.getSnakes(), gameState.getFood(), gameState.getMapSize());
+            foodService.displayGameStateInfo(gameState.getPoints(), gameState.getSnakes(), gameState.getFood(), gameState.getMapSize(), gameState);
 
             // Генерация и отправка команды движения
             SnakeRequest moveRequest = movementService.buildMoveRequest(gameState);

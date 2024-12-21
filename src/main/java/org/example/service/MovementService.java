@@ -101,7 +101,7 @@ public class MovementService {
         gameState.getSnakes().forEach(snake -> {
             if ("alive".equals(snake.getStatus()) && snake.getHead() != null) {
                 Point3D head = snake.getHead();
-                Food nearestFood = foodService.findNearestFood(head, gameState.getFood(), gameState.getMapSize());
+                Food nearestFood = foodService.findNearestFood(head, gameState.getFood(), gameState.getMapSize(), gameState.getObstacles());
                 Point3D nearestFoodPoint = nearestFood.getCoordinates();
                 if (nearestFood != null) {
                     var path = pathFindingService.findPath(
