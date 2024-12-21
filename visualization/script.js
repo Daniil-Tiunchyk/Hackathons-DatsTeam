@@ -1,0 +1,206 @@
+const visibilityRadius = 30;
+let cameraPosition = { x: 0, y: 0, z: 0 };
+
+async function loadJSON() {
+  try {
+    const response = await fetch("../data/response.json");
+    const jsonData = await response.json();
+
+    const mapSize = jsonData.mapSize || [300, 300, 90];
+
+    function isWithinVisibility(head, target) {
+      return (
+        Math.abs(target[0] - head[0]) <= visibilityRadius &&
+        Math.abs(target[1] - head[1]) <= visibilityRadius &&
+        Math.abs(target[2] - head[2]) <= visibilityRadius
+      );
+    }
+
+    function filterVisibleObjects(head, objects) {
+      return objects.filter((obj) => isWithinVisibility(head, obj));
+    }
+
+    function createSegments(points) {
+      const segments = { x: [], y: [], z: [] };
+
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const p1 = points[i];
+          const p2 = points[j];
+
+          const manhattanDistance =
+            Math.abs(p1[0] - p2[0]) +
+            Math.abs(p1[1] - p2[1]) +
+            Math.abs(p1[2] - p2[2]);
+
+          if (manhattanDistance === 1) {
+            segments.x.push(p1[0], p2[0], null);
+            segments.y.push(p1[1], p2[1], null);
+            segments.z.push(p1[2], p2[2], null);
+          }
+        }
+      }
+
+      return segments;
+    }
+
+    const snakeTraces = [];
+    const fenceTraces = [];
+    const foodTraces = [];
+
+    (jsonData.snakes || []).forEach((snake, index) => {
+      if (!snake.geometry || snake.geometry.length === 0) return;
+
+      const head = snake.geometry[0];
+      if (!head || head.length !== 3) return;
+
+      const visibleFences = filterVisibleObjects(head, jsonData.fences || []);
+      const visibleFood = filterVisibleObjects(
+        head,
+        (jsonData.food || []).map((food) => food.c)
+      );
+
+      const segments = createSegments(snake.geometry);
+      snakeTraces.push({
+        x: segments.x,
+        y: segments.y,
+        z: segments.z,
+        mode: "lines+markers",
+        type: "scatter3d",
+        marker: {
+          size: 10,
+          color: snake.status === "alive" ? "limegreen" : "red",
+        },
+        line: {
+          width: 4,
+          color: snake.status === "alive" ? "green" : "darkred",
+        },
+        name: `Snake ${index + 1} (${snake.status || "unknown"})`,
+        legendgroup: "snakes",
+        showlegend: index === 0,
+      });
+
+      if (visibleFences.length > 1) {
+        const fenceSegments = createSegments(visibleFences);
+        fenceTraces.push({
+          x: fenceSegments.x,
+          y: fenceSegments.y,
+          z: fenceSegments.z,
+          mode: "lines+markers",
+          type: "scatter3d",
+          marker: {
+            size: 10,
+            color: "gray",
+            symbol: "square",
+          },
+          line: {
+            width: 2,
+            color: "gray",
+          },
+          name: "Fence",
+          legendgroup: "fences",
+          showlegend: false,
+        });
+      }
+
+      foodTraces.push({
+        x: visibleFood.map((food) => food[0] || 0),
+        y: visibleFood.map((food) => food[1] || 0),
+        z: visibleFood.map((food) => food[2] || 0),
+        mode: "markers",
+        type: "scatter3d",
+        marker: {
+          size: 12,
+          color: "orange",
+          symbol: "circle",
+        },
+        name: `Food visible to Snake ${index + 1}`,
+        legendgroup: "food",
+        showlegend: false,
+      });
+    });
+
+    const layout = {
+      title: "3D Snake Game",
+      scene: {
+        xaxis: { title: "X", range: [0, mapSize[0]] },
+        yaxis: { title: "Y", range: [0, mapSize[1]] },
+        zaxis: { title: "Z", range: [0, mapSize[2]] },
+        camera: {
+          eye: { x: 1.5, y: 1.5, z: 1.5 },
+          center: {
+            x: cameraPosition.x,
+            y: cameraPosition.y,
+            z: cameraPosition.z,
+          },
+        },
+      },
+      margin: { l: 0, r: 0, b: 0, t: 50 },
+    };
+
+    const allTraces = [...snakeTraces, ...fenceTraces, ...foodTraces];
+
+    Plotly.newPlot("plotly-container", allTraces, layout);
+
+    document.getElementById("toggle-fences").addEventListener("click", () => {
+      Plotly.restyle(
+        "plotly-container",
+        "visible",
+        false,
+        fenceTraces.map((_, i) => snakeTraces.length + i)
+      );
+    });
+
+    document.getElementById("toggle-snakes").addEventListener("click", () => {
+      Plotly.restyle(
+        "plotly-container",
+        "visible",
+        false,
+        snakeTraces.map((_, i) => i)
+      );
+    });
+
+    document.getElementById("toggle-food").addEventListener("click", () => {
+      Plotly.restyle(
+        "plotly-container",
+        "visible",
+        false,
+        foodTraces.map((_, i) => fenceTraces.length + i)
+      );
+    });
+  } catch (error) {
+    console.error("Error loading JSON:", error);
+  }
+}
+
+document.addEventListener("keydown", (event) => {
+  switch (event.key) {
+    case "w":
+      cameraPosition.y += 10;
+      break;
+    case "a":
+      cameraPosition.x -= 10;
+      break;
+    case "s":
+      cameraPosition.y -= 10;
+      break;
+    case "d":
+      cameraPosition.x += 10;
+      break;
+    default:
+      break;
+  }
+  Plotly.relayout("plotly-container", {
+    scene: {
+      camera: {
+        center: {
+          x: cameraPosition.x,
+          y: cameraPosition.y,
+          z: cameraPosition.z,
+        },
+      },
+    },
+  });
+});
+
+loadJSON().catch((error) => console.error("Error loading JSON:", error));

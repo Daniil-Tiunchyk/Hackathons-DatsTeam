@@ -16,6 +16,6 @@ public class SnakeRequest {
     @AllArgsConstructor
     public static class SnakeCommand {
         private String id;
-        private Direction3D direction;
+        private int[] direction;
     }
 }

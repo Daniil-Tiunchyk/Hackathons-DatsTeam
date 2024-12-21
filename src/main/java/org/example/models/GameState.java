@@ -11,8 +11,10 @@ public class GameState {
     private Integer points;
     private List<List<Integer>> fences;
 
-    // Остальные поля
     private List<Snake> snakes;
     private List<Food> food;
     private SpecialFood specialFood;
+
+    private List<String> errors;
+
 }
