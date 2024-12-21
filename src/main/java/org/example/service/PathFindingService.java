@@ -19,7 +19,7 @@ public class PathFindingService {
         while (!openSet.isEmpty()) {
             if (iterations++ > MAX_ITERATIONS) {
                 System.err.println("[WARNING] Превышено максимальное количество итераций. Прерывание поиска пути.");
-                return null;
+                return List.of(new int[]{1, 0, 0}); // Возвращаем путь по умолчанию
             }
 
             Node current = openSet.poll();
@@ -54,8 +54,10 @@ public class PathFindingService {
             }
         }
 
-        return null; // Если путь не найден
+        System.err.println("[WARNING] Путь не найден. Возвращаем направление [1, 0, 0].");
+        return List.of(new int[]{1, 0, 0}); // Возвращаем путь по умолчанию
     }
+
 
     private int[][] getDirections() {
         return new int[][]{

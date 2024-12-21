@@ -43,7 +43,7 @@ public class Main {
 
             // Задержка между тиками
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 System.err.println("[ERROR] Цикл прерван: " + e.getMessage());
                 Thread.currentThread().interrupt();
