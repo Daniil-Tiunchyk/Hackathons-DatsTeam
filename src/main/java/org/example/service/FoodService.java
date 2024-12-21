@@ -10,67 +10,56 @@ import java.util.logging.Logger;
 public class FoodService {
     private static final Logger logger = Logger.getLogger(FoodService.class.getName());
 
-    /**
-     * Возвращает ближайший фрукт для заданной точки.
-     *
-     * @param head     Координаты головы змейки.
-     * @param foodList Список доступных фруктов.
-     * @return Ближайший фрукт или null, если фрукты отсутствуют.
-     */
-    public Food findNearestFood(Point3D head, List<Food> foodList) {
+    public Food findNearestFood(Point3D head, List<Food> foodList, List<Integer> mapSize) {
         if (foodList == null || foodList.isEmpty()) {
             logger.warning("Список фруктов пуст. Невозможно найти ближайший фрукт.");
-            return null;
+            return createCenterFood(mapSize); // Возвращаем фиктивный фрукт в центре карты
         }
 
-        return foodList.stream()
-                .min(Comparator.comparingInt(food -> calculateManhattanDistance(head, food.getCoordinates())))
-                .orElse(null);
-    }
-
-    /**
-     * Исключает фрукты, находящиеся внутри препятствий или окруженные препятствиями.
-     *
-     * @param foodList  Список доступных фруктов.
-     * @param obstacles Набор координат препятствий.
-     * @return Отфильтрованный список фруктов.
-     */
-    public List<Food> filterUnreachableFood(List<Food> foodList, List<Point3D> obstacles) {
-        return foodList.stream()
-                .filter(food -> isReachable(food.getCoordinates(), obstacles))
+        // Исключаем фрукты с ценностью 0
+        List<Food> valuableFood = foodList.stream()
+                .filter(food -> food.getPoints() > 0)
                 .toList();
+
+        // Если есть ценные фрукты, ищем ближайший
+        if (!valuableFood.isEmpty()) {
+            return valuableFood.stream()
+                    .min(Comparator.comparingInt(food -> calculateManhattanDistance(head, food.getCoordinates())))
+                    .orElse(null);
+        }
+
+        // Если нет ценных фруктов, направляемся к центру карты
+        logger.info("Нет ценных фруктов. Направляемся к центру карты.");
+        return createCenterFood(mapSize);
     }
 
     /**
-     * Проверяет, доступен ли фрукт для сбора (не окружен препятствиями).
-     *
-     * @param food      Координаты фрукта.
-     * @param obstacles Набор координат препятствий.
-     * @return true, если фрукт доступен, false — если фрукт окружен препятствиями.
+     * Создает фиктивный фрукт в центре карты.
      */
-    private boolean isReachable(Point3D food, List<Point3D> obstacles) {
-        // Проверяем все соседние клетки фрукта
-        int[][] deltas = {
-                {1, 0, 0}, {-1, 0, 0},
-                {0, 1, 0}, {0, -1, 0},
-                {0, 0, 1}, {0, 0, -1}
-        };
+    private Food createCenterFood(List<Integer> mapSize) {
+        Point3D center = getCenterPoint(mapSize);
+        logger.info("Фиктивный фрукт в центре карты: " + center);
+        return new Food(List.of(center.getX(), center.getY(), center.getZ()), 0);
+    }
 
-        for (int[] delta : deltas) {
-            Point3D neighbor = new Point3D(
-                    food.getX() + delta[0],
-                    food.getY() + delta[1],
-                    food.getZ() + delta[2]
-            );
+    /**
+     * Вычисляет координаты центра карты.
+     */
+    private Point3D getCenterPoint(List<Integer> mapSize) {
+        return new Point3D(
+                mapSize.get(0) / 2,
+                mapSize.get(1) / 2,
+                mapSize.get(2) / 2
+        );
+    }
 
-            // Если хотя бы одна соседняя клетка не является препятствием, фрукт доступен
-            if (!obstacles.contains(neighbor)) {
-                return true;
-            }
-        }
-
-        logger.warning("Фрукт в точке " + food + " окружен препятствиями и недоступен.");
-        return false;
+    /**
+     * Вычисляет манхэттенское расстояние между двумя точками.
+     */
+    private int calculateManhattanDistance(Point3D p1, Point3D p2) {
+        return Math.abs(p1.getX() - p2.getX())
+                + Math.abs(p1.getY() - p2.getY())
+                + Math.abs(p1.getZ() - p2.getZ());
     }
 
     /**
@@ -80,7 +69,7 @@ public class FoodService {
      * @param snakes   Список змей.
      * @param foodList Список фруктов.
      */
-    public void displayGameStateInfo(int points, List<org.example.models.Snake> snakes, List<Food> foodList) {
+    public void displayGameStateInfo(int points, List<org.example.models.Snake> snakes, List<Food> foodList, List<Integer> mapSize) {
         System.out.println("[INFO] Текущий счёт: " + points);
         System.out.println();
 
@@ -97,7 +86,7 @@ public class FoodService {
 
             // Если змея живая, ищем ближайший фрукт
             if ("alive".equals(status) && head != null && !foodList.isEmpty()) {
-                Food nearestFood = findNearestFood(head, foodList);
+                Food nearestFood = findNearestFood(head, foodList, mapSize);
                 if (nearestFood != null) {
                     Point3D foodPoint = nearestFood.getCoordinates();
                     int distance = calculateManhattanDistance(head, foodPoint);
@@ -111,18 +100,5 @@ public class FoodService {
             }
             System.out.println(); // Пустая строка между змеями
         }
-    }
-
-    /**
-     * Вычисляет манхэттенское расстояние между двумя точками.
-     *
-     * @param p1 Первая точка.
-     * @param p2 Вторая точка.
-     * @return Манхэттенское расстояние.
-     */
-    private int calculateManhattanDistance(Point3D p1, Point3D p2) {
-        return Math.abs(p1.getX() - p2.getX())
-                + Math.abs(p1.getY() - p2.getY())
-                + Math.abs(p1.getZ() - p2.getZ());
     }
 }

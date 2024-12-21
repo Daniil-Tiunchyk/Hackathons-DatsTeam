@@ -5,6 +5,7 @@ import org.example.models.Point3D;
 import java.util.*;
 
 public class PathFindingService {
+    private static final int MAX_ITERATIONS = 10_000; // Максимальное количество итераций для предотвращения зацикливания
 
     public List<int[]> findPath(Point3D head, Point3D target, Set<Point3D> obstacles, List<Integer> mapSize, int radius) {
         PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(Node::getF));
@@ -13,7 +14,14 @@ public class PathFindingService {
         Node startNode = new Node(head, null, 0, calculateManhattanDistance(head, target));
         openSet.add(startNode);
 
+        int iterations = 0; // Счётчик итераций
+
         while (!openSet.isEmpty()) {
+            if (iterations++ > MAX_ITERATIONS) {
+                System.err.println("[WARNING] Превышено максимальное количество итераций. Прерывание поиска пути.");
+                return null;
+            }
+
             Node current = openSet.poll();
             closedSet.add(current.point);
 
@@ -37,6 +45,7 @@ public class PathFindingService {
                 int tentativeG = current.g + 1;
                 Node neighborNode = new Node(neighbor, current, tentativeG, calculateManhattanDistance(neighbor, target));
 
+                // Пропускаем узлы, которые уже исследованы с меньшей стоимостью
                 if (openSet.stream().anyMatch(node -> node.point.equals(neighbor) && node.g <= tentativeG)) {
                     continue;
                 }
