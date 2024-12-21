@@ -1,5 +1,6 @@
 const visibilityRadius = 30;
-let cameraPosition = { x: 0, y: 0, z: 0 };
+let cameraPosition = { x: 0, y: 0, z: 0 }; // Изначальная позиция камеры
+let cameraRotation = { x: 0, y: 0, z: 0 }; // Изначальная ориентация камеры
 
 function createChunkTrace(chunk, color) {
     const chunkSize = 30; // Размер чанка
@@ -67,7 +68,7 @@ function createChunkTrace(chunk, color) {
 
 async function loadJSON() {
     try {
-        const response = await fetch("../data/response_move.json");
+        const response = await fetch("../response_move.json");
         const jsonData = await response.json();
 
         const spawnPoints = await fetch("../spawn_points.csv");
@@ -238,6 +239,41 @@ async function loadJSON() {
             });
         });
 
+        function createEnemyTraces(enemies) {
+            const enemyTraces = [];
+
+            enemies.forEach((enemy, index) => {
+                // Проверяем, что geometry существует и содержит данные
+                if (!enemy.geometry || enemy.geometry.length === 0) return;
+
+                // Обрабатываем каждый сегмент врага
+                enemy.geometry.forEach((segment, segmentIndex) => {
+                    if (!segment || segment.length !== 3) return; // Убедимся, что сегмент состоит из 3D-координат
+
+                    // Добавляем трассу для сегмента врага
+                    enemyTraces.push({
+                        x: [segment[0]], // X координата
+                        y: [segment[1]], // Y координата
+                        z: [segment[2]], // Z координата
+                        mode: "markers", // Режим отображения точек
+                        type: "scatter3d",
+                        marker: {
+                            size: 6, // Размер маркера
+                            color: enemy.status === "alive" ? "black" : "gray", // Красный для живых, серый для мертвых
+                            symbol: "star", // Символ для маркера
+                        },
+                        name: `Enemy ${index + 1} Segment ${
+                            segmentIndex + 1
+                        } (${enemy.status})`, // Название врага с индексом сегмента
+                        legendgroup: "enemies", // Группа легенды для врагов
+                        showlegend: true, // Показываем легенду
+                    });
+                });
+            });
+
+            return enemyTraces;
+        }
+
         const layout = {
             title: "3D Snake Game",
             scene: {
@@ -337,9 +373,12 @@ async function loadJSON() {
         pointTrace.name = "Spawn Points";
         pointTrace.showlegend = true;
 
+        const enemyTraces = createEnemyTraces(jsonData.enemies || []);
+
         const allTraces = [
             ...chunkTraces,
             pointTrace,
+            ...enemyTraces,
             ...snakeTraces,
             ...fenceTraces,
             ...foodTraces,
@@ -383,25 +422,51 @@ async function loadJSON() {
 }
 
 document.addEventListener("keydown", (event) => {
+    const moveSpeed = 0.05; // Скорость перемещения
+    const rotateSpeed = 0.05; // Скорость вращения (опционально)
+
     switch (event.key) {
-        case "w":
-            cameraPosition.y += 10;
+        case "w": // Вперёд
+            cameraPosition.x += Math.sin(cameraRotation.y) * moveSpeed;
+            cameraPosition.z -= Math.cos(cameraRotation.y) * moveSpeed;
             break;
-        case "a":
-            cameraPosition.x -= 10;
+        case "s": // Назад
+            cameraPosition.x -= Math.sin(cameraRotation.y) * moveSpeed;
+            cameraPosition.z += Math.cos(cameraRotation.y) * moveSpeed;
             break;
-        case "s":
-            cameraPosition.y -= 10;
+        case "a": // Влево
+            cameraPosition.x += Math.cos(cameraRotation.y) * moveSpeed;
+            cameraPosition.z += Math.sin(cameraRotation.y) * moveSpeed;
             break;
-        case "d":
-            cameraPosition.x += 10;
+        case "d": // Вправо
+            cameraPosition.x -= Math.cos(cameraRotation.y) * moveSpeed;
+            cameraPosition.z -= Math.sin(cameraRotation.y) * moveSpeed;
+            break;
+        case "ArrowUp": // Вверх
+            cameraPosition.y += moveSpeed;
+            break;
+        case "ArrowDown": // Вниз
+            cameraPosition.y -= moveSpeed;
+            break;
+        case "ArrowLeft": // Поворот влево
+            cameraRotation.y -= rotateSpeed;
+            break;
+        case "ArrowRight": // Поворот вправо
+            cameraRotation.y += rotateSpeed;
             break;
         default:
             break;
     }
+
+    // Обновляем позицию камеры без полной перерисовки
     Plotly.relayout("plotly-container", {
         scene: {
             camera: {
+                eye: {
+                    x: cameraPosition.x,
+                    y: cameraPosition.y,
+                    z: cameraPosition.z,
+                },
                 center: {
                     x: cameraPosition.x,
                     y: cameraPosition.y,
