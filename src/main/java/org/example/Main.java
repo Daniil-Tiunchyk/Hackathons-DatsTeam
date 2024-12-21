@@ -17,7 +17,7 @@ public class Main {
 
         // 2. Конфигурируем MovementService
         //    К примеру, вот такой URL и token (можно менять под вашу игру)
-        String baseUrl = "https://games-test.datsteam.dev/play/snake3d/player/move";
+        String baseUrl = "https://games.datsteam.dev/play/snake3d/player/move";
         String token = "a46f1665-024c-4742-a5c4-b38590830ca2";
 
         MovementService movementService = new MovementService(
@@ -43,7 +43,7 @@ public class Main {
 
             // Задержка между тиками
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 System.err.println("[ERROR] Цикл прерван: " + e.getMessage());
                 Thread.currentThread().interrupt();

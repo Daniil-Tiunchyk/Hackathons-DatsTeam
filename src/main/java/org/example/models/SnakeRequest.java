@@ -2,7 +2,6 @@ package org.example.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +11,8 @@ import java.util.List;
  * direction: [dx, dy, dz]
  */
 @Data
-@AllArgsConstructor
 public class SnakeRequest {
-
-    public SnakeRequest() {
-        this.snakes = new ArrayList<>();
-    }
-
-    private List<SnakeCommand> snakes;
+    private List<SnakeCommand> snakes = new ArrayList<>();
 
     @Data
     @AllArgsConstructor
