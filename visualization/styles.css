@@ -1,24 +1,31 @@
-#controls {
+#legend {
   position: fixed;
   top: 10px;
-  right: 10px;
+  left: 10px;
   background-color: white;
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
 }
 
-button {
-  display: block;
+#legend ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#legend li {
+  display: flex;
+  align-items: center;
   margin: 5px 0;
-  padding: 5px 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  cursor: pointer;
 }
 
-button:hover {
-  background-color: #e0e0e0;
+.legend-color {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 10px;
+  border: 1px solid #ccc;
 }

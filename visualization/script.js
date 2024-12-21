@@ -40,18 +40,15 @@ function createChunkTrace(chunk, color) {
 
     // Рёбра чанка (каждая линия - пара индексов в `vertices`)
     const edges = [
-        [0, 1],
         [1, 2],
         [2, 3],
-        [3, 0], // Основание
         [4, 5],
         [5, 6],
         [6, 7],
-        [7, 4], // Верх
-        [0, 4],
+        [7, 4],
         [1, 5],
         [2, 6],
-        [3, 7], // Боковые рёбра
+        [3, 7],
     ];
 
     // Данные для отображения рёбер
@@ -257,6 +254,19 @@ async function loadJSON() {
                 },
             },
             margin: { l: 0, r: 0, b: 0, t: 50 },
+            legend: {
+                x: 1.1,
+                y: 0.5,
+                traceorder: "normal",
+                font: {
+                    family: "sans-serif",
+                    size: 12,
+                    color: "#000",
+                },
+                bgcolor: "#F9F9F9",
+                bordercolor: "#E2E2E2",
+                borderwidth: 1,
+            },
         };
 
         // Расчёт расстояний и чанков
@@ -280,6 +290,27 @@ async function loadJSON() {
             return [edgeTrace, ...faceTraces];
         });
 
+        chunkTraces[0].name = "Chunks (distance-based gradient)";
+        chunkTraces[0].legendgroup = "chunks";
+        chunkTraces[0].showlegend = true;
+
+        // Создаем градиент для легенды
+        function createLegendGradient(maxDistance) {
+            const steps = 10; // Количество промежуточных цветов
+            const gradientStops = Array.from({ length: steps }, (_, i) => {
+                const distance = (i / (steps - 1)) * maxDistance;
+                const color = getColorByDistance(distance, maxDistance);
+                return color;
+            });
+
+            return `linear-gradient(90deg, ${gradientStops.join(", ")})`;
+        }
+
+        // Обновляем стиль градиента в легенде
+        const chunkGradientElement = document.getElementById("chunk-gradient");
+        chunkGradientElement.style.background =
+            createLegendGradient(maxDistance);
+
         const rows = csvData.trim().split("\n").slice(1); // Убираем заголовок
         const points = rows.map((row) => {
             const [snakeId, x, y, z] = row.split(",").slice(0, 4); // Берём только snakeId, x, y, z
@@ -301,6 +332,10 @@ async function loadJSON() {
             text: points.map((p) => `SnakeID: ${p.snakeId}`), // Подписи
             name: "Spawn Points",
         };
+
+        pointTrace.legendgroup = "spawn_points";
+        pointTrace.name = "Spawn Points";
+        pointTrace.showlegend = true;
 
         const allTraces = [
             ...chunkTraces,

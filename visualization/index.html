@@ -1,27 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Snake Game Visualization</title>
-    <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-  </head>
-  <body>
-    <div id="visualization">
-      <h1 style="text-align: center">3D Snake Game Visualization</h1>
-      <div
-        id="plotly-container"
-        style="width: 80%; height: 80vh; margin: auto"
-      ></div>
-      <div id="controls">
-        <h3>Toggle Elements</h3>
-        <button id="toggle-fences">Toggle Fences</button>
-        <button id="toggle-snakes">Toggle Snakes</button>
-        <button id="toggle-food">Toggle Food</button>
-      </div>
-    </div>
 
-    <script src="script.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Snake Game Visualization</title>
+  <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body>
+  <div id="visualization">
+    <h1 style="text-align: center">3D Snake Game Visualization</h1>
+    <div id="plotly-container" style="width: 80%; height: 80vh; margin: auto"></div>
+    <div id="legend">
+      <h3>Легенда</h3>
+      <ul>
+        <li>
+          <span class="legend-color" style="background-color: limegreen;"></span>
+          Живая змея
+        </li>
+        <li>
+          <span class="legend-color" style="background-color: red;"></span>
+          Мёртвая змея
+        </li>
+        <li>
+          <span class="legend-color" style="background-color: gray;"></span>
+          Препядствие
+        </li>
+        <li>
+          <span class="legend-color" style="background-color: orange;"></span>
+          Мандаринка
+        </li>
+        <li>
+          <span id="chunk-gradient" class="legend-color" style="background: linear-gradient(90deg, blue, red);"></span>
+          Дистанция чанка до центра
+        </li>
+        <li>
+          <span class="legend-color" style="background-color: blue;"></span>
+          Точки возрождения
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
