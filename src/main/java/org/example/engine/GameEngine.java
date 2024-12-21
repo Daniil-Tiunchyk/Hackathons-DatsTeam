@@ -2,6 +2,7 @@ package org.example.engine;
 
 import com.google.gson.Gson;
 import org.example.models.GameState;
+import org.example.models.Point3D;
 import org.example.models.Snake;
 import org.example.models.SnakeRequest;
 import org.example.service.FileService;
@@ -12,7 +13,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,14 +65,21 @@ public class GameEngine {
             // Вывод информации о состоянии игры
             foodService.displayGameStateInfo(gameState.getPoints(), gameState.getSnakes(), gameState.getFood(), gameState.getMapSize(), gameState);
 
-            // Генерация и отправка команды движения
+            // Генерация команды движения
             SnakeRequest moveRequest = movementService.buildMoveRequest(gameState);
+
+            // Проверка на столкновения
+            checkPotentialCollisions(gameState, moveRequest);
+
+            // Отправка команды движения
             movementService.sendMoveRequest(moveRequest);
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, "[ERROR] Произошла непредвиденная ошибка: " + e.getMessage(), e);
         }
     }
+
+
 
     private void initializeSpawnPointsFile() {
         File file = new File(SPAWN_POINTS_FILE);
@@ -142,4 +152,104 @@ public class GameEngine {
             }
         }
     }
+
+    private void checkPotentialCollisions(GameState gameState, SnakeRequest moveRequest) {
+        Set<Point3D> obstacles = gameState.getObstacles();
+        StringBuilder collisionLog = new StringBuilder();
+        boolean collisionDetected = false;
+
+        for (var command : moveRequest.getSnakes()) {
+            Snake snake = gameState.getSnakes().stream()
+                    .filter(s -> s.getId().equals(command.getId()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (snake != null && "alive".equals(snake.getStatus())) {
+                Point3D currentHead = snake.getHead();
+                int[] direction = command.getDirection();
+
+                // Новая позиция головы
+                Point3D newHeadPosition = new Point3D(
+                        currentHead.getX() + direction[0],
+                        currentHead.getY() + direction[1],
+                        currentHead.getZ() + direction[2]
+                );
+
+                // Проверяем, совпадает ли новая позиция с препятствием
+                if (obstacles.contains(newHeadPosition)) {
+                    collisionDetected = true;
+                    collisionLog.append("Collision detected! Snake ID: ")
+                            .append(command.getId())
+                            .append(", New Position: ")
+                            .append(newHeadPosition)
+                            .append(", Obstacle Type: ")
+                            .append(getObstacleType(newHeadPosition, gameState))
+                            .append("\n");
+                }
+            }
+        }
+
+        if (collisionDetected) {
+            // Логируем в консоль
+            System.err.println(collisionLog);
+
+            // Сохраняем в файл
+            fileService.saveToFile(collisionLog.toString(), "data/collision_log.txt");
+        }
+    }
+    private String getObstacleType(Point3D position, GameState gameState) {
+        // Проверяем заборы
+        if (gameState.getFences().stream()
+                .anyMatch(f -> f.get(0) == position.getX() && f.get(1) == position.getY() && f.get(2) == position.getZ())) {
+            return "Fence";
+        }
+
+        // Проверяем тело своих змей
+        if (gameState.getSnakes().stream()
+                .flatMap(s -> s.getGeometry().stream())
+                .anyMatch(segment -> segment.get(0) == position.getX() &&
+                        segment.get(1) == position.getY() &&
+                        segment.get(2) == position.getZ())) {
+            return "Own Snake Body";
+        }
+
+        // Проверяем тело врагов
+        if (gameState.getEnemies().stream()
+                .flatMap(e -> e.getGeometry().stream())
+                .anyMatch(segment -> segment.get(0) == position.getX() &&
+                        segment.get(1) == position.getY() &&
+                        segment.get(2) == position.getZ())) {
+            return "Enemy Snake Body";
+        }
+
+        // Проверяем окружение головы врагов
+        for (var enemy : gameState.getEnemies()) {
+            if (!enemy.getGeometry().isEmpty()) {
+                List<Integer> head = enemy.getGeometry().get(0);
+                Point3D headPoint = new Point3D(head.get(0), head.get(1), head.get(2));
+
+                int[][] deltas = {
+                        {1, 0, 0}, {-1, 0, 0},
+                        {0, 1, 0}, {0, -1, 0},
+                        {0, 0, 1}, {0, 0, -1}
+                };
+
+                for (int[] delta : deltas) {
+                    Point3D surroundingPoint = new Point3D(
+                            headPoint.getX() + delta[0],
+                            headPoint.getY() + delta[1],
+                            headPoint.getZ() + delta[2]
+                    );
+
+                    if (surroundingPoint.equals(position)) {
+                        return "Enemy Head Surrounding";
+                    }
+                }
+            }
+        }
+
+        return "Unknown Obstacle";
+    }
+
+
 }

@@ -21,7 +21,7 @@ public class FoodService {
         // Исключаем фрукты, находящиеся в препятствиях
         List<Food> accessibleFood = foodList.stream()
                 .filter(food -> !obstacles.contains(food.getCoordinates()))
-                .filter(food -> food.getPoints() > 0) // Исключаем фрукты с ценностью 0
+                .filter(food -> food.getPoints() > 75) // Исключаем фрукты с ценностью 0
                 .toList();
 
         // Если есть доступные ценные фрукты, ищем ближайший
@@ -43,7 +43,7 @@ public class FoodService {
     private Food createCenterFood(List<Integer> mapSize) {
         Point3D center = getCenterPoint(mapSize);
         logger.info("Фиктивный фрукт в центре карты: " + center);
-        return new Food(List.of(center.getX(), center.getY(), center.getZ()), 0);
+        return new Food(List.of(center.getX(), center.getY(), center.getZ()), 100);
     }
 
     /**
