@@ -6,7 +6,7 @@ import java.util.*;
 
 public class PathFindingService {
 
-    public List<int[]> findPath(Point3D head, Point3D target, Set<Point3D> obstacles, List<Integer> mapSize, Integer range) {
+    public List<int[]> findPath(Point3D head, Point3D target, Set<Point3D> obstacles, List<Integer> mapSize, int radius) {
         PriorityQueue<Node> openSet = new PriorityQueue<>(Comparator.comparingInt(Node::getF));
         Set<Point3D> closedSet = new HashSet<>();
 
@@ -28,7 +28,9 @@ public class PathFindingService {
                         current.point.getZ() + direction[2]
                 );
 
-                if (!isWithinBounds(neighbor, mapSize) || obstacles.contains(neighbor) || closedSet.contains(neighbor)) {
+                if (!isWithinBounds(neighbor, mapSize)
+                        || obstacles.contains(neighbor)
+                        || closedSet.contains(neighbor)) {
                     continue;
                 }
 
@@ -43,39 +45,50 @@ public class PathFindingService {
             }
         }
 
-        return null;
+        return null; // Если путь не найден
+    }
+
+    private int[][] getDirections() {
+        return new int[][]{
+                {1, 0, 0}, {-1, 0, 0},
+                {0, 1, 0}, {0, -1, 0},
+                {0, 0, 1}, {0, 0, -1}
+        };
+    }
+
+    private boolean isWithinBounds(Point3D p, List<Integer> mapSize) {
+        return p.getX() >= 0 && p.getX() < mapSize.get(0)
+                && p.getY() >= 0 && p.getY() < mapSize.get(1)
+                && p.getZ() >= 0 && p.getZ() < mapSize.get(2);
+    }
+
+    private int calculateManhattanDistance(Point3D p1, Point3D p2) {
+        return Math.abs(p1.getX() - p2.getX()) +
+                Math.abs(p1.getY() - p2.getY()) +
+                Math.abs(p1.getZ() - p2.getZ());
     }
 
     private List<int[]> reconstructPath(Node node) {
         List<int[]> path = new ArrayList<>();
         while (node.parent != null) {
-            Point3D curr = node.point;
-            Point3D prev = node.parent.point;
-            path.add(new int[]{curr.getX() - prev.getX(), curr.getY() - prev.getY(), curr.getZ() - prev.getZ()});
+            Point3D currP = node.point;
+            Point3D parP = node.parent.point;
+            path.add(new int[]{
+                    currP.getX() - parP.getX(),
+                    currP.getY() - parP.getY(),
+                    currP.getZ() - parP.getZ()
+            });
             node = node.parent;
         }
         Collections.reverse(path);
         return path;
     }
 
-    private int calculateManhattanDistance(Point3D a, Point3D b) {
-        return Math.abs(a.getX() - b.getX()) + Math.abs(a.getY() - b.getY()) + Math.abs(a.getZ() - b.getZ());
-    }
-
-    private int[][] getDirections() {
-        return new int[][]{{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
-    }
-
-    private boolean isWithinBounds(Point3D point, List<Integer> mapSize) {
-        return point.getX() >= 0 && point.getX() < mapSize.get(0) &&
-                point.getY() >= 0 && point.getY() < mapSize.get(1) &&
-                point.getZ() >= 0 && point.getZ() < mapSize.get(2);
-    }
-
     private static class Node {
         Point3D point;
         Node parent;
-        int g, h;
+        int g;
+        int h;
 
         Node(Point3D point, Node parent, int g, int h) {
             this.point = point;

@@ -3,7 +3,6 @@ package org.example.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -13,20 +12,15 @@ public class Point3D {
     private int z;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Point3D)) return false;
-        Point3D point3D = (Point3D) o;
-        return x == point3D.x && y == point3D.y && z == point3D.z;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof Point3D)) return false;
+        Point3D other = (Point3D) obj;
+        return this.x == other.x && this.y == other.y && this.z == other.z;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, z);
-    }
-
-    @Override
-    public String toString() {
-        return "[" + x + ", " + y + ", " + z + "]";
+        return x * 31 * 31 + y * 31 + z;
     }
 }
