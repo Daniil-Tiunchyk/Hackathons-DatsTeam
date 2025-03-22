@@ -20,6 +20,12 @@ replay_pid*
 logs/
 *.log
 
+# ========= Maven =========
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
 # ========= Node / React (Vite) =========
 # Dependencies and build outputs
 node_modules/
@@ -56,3 +62,35 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+### IntelliJ IDEA ###
+.idea/modules.xml
+.idea/jarRepositories.xml
+.idea/compiler.xml
+.idea/libraries/
+*.iws
+*.iml
+*.ipr
+.idea/workspace.xml
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### Mac OS ###
+.DS_Store
