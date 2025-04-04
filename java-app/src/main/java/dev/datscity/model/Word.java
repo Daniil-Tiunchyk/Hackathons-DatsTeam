@@ -1,10 +1,8 @@
-package org.example.dev.datscity.model;
+package dev.datscity.model;
 
 /**
  * Класс, представляющий слово из набора.
- * index - индекс слова в текущем списке (нужен для отправки в /api/build).
- * text  - собственно строка/текст слова.
- * length - длина слова (можно получить из text.length()).
+ * Хранит индекс слова, текст и его длину.
  */
 public class Word {
     private int index;
@@ -15,6 +13,7 @@ public class Word {
         this.index = index;
         this.text = text;
         this.length = text.length();
+        System.out.println("[Word] Создано слово: index=" + index + ", text=" + text + ", length=" + length);
     }
 
     public int getIndex() {

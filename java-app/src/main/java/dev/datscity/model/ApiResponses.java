@@ -1,4 +1,4 @@
-package org.example.dev.datscity.model;
+package dev.datscity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -6,26 +6,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Содержит вложенные классы-модели для парсинга JSON-ответов от сервера.
- * (Взято из OpenAPI-спецификации и адаптировано.)
+ * Классы-модели для парсинга JSON-ответов от сервера.
+ * Все классы помечены @JsonIgnoreProperties(ignoreUnknown = true) для игнорирования лишних полей.
  */
 public class ApiResponses {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerExtendedWordsResponse {
-        public int[] mapSize;         // [x, y, z] например [30,30,100]
-        public int nextTurnSec;       // время до следующего хода
-        public String roundEndsAt;    // время окончания раунда
-        public int shuffleLeft;       // сколько осталось перетасовок
-        public int turn;              // номер текущего хода
-        public List<Integer> usedIndexes; // индексы уже использованных слов
-        public List<String> words;    // текущий список слов
+        public int[] mapSize;         // Пример: [30, 30, 100]
+        public int nextTurnSec;       // Время до следующего хода
+        public String roundEndsAt;    // Время окончания раунда
+        public int shuffleLeft;       // Оставшиеся попытки перетасовки
+        public int turn;              // Номер текущего хода
+        public List<Integer> usedIndexes; // Использованные индексы
+        public List<String> words;    // Текущий список слов
+
+        public PlayerExtendedWordsResponse() {
+            System.out.println("[ApiResponses] Получен PlayerExtendedWordsResponse");
+        }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerWordsResponse {
         public int shuffleLeft;
         public List<String> words;
+
+        public PlayerWordsResponse() {
+            System.out.println("[ApiResponses] Получен PlayerWordsResponse");
+        }
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -36,9 +44,9 @@ public class ApiResponses {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class TowerWordRequest {
-        public int dir;  // направление
-        public int id;   // индекс слова
-        public int[] pos; // [x, y, z]
+        public int dir;  // Направление
+        public int id;   // Индекс слова
+        public int[] pos; // Координаты [x, y, z]
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
