@@ -30,6 +30,7 @@ public class TowerBuilderStrategy {
 
     /**
      * Инициализировать новую башню (называется, если предыдущая завершена).
+     *
      * @param wordsList - список слов текущего хода
      */
     public void startNewTower(List<Word> wordsList, int[] mapSize) {
@@ -53,6 +54,7 @@ public class TowerBuilderStrategy {
 
     /**
      * Планируем очередное размещение слов в башне.
+     *
      * @param words - список доступных слов (неиспользованных)
      * @return список WordPlacement для отправки на /api/build
      */
@@ -65,12 +67,21 @@ public class TowerBuilderStrategy {
         }
 
         // 1) Проверим высоту. Если уже достигли minHeight и мало подходящих слов, завершаем.
-        int heightNow = towerMap.getCurrentHeight();
-        if (heightNow >= minHeight && (words.isEmpty() || heightNow > 10)) {
-            // Условие для завершения: высота >= minHeight, либо слишком высоко
-            System.out.println("[Strategy] Decided to finish tower at height=" + heightNow);
+        int heightNow = towerMap.getCurrentHeight(); // это 1, если один этаж
+
+        // если высота >=2 и нет слов:
+        if (heightNow >= 2 && words.isEmpty()) {
+            // завершаем
             towerCompleted = true;
-            return result; // пустой список + флаг done=true в вызывающем коде
+            System.out.println("[Strategy] Finishing tower at height=" + heightNow);
+            return Collections.emptyList();
+        }
+        // если высота <2 и нет слов:
+        if (heightNow < 2 && words.isEmpty()) {
+            // НЕ завершаем, сервер не даст. Просто возврат без слов.
+            System.out.println("[Strategy] Can't finish tower, height="
+                    + heightNow + " <2, no words left. Wait next turn.");
+            return Collections.emptyList();
         }
 
         // 2) Иначе пытаемся построить следующий уровень
@@ -80,7 +91,7 @@ public class TowerBuilderStrategy {
 
         // Укладываем слова методом LevelPlanner
         List<Word> wordsCopy = new ArrayList<>(words);
-        Collections.sort(wordsCopy, Comparator.comparingInt(Word::getLength).reversed());
+        wordsCopy.sort(Comparator.comparingInt(Word::getLength).reversed());
         // Жадно пытаемся заполнить layerSize x layerSize
         int offsetX = 0, offsetY = 0; // можно центрировать, если нужно.
 

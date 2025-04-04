@@ -64,15 +64,25 @@ public class GameApiClient {
      */
     public PlayerWordsResponse sendBuild(List<WordPlacement> placements, boolean done) {
         try {
-            // Формируем тело запроса
             PlayerBuildRequest buildReq = new PlayerBuildRequest();
             buildReq.done = done;
-            // Заполняем массив слов
             for (WordPlacement wp : placements) {
                 TowerWordRequest req = new TowerWordRequest();
-                req.id = wp.getIndex();   // индекс слова в текущем списке
-                req.dir = wp.getDir();
+                req.id = wp.getIndex();
                 req.pos = new int[]{wp.getX(), wp.getY(), wp.getZ()};
+
+                // Преобразуем внутренние направления в API-коды:
+                // 0 => 2 = [1,0,0] (X), 1 => 3 = [0,1,0] (Y)
+                if (wp.getDir() == 0) {
+                    req.dir = 2;
+                } else if (wp.getDir() == 1) {
+                    req.dir = 3;
+                } else if (wp.getDir() == 2) {
+                    req.dir = 1; // вертикально вниз (если реализовано)
+                } else {
+                    throw new ApiException("Unknown direction: " + wp.getDir());
+                }
+
                 buildReq.words.add(req);
             }
 

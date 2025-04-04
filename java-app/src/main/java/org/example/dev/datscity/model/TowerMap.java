@@ -19,27 +19,15 @@ public class TowerMap {
     /**
      * Ячейка: координаты x,y,z.
      */
-    private static class Cell {
-        final int x, y, z;
-
-        Cell(int x, int y, int z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
+    private record Cell(int x, int y, int z) {
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof Cell)) return false;
-            Cell cell = (Cell) o;
-            return x == cell.x && y == cell.y && z == cell.z;
+            if (!(o instanceof Cell(int x1, int y1, int z1))) return false;
+            return x == x1 && y == y1 && z == z1;
         }
 
-        @Override
-        public int hashCode() {
-            return (x * 31 + y) * 31 + z;
-        }
     }
 
     public TowerMap(int maxX, int maxY, int maxZ) {
@@ -85,15 +73,14 @@ public class TowerMap {
         for (int i = 0; i < length; i++) {
             int x = (dir == 0) ? (startX + i) : startX;
             int y = (dir == 1) ? (startY + i) : startY;
-            int z = startZ;
 
             // Уже занято?
-            if (isOccupied(x, y, z)) {
+            if (isOccupied(x, y, startZ)) {
                 return false;
             }
 
             // Проверка опоры (здесь упрощённо — требуем, чтобы клетка снизу была занята, если z>0)
-            if (z > 0 && !isOccupied(x, y, z - 1)) {
+            if (startZ > 0 && !isOccupied(x, y, startZ - 1)) {
                 return false;
             }
         }
@@ -110,8 +97,7 @@ public class TowerMap {
         for (int i = 0; i < length; i++) {
             int x = (dir == 0) ? (startX + i) : startX;
             int y = (dir == 1) ? (startY + i) : startY;
-            int z = startZ;
-            occupied.add(new Cell(x, y, z));
+            occupied.add(new Cell(x, y, startZ));
         }
     }
 
