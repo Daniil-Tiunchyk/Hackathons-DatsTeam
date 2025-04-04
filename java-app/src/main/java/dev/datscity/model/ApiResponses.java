@@ -1,6 +1,7 @@
 package dev.datscity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  */
 public class ApiResponses {
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerExtendedWordsResponse {
         public int[] mapSize;         // Пример: [30, 30, 100]
@@ -26,6 +28,7 @@ public class ApiResponses {
         }
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerWordsResponse {
         public int shuffleLeft;
@@ -36,12 +39,14 @@ public class ApiResponses {
         }
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerBuildRequest {
         public boolean done;
         public List<TowerWordRequest> words = new ArrayList<>();
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class TowerWordRequest {
         public int dir;  // Направление
@@ -49,6 +54,7 @@ public class ApiResponses {
         public int[] pos; // Координаты [x, y, z]
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerResponse {
         public List<DoneTowerResponse> doneTowers;
@@ -56,18 +62,21 @@ public class ApiResponses {
         public PlayerTowerResponse tower;
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class DoneTowerResponse {
         public int id;
         public double score;
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerTowerResponse {
         public double score;
         public List<PlayerWord> words;
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlayerWord {
         public int dir;
@@ -75,6 +84,7 @@ public class ApiResponses {
         public String text;
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class RoundListResponse {
         public String eventId;
@@ -82,6 +92,7 @@ public class ApiResponses {
         public List<RoundResponse> rounds;
     }
 
+    @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class RoundResponse {
         public int duration;
