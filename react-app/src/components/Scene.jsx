@@ -2,32 +2,27 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Text } from "@react-three/drei";
 import React, { useEffect } from "react";
 import * as THREE from "three";
-
-// Пример JSON
-const towerData = {
-  doneTowers: [{ id: 1, score: 1 }],
-  score: 1.2,
-  tower: {
-    score: 1.2,
-    words: [
-      {
-        dir: 2,
-        pos: [0, 0, 0],
-        text: "человек",
-      },
-      {
-        dir: 0,
-        pos: [2, 0, 0],
-        text: "прикол",
-      },
-    ],
-  },
-};
+import towerData from "../constants/towers.json"
 
 const directionVectors = [
   [1, 0, 0], // dir = 0 → вправо по X
   [0, 1, 0], // dir = 1 → вверх по Y
   [0, 0, 1], // dir = 2 → вглубь по Z
+];
+
+const letters = [
+  // Передняя грань (по Z)
+  { position: [0, 0, 0.51], rotation: [0, 0, 0] },
+  // Задняя грань (по -Z)
+  { position: [0, 0, -0.51], rotation: [0, Math.PI, 0] },
+  // Правая грань (по X)
+  { position: [0.51, 0, 0], rotation: [0, -Math.PI / 2, 0] },
+  // Левая грань (по -X)
+  { position: [-0.51, 0, 0], rotation: [0, Math.PI / 2, 0] },
+  // Верхняя грань (по Y)
+  { position: [0, 0.51, 0], rotation: [-Math.PI / 2, 0, 0] },
+  // Нижняя грань (по -Y)
+  { position: [0, -0.51, 0], rotation: [Math.PI / 2, 0, 0] },
 ];
 
 // Функция для генерации случайного цвета в формате HEX
@@ -39,7 +34,6 @@ const getRandomColor = () => {
   }
   return color;
 };
-
 
 
 function LetterCube({ position, letter, color }) {
@@ -57,20 +51,23 @@ function LetterCube({ position, letter, color }) {
           <lineBasicMaterial attach="material" color="black" />
         </lineSegments>
       </mesh>
-      <Text
-        rotation={position[2] === 0 ? undefined : [(0, Math.PI / 2, 0)]} // Поворот на 90 градусов вокруг оси Y
-        position={[position[2] === 0 ? 0 : 0.5, 0, 0.51]} // чуть спереди
-        fontSize={0.3}
-        color="black"
-        anchorX="center"
-        anchorY="middle"
-      >
-        {letter}
-      </Text>
+
+      {letters.map((face, index) => (
+        <Text
+          key={index}
+          position={face.position}
+          rotation={face.rotation}
+          fontSize={0.3}
+          color="black"
+          anchorX="center"
+          anchorY="middle"
+        >
+          {letter}
+        </Text>
+      ))}
     </group>
   );
 }
-
 
 function WordCubes({ word }) {
   const { pos, dir, text } = word;
