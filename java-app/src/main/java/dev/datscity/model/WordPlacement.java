@@ -1,14 +1,19 @@
 package dev.datscity.model;
 
+import lombok.Getter;
+
 /**
  * Класс для описания размещения слова в башне.
  * Содержит индекс слова, его текст, координаты (x,y,z) и направление (dir).
  */
+@Getter
 public class WordPlacement {
-    private int index;
-    private String text;
-    private int x, y, z;
-    private int dir;
+    private final int index;
+    private final String text;
+    private final int x;
+    private final int y;
+    private final int z;
+    private final int dir;
 
     public WordPlacement(int index, String text, int x, int y, int z, int dir) {
         this.index = index;
@@ -21,27 +26,4 @@ public class WordPlacement {
                 + x + "," + y + "," + z + ") с направлением " + dir);
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getZ() {
-        return z;
-    }
-
-    public int getDir() {
-        return dir;
-    }
 }

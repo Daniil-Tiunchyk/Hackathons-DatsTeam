@@ -14,29 +14,17 @@ public class TowerMap {
     private final Set<Cell> occupied = new HashSet<>();
 
     /**
-     * Внутренний класс для представления клетки.
-     */
-    private static class Cell {
-        final int x, y, z;
-
-        Cell(int x, int y, int z) {
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
+         * Внутренний класс для представления клетки.
+         */
+        private record Cell(int x, int y, int z) {
 
         @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Cell)) return false;
-            Cell cell = (Cell) o;
-            return x == cell.x && y == cell.y && z == cell.z;
-        }
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (!(o instanceof Cell(int x1, int y1, int z1))) return false;
+            return x == x1 && y == y1 && z == z1;
+            }
 
-        @Override
-        public int hashCode() {
-            return (x * 31 + y) * 31 + z;
-        }
     }
 
     public TowerMap(int maxX, int maxY, int maxZ) {
