@@ -2,7 +2,6 @@ package dev.datscity.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.datscity.model.ApiResponses.*;
-import dev.datscity.model.Word;
 import dev.datscity.model.WordPlacement;
 
 import java.io.IOException;
@@ -150,7 +149,7 @@ public class GameApiClient {
     /**
      * GET /api/towers - Получить информацию о завершённых и текущей башне.
      */
-    public PlayerResponse getTowers() {
+    public TowerData getTowers() {
         System.out.println("[GameApiClient] Выполняется GET /api/towers");
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -166,9 +165,9 @@ public class GameApiClient {
                 throw new ApiException("getTowers failed, code: " + response.statusCode() + ", body: " + response.body());
             }
 
-            PlayerResponse playerResponse = objectMapper.readValue(response.body(), PlayerResponse.class);
-            System.out.println("[GameApiClient] Получено общих очков: " + playerResponse.score);
-            return playerResponse;
+            TowerData towerData = objectMapper.readValue(response.body(), TowerData.class);
+            System.out.println("[GameApiClient] Получено общих очков: " + towerData.score);
+            return towerData;
         } catch (IOException | InterruptedException e) {
             throw new ApiException("Exception in getTowers", e);
         }

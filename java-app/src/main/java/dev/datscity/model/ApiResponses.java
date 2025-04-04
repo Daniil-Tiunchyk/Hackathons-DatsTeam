@@ -1,7 +1,10 @@
 package dev.datscity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,7 @@ public class ApiResponses {
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
+    @RequiredArgsConstructor
     public static class PlayerBuildRequest {
         public boolean done;
         public List<TowerWordRequest> words = new ArrayList<>();
@@ -48,6 +52,7 @@ public class ApiResponses {
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
+    @RequiredArgsConstructor
     public static class TowerWordRequest {
         public int dir;  // Направление
         public int id;   // Индекс слова
@@ -56,29 +61,36 @@ public class ApiResponses {
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class PlayerResponse {
-        public List<DoneTowerResponse> doneTowers;
+    @RequiredArgsConstructor
+    @AllArgsConstructor
+    public static class TowerData {
+        public List<DoneTower> doneTowers;
         public double score;
-        public PlayerTowerResponse tower;
+        public Tower tower;
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class DoneTowerResponse {
+    @RequiredArgsConstructor
+    public static class DoneTower {
         public int id;
         public double score;
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class PlayerTowerResponse {
+    @RequiredArgsConstructor
+    @AllArgsConstructor
+    public static class Tower {
         public double score;
-        public List<PlayerWord> words;
+        public List<WordData> words;
     }
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public static class PlayerWord {
+    @RequiredArgsConstructor
+    @AllArgsConstructor
+    public static class WordData {
         public int dir;
         public int[] pos; // [x, y, z]
         public String text;
@@ -86,6 +98,7 @@ public class ApiResponses {
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
+    @RequiredArgsConstructor
     public static class RoundListResponse {
         public String eventId;
         public String now;
@@ -94,6 +107,7 @@ public class ApiResponses {
 
     @Data
     @JsonIgnoreProperties(ignoreUnknown = true)
+    @RequiredArgsConstructor
     public static class RoundResponse {
         public int duration;
         public String endAt;

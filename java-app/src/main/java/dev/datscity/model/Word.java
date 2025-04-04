@@ -1,12 +1,13 @@
 package dev.datscity.model;
 
-import lombok.Getter;
+import lombok.*;
 
 /**
  * Класс, представляющий слово из набора.
  * Хранит индекс слова, текст и его длину.
  */
-@Getter
+@Data
+@AllArgsConstructor
 public class Word {
     private final int index;
     private final String text;

@@ -13,7 +13,7 @@ public class TowerMap {
     private final int maxZ;
     private final Set<Cell> occupied = new HashSet<>();
 
-    /**
+        /**
          * Внутренний класс для представления клетки.
          */
         private record Cell(int x, int y, int z) {

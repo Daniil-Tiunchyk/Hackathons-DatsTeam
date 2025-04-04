@@ -1,14 +1,12 @@
 package dev.datscity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.datscity.model.ApiResponses.PlayerExtendedWordsResponse;
+import dev.datscity.model.ApiResponses.*;
+import dev.datscity.model.PairWord;
 import dev.datscity.model.Word;
 import dev.datscity.model.WordPlacement;
-import dev.datscity.model.frontend.TowerData;
-import dev.datscity.model.frontend.Tower;
-import dev.datscity.model.frontend.WordData;
-import dev.datscity.model.frontend.DoneTower;
 import dev.datscity.strategy.TowerBuilderStrategy;
+import dev.datscity.strategy.WordPairGenerator;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,15 +17,27 @@ public class Main {
     private static List<DoneTower> doneTowers = new ArrayList<>();
     private static int towerIdCounter = 1;
 
+    /**
+     * //TODO перенести в другой класс так же
+     * Метод для решения завершать ли текущее строительство здания подссчитывая очки
+     */
+    public static boolean isDoneTower(List<WordPlacement> placements, List<WordPlacement> newPlacements, TowerData towerDataResponse) {
+        return placements.size() <= newPlacements.size();
+    }
+
     public static void main(String[] args) {
-        TowerBuilderStrategy strategy = new TowerBuilderStrategy();
+
+
         ObjectMapper mapper = new ObjectMapper();
 
         while (true) {
             try {
+
                 System.out.println("\n[Main] Чтение данных из файла json/shuffle.json...");
                 // Читаем данные из файла, структура которого соответствует PlayerExtendedWordsResponse
                 PlayerExtendedWordsResponse wordsResp = mapper.readValue(new File("src/main/java/json/shuffle.json"), PlayerExtendedWordsResponse.class);
+                TowerData towerDataResponse = mapper.readValue(new File("src/main/java/json/towers.json"), TowerData.class);
+
                 if (wordsResp == null || wordsResp.words == null) {
                     System.out.println("[Main] Нет данных из файла, завершаем работу.");
                     break;
@@ -38,26 +48,27 @@ public class Main {
                     currentWords.add(new Word(i, wordsResp.words.get(i)));
                 }
 
-                // Если башня завершена, сохраняем данные о ней и начинаем новую башню
-                if (strategy.isTowerCompleted()) {
-                    double completedTowerScore = strategy.getInternalTowerHeight();  // здесь можно вычислить итоговый счёт
-                    doneTowers.add(new DoneTower(towerIdCounter++, completedTowerScore));
-                    strategy.startNewTower(currentWords, wordsResp.mapSize);
+                List<PairWord> pairWordList = WordPairGenerator.generateAllWordPairs(currentWords);
+
+                List<WordPlacement> placements = TowerBuilderStrategy.getNextWordsPlacement(towerDataResponse.getTower(), currentWords, pairWordList);
+                List<WordPlacement> newPlacements = new ArrayList<>();
+
+                if (!towerDataResponse.getTower().getWords().isEmpty()) {
+                    newPlacements = TowerBuilderStrategy.getNextWordsPlacement(new Tower(0, new ArrayList<>()), currentWords, pairWordList);
                 }
 
-                // Вычисляем следующий ход
-                List<WordPlacement> placements = strategy.planNextMove(currentWords);
-                boolean done = strategy.isTowerCompleted();
-                double currentScore = strategy.getInternalTowerHeight();
+                boolean isDone = isDoneTower(placements, newPlacements, towerDataResponse);
 
-                // Формируем объект TowerData, соответствующий требуемой JSON-структуре
+                if (isDone) {
+                    placements = newPlacements;
+                }
+
                 TowerData towerData = new TowerData();
                 towerData.setDoneTowers(doneTowers);
-                towerData.setScore(currentScore);
-
                 Tower tower = new Tower();
-                tower.setScore(currentScore);
                 List<WordData> words = new ArrayList<>();
+
+                //TODO возможно заранее это делать, чтобы было удобнее сравнивать в isDoneTower()
                 for (WordPlacement placement : placements) {
                     // Для каждого WordPlacement создаём объект с полями: dir, pos (x,y,z) и text
                     words.add(new WordData(
@@ -66,6 +77,7 @@ public class Main {
                             placement.getText()
                     ));
                 }
+
                 tower.setWords(words);
                 towerData.setTower(tower);
 
