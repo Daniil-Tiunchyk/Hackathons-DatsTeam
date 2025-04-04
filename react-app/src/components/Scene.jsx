@@ -94,7 +94,7 @@ export default function Scene() {
 
   return (
     <Canvas camera={{ position: [10, 10, 15], fov: 50 }}>
-      {/* <Environment files="/autumn_field_puresky_4k.hdr" background blur={0} /> */}
+      <Environment files="/autumn_field_puresky_4k.hdr" background blur={0} />
       <ambientLight intensity={0.6} />
       <directionalLight
         position={[5, 10, 5]}
