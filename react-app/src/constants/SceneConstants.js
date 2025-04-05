@@ -1,0 +1,1 @@
+export const surface_size = [50, 50];

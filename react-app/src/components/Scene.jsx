@@ -5,6 +5,7 @@ import * as THREE from "three";
 import towerData from "../constants/towers.json";
 import { letters } from "../constants/cubeLetters";
 import { directionVectors } from "./../constants/directions";
+import { surface_size } from "./../constants/SceneConstants";
 
 // Функция для генерации случайного цвета в формате HEX
 const getRandomColor = () => {
@@ -21,7 +22,13 @@ function LetterCube({ position, letter, color }) {
     <group position={position}>
       <mesh>
         <boxGeometry args={[1, 1, 1]} />
-        <meshStandardMaterial color={color} />
+        <meshStandardMaterial
+          color={color}
+          metalness={1}
+          roughness={0.2}
+          opacity={0.6}
+          transparent={true}
+        />
         <lineSegments>
           <edgesGeometry
             attach="geometry"
@@ -36,8 +43,10 @@ function LetterCube({ position, letter, color }) {
           key={index}
           position={face.position}
           rotation={face.rotation}
-          fontSize={0.3}
+          fontSize={0.4}
+          font="/fonts/Minecraftia-Regular.ttf"
           color="black"
+          depthTest={false}
           anchorX="center"
           anchorY="middle"
         >
@@ -47,6 +56,7 @@ function LetterCube({ position, letter, color }) {
     </group>
   );
 }
+
 
 function WordCubes({ word }) {
   const { pos, dir, text } = word;
@@ -92,15 +102,24 @@ export default function Scene() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+
   return (
-    <Canvas camera={{ position: [10, 10, 15], fov: 50 }}>
+    <Canvas shadows camera={{ position: [10, 10, 15], fov: 50 }}>
       <Environment files="/autumn_field_puresky_4k.hdr" background blur={0} />
-      <ambientLight intensity={0.6} />
-      <directionalLight
-        position={[5, 10, 5]}
-      />
-      <gridHelper args={[50, 50]} position={[0.5, -0.5, 0.5]} />{" "}
-      {/* size = 20, divisions = 20 → cell = 1 */}
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[5, 10, 5]} intensity={1} castShadow />
+      {/*  */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0.5, -1, 0.5]}>
+        <boxGeometry args={[...surface_size]} />
+        <meshStandardMaterial
+          color={"blueviolet"}
+          opacity={0.2}
+          transparent={true}
+        />
+      </mesh>
+
+      <gridHelper args={[...surface_size]} position={[0.5, -0.5, 0.5]} />
+      {/*  */}
       <OrbitControls />
       {words.map((word, index) => (
         <WordCubes key={index} word={word} />
