@@ -1,0 +1,40 @@
+name: React App CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "react-app/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "react-app/**"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: react-app
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build project
+        run: yarn build
+
+      - name: Start preview server and test
+        run: |
+          yarn preview &
+          sleep 5
+          curl -f http://localhost:5173 || (echo "Preview server not responding" && exit 1)

@@ -1,0 +1,23 @@
+{
+  "doneTowers": [
+    {
+      "id": 1,
+      "score": 1
+    }
+  ],
+  "score": 1.2,
+  "tower": {
+    "score": 1.2,
+    "words": [
+      {
+        "dir": 1,
+        "pos": [
+          0,
+          0,
+          0
+        ],
+        "text": "word"
+      }
+    ]
+  }
+}
