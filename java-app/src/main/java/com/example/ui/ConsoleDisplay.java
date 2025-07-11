@@ -1,16 +1,19 @@
 package com.example.ui;
 
+import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.dto.RegistrationResponseDto;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
- * Отвечает за отрисовку состояния игры и запланированных действий
- * в консоли в человекочитаемом формате.
- * Включает кросс-платформенный механизм очистки экрана.
+ * Отвечает за отрисовку агрегированной и лаконичной сводки о состоянии игры
+ * в консоли в виде информационного дашборда.
  */
 public class ConsoleDisplay {
 
@@ -19,34 +22,57 @@ public class ConsoleDisplay {
 
     public void render(ArenaStateDto state, List<MoveCommandDto> plannedMoves) {
         clearConsole();
-        System.out.println(BORDER);
-        System.out.printf("| Клиент DatsPulse | Ход: %-5d | Счет: %-7d |\n", state.turnNo(), state.score());
-        System.out.println(BORDER);
 
-        System.out.printf("Время до следующего хода: %.2f сек.\n", state.nextTurnIn());
-        System.out.println(SEPARATOR);
+        StringBuilder sb = new StringBuilder();
 
-        System.out.printf("Мои муравьи (%d):\n", state.ants().size());
-        if (state.ants().isEmpty()) {
-            System.out.println("  Нет.");
-        } else {
-            state.ants().forEach(ant ->
-                    System.out.printf("  - Муравей %s [Тип: %d, HP: %d, Поз: (%d, %d)]\n",
-                            ant.id().substring(0, 8), ant.type(), ant.health(), ant.q(), ant.r())
-            );
+        sb.append(BORDER).append("\n");
+        sb.append(String.format("| Клиент DatsPulse | Ход: %-5d | Счет: %-7d |\n", state.turnNo(), state.score()));
+        sb.append(BORDER).append("\n");
+        sb.append(String.format("Время до следующего хода: %.2f сек.\n", state.nextTurnIn()));
+        sb.append(SEPARATOR).append("\n\n");
+
+        sb.append("ОБЩАЯ СВОДКА ЮНИТОВ\n");
+        Map<UnitType, Long> countsByType = state.ants().stream()
+                .collect(Collectors.groupingBy(ant -> UnitType.fromApiId(ant.type()), Collectors.counting()));
+
+        long workers = countsByType.getOrDefault(UnitType.WORKER, 0L);
+        long fighters = countsByType.getOrDefault(UnitType.FIGHTER, 0L);
+        long scouts = countsByType.getOrDefault(UnitType.SCOUT, 0L);
+
+        sb.append(String.format("Рабочие: %-2d | Бойцы: %-2d | Разведчики: %-2d | Всего: %d\n",
+                workers, fighters, scouts, state.ants().size()));
+        sb.append("\n");
+
+        sb.append("ЗАДАЧИ НА ТЕКУЩИЙ ХОД\n");
+
+        Map<String, ArenaStateDto.AntDto> antMap = state.ants().stream()
+                .collect(Collectors.toMap(ArenaStateDto.AntDto::id, Function.identity()));
+
+        long returningHomeCount = 0;
+        long totalFoodCarried = 0;
+        long movingToTargetCount = 0;
+
+        for (MoveCommandDto move : plannedMoves) {
+            ArenaStateDto.AntDto ant = antMap.get(move.ant());
+            if (ant == null) continue;
+
+            if (ant.food() != null && ant.food().amount() > 0) {
+                returningHomeCount++;
+                totalFoodCarried += ant.food().amount();
+            } else {
+                movingToTargetCount++;
+            }
         }
-        System.out.println(SEPARATOR);
 
-        System.out.printf("Запланированные ходы (%d):\n", plannedMoves.size());
-        if (plannedMoves.isEmpty()) {
-            System.out.println("  Остаемся на месте.");
-        } else {
-            plannedMoves.forEach(move ->
-                    System.out.printf("  - Муравей %s -> Путь из %d шагов\n",
-                            move.ant().substring(0, 8), move.path().size())
-            );
-        }
-        System.out.println(BORDER);
+        long idleCount = state.ants().size() - (returningHomeCount + movingToTargetCount);
+
+        sb.append(String.format("[⌂] Несут ресурсы: %-2d (Всего: %d ед.)\n", returningHomeCount, totalFoodCarried));
+        sb.append(String.format("[►] В движении:   %-2d\n", movingToTargetCount));
+        sb.append(String.format("[–] Ожидают:      %-2d\n", idleCount));
+
+        sb.append("\n").append(BORDER);
+
+        System.out.println(sb.toString());
     }
 
     public void showRegistrationAttempt() {
@@ -67,25 +93,31 @@ public class ConsoleDisplay {
     }
 
     /**
-     * Очищает экран консоли кросс-платформенным способом.
-     * Для Windows выполняет команду 'cls', для других систем (Linux, Mac)
-     * использует ANSI-последовательности.
+     * Очищает экран консоли. Использует разные подходы для реального терминала
+     * и для эмулированной консоли в IDE.
      */
     private void clearConsole() {
         try {
-            String os = System.getProperty("os.name");
-            if (os.contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            // *** КЛЮЧЕВОЕ ИЗМЕНЕНИЕ ***
+            // Если System.console() возвращает null, значит, мы работаем в среде без
+            // интерактивного терминала, например, в консоли вывода IDE.
+            if (System.console() == null) {
+                // В этом случае симулируем очистку, печатая много пустых строк.
+                for (int i = 0; i < 50; ++i) {
+                    System.out.println();
+                }
             } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
+                // Иначе мы в настоящем терминале, где работают стандартные команды.
+                String os = System.getProperty("os.name");
+                if (os.contains("Windows")) {
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                } else {
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                }
             }
         } catch (IOException | InterruptedException ex) {
-            // Если очистка не удалась, это не критическая ошибка.
-            // Можно просто вывести несколько пустых строк как запасной вариант.
-            for (int i = 0; i < 20; i++) {
-                System.out.println();
-            }
+            // В случае ошибки просто игнорируем, это не критично.
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.domain.Hex;
+import com.example.domain.HexType;
 import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
@@ -115,10 +116,33 @@ public class StrategyService {
 
     private Set<Hex> getObstaclesFor(ArenaStateDto.AntDto ant, ArenaStateDto state) {
         Set<Hex> obstacles = new HashSet<>();
+        // Добавляем врагов
         state.enemies().forEach(e -> obstacles.add(new Hex(e.q(), e.r())));
+        // Добавляем союзников того же типа
         state.ants().stream()
                 .filter(other -> other.type() == ant.type() && !other.id().equals(ant.id()))
                 .forEach(other -> obstacles.add(new Hex(other.q(), other.r())));
+
+        // Добавляем препятствия, основанные на типе гекса
+        for (ArenaStateDto.MapCellDto cell : state.map()) {
+            try {
+                HexType hexType = HexType.fromApiId(cell.type());
+                Hex cellHex = new Hex(cell.q(), cell.r());
+
+                // Правило 1: Камни - непроходимы для всех
+                if (hexType.isImpassable()) {
+                    obstacles.add(cellHex);
+                }
+
+                // Правило 2: Кислота - смертельна для раненых муравьев
+                if (hexType == HexType.ACID && ant.health() <= hexType.getDamage()) {
+                    obstacles.add(cellHex);
+                }
+
+            } catch (IllegalArgumentException e) {
+                // Игнорируем неизвестные типы гексов, чтобы не прерывать работу
+            }
+        }
         return obstacles;
     }
 
