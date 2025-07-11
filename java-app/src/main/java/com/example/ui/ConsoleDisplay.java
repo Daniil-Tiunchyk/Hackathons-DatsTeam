@@ -4,11 +4,13 @@ import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.dto.RegistrationResponseDto;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
  * Отвечает за отрисовку состояния игры и запланированных действий
  * в консоли в человекочитаемом формате.
+ * Включает кросс-платформенный механизм очистки экрана.
  */
 public class ConsoleDisplay {
 
@@ -64,8 +66,26 @@ public class ConsoleDisplay {
         System.out.println(SEPARATOR);
     }
 
+    /**
+     * Очищает экран консоли кросс-платформенным способом.
+     * Для Windows выполняет команду 'cls', для других систем (Linux, Mac)
+     * использует ANSI-последовательности.
+     */
     private void clearConsole() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        try {
+            String os = System.getProperty("os.name");
+            if (os.contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (IOException | InterruptedException ex) {
+            // Если очистка не удалась, это не критическая ошибка.
+            // Можно просто вывести несколько пустых строк как запасной вариант.
+            for (int i = 0; i < 20; i++) {
+                System.out.println();
+            }
+        }
     }
 }

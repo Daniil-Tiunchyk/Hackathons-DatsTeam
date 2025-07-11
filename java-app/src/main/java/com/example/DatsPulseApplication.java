@@ -4,6 +4,7 @@ import com.example.client.DatsPulseApiClient;
 import com.example.client.HttpDatsPulseApiClient;
 import com.example.config.GameConfig;
 import com.example.service.GameService;
+import com.example.service.StrategyService;
 import com.example.ui.ConsoleDisplay;
 
 /**
@@ -13,16 +14,27 @@ import com.example.ui.ConsoleDisplay;
 public class DatsPulseApplication {
 
     public static void main(String[] args) {
-        System.out.println("Запуск клиента DatsPulse...");
+        try {
+            System.out.println("Запуск клиента DatsPulse...");
 
-        GameConfig config = new GameConfig();
-        DatsPulseApiClient apiClient = new HttpDatsPulseApiClient(config);
-        ConsoleDisplay consoleDisplay = new ConsoleDisplay();
+            // --- Уровень Конфигурации и Инфраструктуры ---
+            GameConfig config = new GameConfig();
+            DatsPulseApiClient apiClient = new HttpDatsPulseApiClient(config);
 
-        // Это ручная форма Внедрения Зависимостей (Dependency Injection).
-        GameService gameService = new GameService(apiClient, consoleDisplay);
+            // --- Уровень Представления (UI) ---
+            ConsoleDisplay consoleDisplay = new ConsoleDisplay();
 
-        System.out.println("Клиент запущен. Запускаю игровой цикл...");
-        gameService.run();
+            // --- Уровень Бизнес-логики ---
+            StrategyService strategyService = new StrategyService();
+
+            // --- Сборка и Запуск ---
+            GameService gameService = new GameService(apiClient, consoleDisplay, strategyService);
+
+            System.out.println("Клиент запущен. Вступаем в игру...");
+            gameService.run();
+
+        } catch (Exception e) {
+            System.err.println("Критическая ошибка при запуске приложения: " + e.getMessage());
+        }
     }
 }
