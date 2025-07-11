@@ -11,9 +11,6 @@ html, body, #root {
 }
 
 .custom-hex polygon {
-  fill: #000;
-  stroke: #2e7d32;
-  stroke-width: 0.2;
   cursor: pointer;
   transition: fill 0.3s;
 }
@@ -23,6 +20,7 @@ html, body, #root {
 }
 .custom-hex text {
   font-size: 1px;
+  stroke: none;
 }
 
 svg {
@@ -31,4 +29,11 @@ svg {
 
 .react-svg-pan-zoom-wrapper {
   overflow: visible;
+}
+
+.triangle path, .triangle circle {
+  position: absolute;
+  transform: translate(-45%, -50%);
+  left: 50%;
+  top: 50%;
 }

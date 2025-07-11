@@ -3,8 +3,15 @@ import "./App.css";
 import { request } from "./arenarequest";
 import { UncontrolledReactSVGPanZoom } from "react-svg-pan-zoom";
 import { useMemo } from "react";
+import { EnemyIcon } from "./assets/EnemyIcon";
+import { AntWorkerIcon } from "./assets/AntWorkerIcon";
+import { AntFighterIcon } from "./assets/AntFighterIcon";
+import { AntDetectiveIcon } from "./assets/AntDetectiveIcon";
+import { PizzaIcon } from "./assets/PizzaIcon";
 
 function App() {
+  const { ants, enemies, map, food, home } = request;
+
   // const API_KEY = `e9d0504b-f145-4d78-8219-c688ca06550f`;
   /*  const [data, setData] = useState();
   useEffect(() => {
@@ -32,14 +39,13 @@ function App() {
 
   }, []); */
 
-  console.log(request.map);
-  const minQ = Math.min(...request.map.map((hex) => hex.q));
-  const minR = Math.min(...request.map.map((hex) => hex.r));
+  const minQ = Math.min(...map.map((hex) => hex.q));
+  const minR = Math.min(...map.map((hex) => hex.r));
 
   // 2. Нормализуем координаты (сдвигаем к (0,0))
   const normalizedHexes = useMemo(
     () =>
-      request.map.map((hex) => ({
+      map.map((hex) => ({
         ...hex,
         q: hex.q - minQ, // Сдвигаем q
         r: hex.r - minR, // Сдвигаем r
@@ -48,42 +54,140 @@ function App() {
       })),
     [minQ, minR]
   );
+  /*  */
+
+  const getHexContent = (q: number, r: number) => {
+    const originalQ = q;
+    const originalR = r;
+
+    const hexAnts = ants.filter((a) => a.q === originalQ && a.r === originalR);
+    const hexEnemies = enemies.filter(
+      (e) => e.q === originalQ && e.r === originalR
+    );
+    const hexFood = food.filter((f) => f.q === originalQ && f.r === originalR);
+    const hexHome = home.filter((h) => {
+      return h.q === originalQ && h.r === originalR;
+    });
+
+    const antTypes = {
+      type1: hexAnts.filter((a) => a.type === 0).length,
+      type2: hexAnts.filter((a) => a.type === 1).length,
+      type3: hexAnts.filter((a) => a.type === 2).length,
+    };
+
+    return {
+      hasAnts: hexAnts.length > 0,
+      antsCount: hexAnts.length,
+      hasEnemies: hexEnemies.length > 0,
+      enemiesCount: hexEnemies.length,
+      hasFood: hexFood.length > 0,
+      foodCount: hexFood.length,
+      hasHome: hexHome.length > 0,
+      homeCount: hexHome.length,
+      hasType1: antTypes.type1 > 0,
+      hasType2: antTypes.type2 > 0,
+      hasType3: antTypes.type3 > 0,
+      antTypes,
+      totalCount:
+        hexAnts.length + hexEnemies.length + hexFood.length + hexHome.length,
+    };
+  };
+
+  const getHexStyle = (type: number, q: number, r: number) => {
+    const content = getHexContent(q, r);
+    let baseColor = getColorByType(type);
+
+    const stroke = "#000000ff";
+    const strokeWidth = 0.1;
+
+    if (content.hasHome) {
+      baseColor = "#000000ff"; // синий - база
+    }
+
+    return {
+      fill: baseColor,
+      stroke,
+      strokeWidth,
+    };
+  };
 
   return (
     <UncontrolledReactSVGPanZoom
       width={window.innerWidth}
       height={window.innerHeight}
     >
-      <svg width={300} height={300}>
-        <HexGrid width={100} height={100}>
+      <svg
+        width={window.innerWidth}
+        height={window.innerHeight}
+      >
+        <HexGrid width={window.innerWidth / 2} height={window.innerHeight / 2}>
           <Layout
             size={{ x: 3, y: 3 }}
             flat={false}
             spacing={1.1}
             origin={{ x: 0, y: 0 }}
           >
-            {normalizedHexes.map(({ q, r, rq, rr, cost,type }) => (
-              <Hexagon
-                key={`${q},${r}`}
-                q={q}
-                r={r}
-                s={-q - r}
-                className="custom-hex"
-              >
-                <text
-                  x="0"
-                  y="0"
-                  textAnchor="middle"
-                  alignmentBaseline="central"
-                  fill={getColorByType(type)}
-                  fontSize="0.1"
-                  dominantBaseline="middle"
+            {normalizedHexes.map(({ q, r, rq, rr, type }) => {
+              const hexStyle = getHexStyle(type, rq, rr);
+               const content = getHexContent(rq, rr); // если нужно что то достать
+
+              return (
+                <Hexagon
+                  key={`${q},${r}`}
+                  q={q}
+                  r={r}
+                  s={-q - r}
+                  className="custom-hex"
+                  style={hexStyle}
                 >
-                  <tspan x="0" dy="-0.2">{`${rq};${rr}`}</tspan>
-                  <tspan x="0" dy="0.8">{`${cost}`}</tspan>
-                </text>
-              </Hexagon>
-            ))}
+                  {content.hasType1 && (
+                    <AntWorkerIcon
+                      className="triangle"
+                      size={3} // Размер иконки
+                    />
+                  )}
+                  {content.hasType2 && (
+                    <AntFighterIcon
+                      className="triangle"
+                      size={3} // Размер иконки
+                    />
+                  )}
+                  {content.hasType3 && (
+                    <AntDetectiveIcon
+                      className="triangle"
+                      size={3} // Размер иконки
+                    />
+                  )}
+                  {content.hasEnemies && (
+                    <EnemyIcon
+                      className="triangle"
+                      size={3} // Размер иконки
+                    />
+                  )}
+                  {content.hasFood && (
+                    <PizzaIcon
+                      className="triangle"
+                      size={3} // Размер иконки
+                    />
+                  )}
+                  {content.hasEnemies && (
+                    <EnemyIcon
+                      className="triangle"
+                      size={3} // Размер иконки
+                    />
+                  )}
+                  <text
+                    x="0"
+                    y="0"
+                    textAnchor="middle"
+                    alignmentBaseline="central"
+                    fill={"#000"}
+                    fontSize="0.1"
+                    dominantBaseline="middle"
+                  ></text>
+                </Hexagon>
+              );
+            })}
           </Layout>
         </HexGrid>
       </svg>
@@ -91,14 +195,14 @@ function App() {
   );
 }
 
-// Функция для цветов гексов
 function getColorByType(type: number) {
-  const colors = {
-    "2": "#aaffaa", // зелёный
-    "3": "#ffaaaa", // красный
-    "4": "#aaaaff", // синий
-    "5": "#ffffaa", // жёлтый
-  } as any;
+  const colors: Record<string, string> = {
+    "1": "#8204a9ff", // муравейник
+    "2": "#ffffffff", // пустой
+    "3": "#e1c79bff", // грязь
+    "4": "#a5f5f1ff", // кислота
+    "5": "#cdcdcdff", // камни
+  };
   return colors[type.toString()] || "#dddddd";
 }
 export default App;
