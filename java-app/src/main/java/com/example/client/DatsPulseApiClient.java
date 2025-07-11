@@ -2,6 +2,7 @@ package com.example.client;
 
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
+import com.example.dto.RegistrationResponseDto;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public interface DatsPulseApiClient {
     /**
      * Запрашивает текущее состояние арены для нашей команды.
      *
-     * @return Объект ArenaStateDto, представляющий игровой мир.
+     * @return Объект ArenaStateDto, представляющий игровой мир, или null при ошибке.
      */
     ArenaStateDto getArenaState();
 
@@ -25,4 +26,11 @@ public interface DatsPulseApiClient {
      * @param moves Список команд на передвижение для наших муравьев.
      */
     void sendMoves(List<MoveCommandDto> moves);
+
+    /**
+     * Регистрирует команду для участия в раунде.
+     *
+     * @return Объект RegistrationResponseDto с результатом операции.
+     */
+    RegistrationResponseDto register();
 }

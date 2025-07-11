@@ -2,6 +2,7 @@ package com.example.ui;
 
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
+import com.example.dto.RegistrationResponseDto;
 
 import java.util.List;
 
@@ -46,9 +47,25 @@ public class ConsoleDisplay {
         System.out.println(BORDER);
     }
 
+    public void showRegistrationAttempt() {
+        clearConsole();
+        System.out.println(BORDER);
+        System.out.println("| Состояние: Ожидание раунда                          |");
+        System.out.println(BORDER);
+        System.out.println("Не зарегистрированы в раунде. Попытка регистрации...");
+    }
+
+    public void showRegistrationResult(RegistrationResponseDto response) {
+        if (response != null && response.message() != null) {
+            System.out.printf("Ответ сервера: [Код: %d] %s\n", response.code(), response.message());
+        } else {
+            System.out.println("Не удалось получить внятный ответ от сервера регистрации.");
+        }
+        System.out.println(SEPARATOR);
+    }
+
     private void clearConsole() {
-        // Простой способ создать пустое пространство в большинстве терминалов.
-        // Более сложное решение могло бы использовать ANSI-коды.
-        for (int i = 0; i < 50; ++i) System.out.println();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

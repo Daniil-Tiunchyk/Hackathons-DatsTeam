@@ -5,6 +5,7 @@ import com.example.config.GameConfig;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.dto.MoveRequestDto;
+import com.example.dto.RegistrationResponseDto;
 
 import java.io.IOException;
 import java.net.URI;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 public class HttpDatsPulseApiClient implements DatsPulseApiClient {
 
+    private static final String AUTH_HEADER = "X-Auth-Token";
     private final GameConfig config;
     private final HttpClient httpClient;
     private final Gson gson;
@@ -37,18 +39,19 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
     public ArenaStateDto getArenaState() {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(config.getApiBaseUrl() + "/api/arena"))
-                .header("Authorization", "Bearer " + config.getApiToken())
+                .header(AUTH_HEADER, config.getApiToken())
                 .GET()
                 .build();
-
         try {
             HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
-            // Надежная реализация должна обрабатывать здесь статусы ответа, отличные от 200.
+            if (response.statusCode() != 200 || response.body() == null || response.body().isEmpty()) {
+                return null;
+            }
             return gson.fromJson(response.body(), ArenaStateDto.class);
         } catch (IOException | InterruptedException e) {
-            // На соревновании требуется более продуманная обработка ошибок.
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Не удалось получить состояние арены", e);
+            System.err.println("Ошибка при получении состояния арены: " + e.getMessage());
+            return null;
         }
     }
 
@@ -63,18 +66,31 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
 
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(config.getApiBaseUrl() + "/api/move"))
-                .header("Authorization", "Bearer " + config.getApiToken())
+                .header(AUTH_HEADER, config.getApiToken())
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(jsonPayload))
                 .build();
-
         try {
             httpClient.send(request, HttpResponse.BodyHandlers.discarding());
-            // Мы игнорируем тело ответа, так как не ожидаем содержимого при успехе.
-            // Надежный клиент проверил бы статус ответа.
         } catch (IOException | InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Не удалось отправить ходы", e);
+        }
+    }
+
+    @Override
+    public RegistrationResponseDto register() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(config.getApiBaseUrl() + "/api/register"))
+                .header(AUTH_HEADER, config.getApiToken())
+                .POST(HttpRequest.BodyPublishers.ofString(""))
+                .build();
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            return gson.fromJson(response.body(), RegistrationResponseDto.class);
+        } catch (IOException | InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Не удалось отправить запрос на регистрацию", e);
         }
     }
 }

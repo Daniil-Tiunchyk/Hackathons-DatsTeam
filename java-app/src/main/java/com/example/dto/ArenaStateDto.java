@@ -2,11 +2,14 @@ package com.example.dto;
 
 import com.example.domain.Hex;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Объект Передачи Данных (DTO), представляющий JSON-структуру ответа от эндпоинта /api/arena.
- * Использование Java records обеспечивает неизменяемость и лаконичность.
+ * Эта версия использует канонический конструктор для защиты от NullPointerException,
+ * инициализируя отсутствующие списки как пустые.
  */
 public record ArenaStateDto(
         List<AntDto> ants,
@@ -19,6 +22,13 @@ public record ArenaStateDto(
         Hex spot,
         int turnNo
 ) {
+    public ArenaStateDto {
+        ants = Optional.ofNullable(ants).orElse(Collections.emptyList());
+        enemies = Optional.ofNullable(enemies).orElse(Collections.emptyList());
+        food = Optional.ofNullable(food).orElse(Collections.emptyList());
+        home = Optional.ofNullable(home).orElse(Collections.emptyList());
+        map = Optional.ofNullable(map).orElse(Collections.emptyList());
+    }
 
     public record AntDto(String id, int type, int q, int r, int health, FoodData food) {
     }
