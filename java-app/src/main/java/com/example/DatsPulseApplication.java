@@ -4,6 +4,7 @@ import com.example.client.DatsPulseApiClient;
 import com.example.client.HttpDatsPulseApiClient;
 import com.example.config.GameConfig;
 import com.example.service.GameService;
+import com.example.service.Pathfinder;
 import com.example.service.StrategyService;
 import com.example.ui.ConsoleDisplay;
 
@@ -25,7 +26,8 @@ public class DatsPulseApplication {
             ConsoleDisplay consoleDisplay = new ConsoleDisplay();
 
             // --- Уровень Бизнес-логики ---
-            StrategyService strategyService = new StrategyService();
+            Pathfinder pathfinder = new Pathfinder();
+            StrategyService strategyService = new StrategyService(pathfinder);
 
             // --- Сборка и Запуск ---
             GameService gameService = new GameService(apiClient, consoleDisplay, strategyService);
