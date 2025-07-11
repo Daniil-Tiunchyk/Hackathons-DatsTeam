@@ -108,6 +108,7 @@ public class Pathfinder {
             currentNode = currentNode.parent();
         }
         Collections.reverse(path);
-        return path;
+        // Первый элемент пути - это текущее местоположение, его не нужно включать в команду
+        return path.isEmpty() ? path : path.subList(1, path.size());
     }
 }

@@ -30,49 +30,57 @@ public class StrategyService {
 
     public List<MoveCommandDto> createMoveCommands(ArenaStateDto state) {
         List<MoveCommandDto> commands = new ArrayList<>();
+        Set<String> assignedAnts = new HashSet<>();
         Set<Hex> assignedFoodTargets = new HashSet<>();
+
         Map<Hex, Integer> hexCosts = state.map().stream()
                 .collect(Collectors.toMap(cell -> new Hex(cell.q(), cell.r()), ArenaStateDto.MapCellDto::cost));
 
+        // 1. Приоритет: муравьи с едой должны вернуться домой
         for (ArenaStateDto.AntDto ant : state.ants()) {
-
-            Optional<MoveCommandDto> command = tryToReturnHome(ant, state, hexCosts);
-
-            if (command.isEmpty()) {
-                Optional<MoveCommandDto> collectFoodCommand = tryToCollectFood(ant, state, hexCosts, assignedFoodTargets);
-                if (collectFoodCommand.isPresent()) {
-                    command = collectFoodCommand;
-                    List<Hex> path = collectFoodCommand.get().path();
-                    if (!path.isEmpty()) {
-                        assignedFoodTargets.add(path.get(path.size() - 1));
-                    }
-                }
+            if (isCarryingFood(ant)) {
+                tryToReturnHome(ant, state, hexCosts).ifPresent(command -> {
+                    commands.add(command);
+                    assignedAnts.add(ant.id());
+                });
             }
-
-            if (command.isEmpty()) {
-                command = tryToMoveAside(ant, state, hexCosts);
-            }
-
-            command.ifPresent(commands::add);
         }
+
+        // 2. Свободные муравьи идут за ближайшей свободной едой
+        for (ArenaStateDto.AntDto ant : state.ants()) {
+            if (assignedAnts.contains(ant.id())) continue;
+
+            tryToCollectFood(ant, state, hexCosts, assignedFoodTargets).ifPresent(command -> {
+                commands.add(command);
+                assignedAnts.add(ant.id());
+                // Резервируем цель, чтобы другие муравьи за ней не пошли
+                command.path().stream().reduce((first, second) -> second).ifPresent(assignedFoodTargets::add);
+            });
+        }
+
+        // 3. Все остальные, кто стоит на основном гексе муравейника, отходят в сторону
+        for (ArenaStateDto.AntDto ant : state.ants()) {
+            if (assignedAnts.contains(ant.id())) continue;
+
+            Hex antHex = new Hex(ant.q(), ant.r());
+            if (antHex.equals(state.spot())) {
+                tryToMoveAside(ant, state, hexCosts).ifPresent(command -> {
+                    commands.add(command);
+                    assignedAnts.add(ant.id());
+                });
+            }
+        }
+
         return commands;
     }
 
     private Optional<MoveCommandDto> tryToReturnHome(ArenaStateDto.AntDto ant, ArenaStateDto state, Map<Hex, Integer> hexCosts) {
-        if (!isCarryingFood(ant)) {
-            return Optional.empty();
-        }
-
         Hex antHex = new Hex(ant.q(), ant.r());
         return findClosestHomeHex(antHex, state.home())
                 .flatMap(target -> createPathCommand(ant, target, state, hexCosts));
     }
 
     private Optional<MoveCommandDto> tryToCollectFood(ArenaStateDto.AntDto ant, ArenaStateDto state, Map<Hex, Integer> hexCosts, Set<Hex> assignedTargets) {
-        if (isCarryingFood(ant)) {
-            return Optional.empty();
-        }
-
         Hex antHex = new Hex(ant.q(), ant.r());
         return findClosestAvailableFood(antHex, state.food(), assignedTargets)
                 .flatMap(target -> createPathCommand(ant, target, state, hexCosts));
@@ -88,13 +96,13 @@ public class StrategyService {
         return neighbors.stream()
                 .filter(neighbor -> !obstacles.contains(neighbor))
                 .findFirst()
-                .map(target -> {
+                .flatMap(target -> {
                     UnitType unitType = UnitType.fromApiId(ant.type());
                     int costToMove = hexCosts.getOrDefault(target, 1);
                     if (unitType.getSpeed() >= costToMove) {
-                        return new MoveCommandDto(ant.id(), List.of(target));
+                        return Optional.of(new MoveCommandDto(ant.id(), List.of(target)));
                     }
-                    return null;
+                    return Optional.empty();
                 });
     }
 
@@ -104,7 +112,7 @@ public class StrategyService {
 
         List<Hex> path = pathfinder.findPath(start, target, hexCosts, obstacles);
 
-        if (path.size() > 1) {
+        if (!path.isEmpty()) {
             UnitType unitType = UnitType.fromApiId(ant.type());
             List<Hex> truncatedPath = truncatePathByMovementPoints(path, unitType.getSpeed(), hexCosts);
             if (!truncatedPath.isEmpty()) {
@@ -116,14 +124,14 @@ public class StrategyService {
 
     private Set<Hex> getObstaclesFor(ArenaStateDto.AntDto ant, ArenaStateDto state) {
         Set<Hex> obstacles = new HashSet<>();
-        // Добавляем врагов
+        // Враги
         state.enemies().forEach(e -> obstacles.add(new Hex(e.q(), e.r())));
-        // Добавляем союзников того же типа
+        // Дружественные юниты того же типа
         state.ants().stream()
                 .filter(other -> other.type() == ant.type() && !other.id().equals(ant.id()))
                 .forEach(other -> obstacles.add(new Hex(other.q(), other.r())));
 
-        // Добавляем препятствия, основанные на типе гекса
+        // Непроходимые и опасные гексы
         for (ArenaStateDto.MapCellDto cell : state.map()) {
             try {
                 HexType hexType = HexType.fromApiId(cell.type());
@@ -135,12 +143,11 @@ public class StrategyService {
                 }
 
                 // Правило 2: Кислота - смертельна для раненых муравьев
+                // Считаем кислоту препятствием, если она убьет юнита
                 if (hexType == HexType.ACID && ant.health() <= hexType.getDamage()) {
                     obstacles.add(cellHex);
                 }
-
-            } catch (IllegalArgumentException e) {
-                // Игнорируем неизвестные типы гексов, чтобы не прерывать работу
+            } catch (IllegalArgumentException ignored) {
             }
         }
         return obstacles;
@@ -149,8 +156,7 @@ public class StrategyService {
     private List<Hex> truncatePathByMovementPoints(List<Hex> path, int maxPoints, Map<Hex, Integer> hexCosts) {
         List<Hex> resultPath = new ArrayList<>();
         int pointsSpent = 0;
-        for (int i = 1; i < path.size(); i++) {
-            Hex step = path.get(i);
+        for (Hex step : path) {
             int cost = hexCosts.getOrDefault(step, 1);
             if (pointsSpent + cost <= maxPoints) {
                 pointsSpent += cost;
