@@ -17,14 +17,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class GameService {
 
-    private static final int REGISTRATION_RETRY_DELAY_SECONDS = 30;
-    private static final int ERROR_RETRY_DELAY_SECONDS = 5;
+    private static final int REGISTRATION_RETRY_DELAY_SECONDS = 5;
+    private static final int ERROR_RETRY_DELAY_SECONDS = 2;
     /**
      * Минимальный интервал между запросами к API в миллисекундах.
      * Установлен в 500мс для гарантии не более 2 запросов в секунду,
      * что соответствует требованиям rate-лимита API (3 RPS).
      */
-    private static final long MINIMUM_REQUEST_INTERVAL_MS = 500;
+    private static final long MINIMUM_REQUEST_INTERVAL_MS = 250;
 
 
     private final DatsPulseApiClient apiClient;
