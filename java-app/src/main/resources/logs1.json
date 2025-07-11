@@ -1,0 +1,4002 @@
+[
+    {
+        "message": "turn 227: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-40 79} to {-39 78}",
+        "time": "2025-07-11T18:32:32.213050503Z"
+    },
+    {
+        "message": "turn 227: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-36 80} to {-36 81}",
+        "time": "2025-07-11T18:32:32.213073661Z"
+    },
+    {
+        "message": "turn 227: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-38 81} to {-38 80}",
+        "time": "2025-07-11T18:32:32.213116371Z"
+    },
+    {
+        "message": "turn 227: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-39 80} to {-39 81}",
+        "time": "2025-07-11T18:32:32.213132051Z"
+    },
+    {
+        "message": "turn 227: ant 7b418820-f689-4a07-9708-967b91cad7cc cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:32.213141725Z"
+    },
+    {
+        "message": "turn 227: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-40 80} to {-41 81}",
+        "time": "2025-07-11T18:32:32.213152475Z"
+    },
+    {
+        "message": "turn 227: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-41 80} to {-42 81}",
+        "time": "2025-07-11T18:32:32.213178765Z"
+    },
+    {
+        "message": "turn 227: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-41 76} to {-41 79}",
+        "time": "2025-07-11T18:32:32.213202903Z"
+    },
+    {
+        "message": "turn 227: ant b8d50db2-05bf-44d7-b747-335caa5549dc stocked up 4 Apple (40 cal)",
+        "time": "2025-07-11T18:32:32.213205577Z"
+    },
+    {
+        "message": "turn 227: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-40 79} to {-39 78}",
+        "time": "2025-07-11T18:32:32.21322315Z"
+    },
+    {
+        "message": "turn 227: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-42 80} to {-42 79}",
+        "time": "2025-07-11T18:32:32.213244872Z"
+    },
+    {
+        "message": "turn 227: ant b2d3829c-334e-4c27-bbd9-248df2a0224d moved from {-42 79} to {-43 79}",
+        "time": "2025-07-11T18:32:32.213279855Z"
+    },
+    {
+        "message": "turn 227: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 cannot move to {-41 79}, your own ant b8d50db2-05bf-44d7-b747-335caa5549dc with same type is there",
+        "time": "2025-07-11T18:32:32.21329759Z"
+    },
+    {
+        "message": "turn 227: ant c563da6b-75dd-418f-bbc4-2000cc49cbab cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:32.2133022Z"
+    },
+    {
+        "message": "turn 227: ant dfe451a4-e469-4843-ab37-38424af44124 cannot move to {-41 81}, your own ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 with same type is there",
+        "time": "2025-07-11T18:32:32.213324889Z"
+    },
+    {
+        "message": "turn 227: ant dfe451a4-e469-4843-ab37-38424af44124 moved from {-39 79} to {-40 81}",
+        "time": "2025-07-11T18:32:32.21332938Z"
+    },
+    {
+        "message": "turn 227: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 85} to {-38 85}",
+        "time": "2025-07-11T18:32:32.213371951Z"
+    },
+    {
+        "message": "turn 227: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-43 85} Rock tile",
+        "time": "2025-07-11T18:32:32.213386206Z"
+    },
+    {
+        "message": "turn 227: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-48 82} to {-49 82}",
+        "time": "2025-07-11T18:32:32.213404463Z"
+    },
+    {
+        "message": "turn 227: ant 169281ac-406f-413d-beec-2c7070219849 moved from {-41 79} to {-44 79}",
+        "time": "2025-07-11T18:32:32.213436754Z"
+    },
+    {
+        "message": "turn 227: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-40 80} to {-45 81}",
+        "time": "2025-07-11T18:32:32.213465904Z"
+    },
+    {
+        "message": "turn 227: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 cannot move to {-40 81}, your own ant dfe451a4-e469-4843-ab37-38424af44124 with same type is there",
+        "time": "2025-07-11T18:32:32.213476159Z"
+    },
+    {
+        "message": "turn 227: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-34 78} to {-33 78}",
+        "time": "2025-07-11T18:32:32.213504416Z"
+    },
+    {
+        "message": "turn 227: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 cannot move to {-39 78}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:32.21351378Z"
+    },
+    {
+        "message": "turn 227: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea moved from {-39 83} to {-42 83}",
+        "time": "2025-07-11T18:32:32.213540991Z"
+    },
+    {
+        "message": "turn 227: ant e6b72f78-8bdf-4def-9fea-820285f8d020 cannot move to {-44 90} Rock tile",
+        "time": "2025-07-11T18:32:32.21355045Z"
+    },
+    {
+        "message": "turn 227: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b cannot move to {-43 84} Rock tile",
+        "time": "2025-07-11T18:32:32.213553308Z"
+    },
+    {
+        "message": "turn 227: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-33 75} to {-33 76}",
+        "time": "2025-07-11T18:32:32.213565488Z"
+    },
+    {
+        "message": "turn 227: ant 66fb4677-02d0-46e2-914d-01e7df111964 cannot move to {-43 84} Rock tile",
+        "time": "2025-07-11T18:32:32.213572167Z"
+    },
+    {
+        "message": "turn 227: ant 715a6c59-d7dc-4c4a-88a4-33384dd46f25 moved from {-41 81} to {-41 82}",
+        "time": "2025-07-11T18:32:32.213581635Z"
+    },
+    {
+        "message": "turn 227: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-38 74} to {-38 75}",
+        "time": "2025-07-11T18:32:32.213596208Z"
+    },
+    {
+        "message": "turn 227: new ant spawned Soldier",
+        "time": "2025-07-11T18:32:32.213618952Z"
+    },
+    {
+        "message": "turn 228: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-39 78} to {-40 79}",
+        "time": "2025-07-11T18:32:34.212772108Z"
+    },
+    {
+        "message": "turn 228: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-43 80} to {-43 79}",
+        "time": "2025-07-11T18:32:34.21278317Z"
+    },
+    {
+        "message": "turn 228: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-38 80} to {-37 80}",
+        "time": "2025-07-11T18:32:34.212796635Z"
+    },
+    {
+        "message": "turn 228: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-39 81} to {-40 80}",
+        "time": "2025-07-11T18:32:34.212816455Z"
+    },
+    {
+        "message": "turn 228: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 81} to {-41 79}",
+        "time": "2025-07-11T18:32:34.21283104Z"
+    },
+    {
+        "message": "turn 228: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b cannot move to {-41 79}, your own ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 with same type is there",
+        "time": "2025-07-11T18:32:34.212835333Z"
+    },
+    {
+        "message": "turn 228: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-40 80} to {-41 80}",
+        "time": "2025-07-11T18:32:34.212838005Z"
+    },
+    {
+        "message": "turn 228: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-45 86} to {-45 87}",
+        "time": "2025-07-11T18:32:34.212853595Z"
+    },
+    {
+        "message": "turn 228: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-50 86} to {-51 86}",
+        "time": "2025-07-11T18:32:34.212869887Z"
+    },
+    {
+        "message": "turn 228: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-39 78} to {-43 78}",
+        "time": "2025-07-11T18:32:34.212898563Z"
+    },
+    {
+        "message": "turn 228: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:34.212919898Z"
+    },
+    {
+        "message": "turn 228: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-40 83} to {-39 84}",
+        "time": "2025-07-11T18:32:34.21292741Z"
+    },
+    {
+        "message": "turn 228: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 cannot move to {-40 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:34.212937419Z"
+    },
+    {
+        "message": "turn 228: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-56 90} to {-57 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:34.212947512Z"
+    },
+    {
+        "message": "turn 228: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 cannot move to {-42 85} Rock tile",
+        "time": "2025-07-11T18:32:34.212956859Z"
+    },
+    {
+        "message": "turn 228: ant dfe451a4-e469-4843-ab37-38424af44124 cannot move to {-39 84}, your own ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a with same type is there",
+        "time": "2025-07-11T18:32:34.21297157Z"
+    },
+    {
+        "message": "turn 228: ant dfe451a4-e469-4843-ab37-38424af44124 moved from {-40 81} to {-39 83}",
+        "time": "2025-07-11T18:32:34.21297622Z"
+    },
+    {
+        "message": "turn 228: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-38 85} to {-39 85}",
+        "time": "2025-07-11T18:32:34.21299034Z"
+    },
+    {
+        "message": "turn 228: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-42 85} Rock tile",
+        "time": "2025-07-11T18:32:34.212998422Z"
+    },
+    {
+        "message": "turn 228: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 cannot move to {-51 86}, your own ant 46b98c26-94c5-4e3f-94e7-f728632982e3 with same type is there",
+        "time": "2025-07-11T18:32:34.213002154Z"
+    },
+    {
+        "message": "turn 228: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 cannot move to {-41 79}, your own ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 with same type is there",
+        "time": "2025-07-11T18:32:34.213020447Z"
+    },
+    {
+        "message": "turn 228: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 moved from {-39 81} to {-40 79}",
+        "time": "2025-07-11T18:32:34.213024777Z"
+    },
+    {
+        "message": "turn 228: ant 086ea985-3073-4385-92f5-9a32a7f4c400 cannot move to {-39 83}, your own ant dfe451a4-e469-4843-ab37-38424af44124 with same type is there",
+        "time": "2025-07-11T18:32:34.213037599Z"
+    },
+    {
+        "message": "turn 228: ant 086ea985-3073-4385-92f5-9a32a7f4c400 moved from {-41 82} to {-39 82}",
+        "time": "2025-07-11T18:32:34.213043017Z"
+    },
+    {
+        "message": "turn 228: ant ff8b0720-7def-4796-93af-9824a3c33541 cannot move to {-40 80}, your own ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 with same type is there",
+        "time": "2025-07-11T18:32:34.213065239Z"
+    },
+    {
+        "message": "turn 228: ant ff8b0720-7def-4796-93af-9824a3c33541 moved from {-38 80} to {-39 80}",
+        "time": "2025-07-11T18:32:34.213071326Z"
+    },
+    {
+        "message": "turn 228: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-33 78} to {-38 79}",
+        "time": "2025-07-11T18:32:34.213144436Z"
+    },
+    {
+        "message": "turn 228: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 cannot move to {-45 83} Rock tile",
+        "time": "2025-07-11T18:32:34.21315632Z"
+    },
+    {
+        "message": "turn 228: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-44 83} Rock tile",
+        "time": "2025-07-11T18:32:34.213164243Z"
+    },
+    {
+        "message": "turn 228: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea moved from {-42 83} to {-43 83}",
+        "time": "2025-07-11T18:32:34.213169876Z"
+    },
+    {
+        "message": "turn 228: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-43 90} to {-42 90}",
+        "time": "2025-07-11T18:32:34.21318474Z"
+    },
+    {
+        "message": "turn 228: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b cannot move to {-44 83} Rock tile",
+        "time": "2025-07-11T18:32:34.213191001Z"
+    },
+    {
+        "message": "turn 228: ant 66fb4677-02d0-46e2-914d-01e7df111964 cannot move to {-43 85} Rock tile",
+        "time": "2025-07-11T18:32:34.213195608Z"
+    },
+    {
+        "message": "turn 228: ant 715a6c59-d7dc-4c4a-88a4-33384dd46f25 moved from {-41 82} to {-42 82}",
+        "time": "2025-07-11T18:32:34.213201615Z"
+    },
+    {
+        "message": "turn 228: ant 6e546bad-2f11-43b1-8945-77db4d704a16 damaged by acid, health now 120",
+        "time": "2025-07-11T18:32:34.213210993Z"
+    },
+    {
+        "message": "turn 228: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-38 75} to {-39 75}",
+        "time": "2025-07-11T18:32:34.21321563Z"
+    },
+    {
+        "message": "turn 228: new ant spawned Soldier",
+        "time": "2025-07-11T18:32:34.213234852Z"
+    },
+    {
+        "message": "turn 229: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-37 74} to {-37 73}",
+        "time": "2025-07-11T18:32:36.200634647Z"
+    },
+    {
+        "message": "turn 229: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-40 79} to {-39 79}",
+        "time": "2025-07-11T18:32:36.200666494Z"
+    },
+    {
+        "message": "turn 229: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-36 81} to {-36 82}",
+        "time": "2025-07-11T18:32:36.200680842Z"
+    },
+    {
+        "message": "turn 229: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-43 79} to {-42 78}",
+        "time": "2025-07-11T18:32:36.20069565Z"
+    },
+    {
+        "message": "turn 229: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 80} to {-38 80}",
+        "time": "2025-07-11T18:32:36.200711209Z"
+    },
+    {
+        "message": "turn 229: ant 7b418820-f689-4a07-9708-967b91cad7cc cannot move to {-41 85} Rock tile",
+        "time": "2025-07-11T18:32:36.200725449Z"
+    },
+    {
+        "message": "turn 229: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 79} to {-41 78}",
+        "time": "2025-07-11T18:32:36.200734347Z"
+    },
+    {
+        "message": "turn 229: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-41 80} to {-41 81}",
+        "time": "2025-07-11T18:32:36.200747729Z"
+    },
+    {
+        "message": "turn 229: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-37 80} to {-38 80}",
+        "time": "2025-07-11T18:32:36.200756909Z"
+    },
+    {
+        "message": "turn 229: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-42 82} to {-41 82}",
+        "time": "2025-07-11T18:32:36.200768522Z"
+    },
+    {
+        "message": "turn 229: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-42 81} to {-43 81}",
+        "time": "2025-07-11T18:32:36.200783852Z"
+    },
+    {
+        "message": "turn 229: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 cannot move to {-41 81}, your own ant c82a39cc-2e78-4066-ba0b-a135552f5c0b with same type is there",
+        "time": "2025-07-11T18:32:36.200791652Z"
+    },
+    {
+        "message": "turn 229: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-51 86} to {-52 87} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:36.200802911Z"
+    },
+    {
+        "message": "turn 229: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-40 83} to {-39 83}",
+        "time": "2025-07-11T18:32:36.200814289Z"
+    },
+    {
+        "message": "turn 229: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-37 78} to {-40 79}",
+        "time": "2025-07-11T18:32:36.200830144Z"
+    },
+    {
+        "message": "turn 229: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 moved from {-40 81} to {-41 81}",
+        "time": "2025-07-11T18:32:36.200835113Z"
+    },
+    {
+        "message": "turn 229: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 160",
+        "time": "2025-07-11T18:32:36.200841904Z"
+    },
+    {
+        "message": "turn 229: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-43 78} to {-43 77}",
+        "time": "2025-07-11T18:32:36.200847001Z"
+    },
+    {
+        "message": "turn 229: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d cannot move to {-42 78}, your own ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d with same type is there",
+        "time": "2025-07-11T18:32:36.200853661Z"
+    },
+    {
+        "message": "turn 229: ant b2d3829c-334e-4c27-bbd9-248df2a0224d moved from {-43 79} to {-42 78}",
+        "time": "2025-07-11T18:32:36.200857533Z"
+    },
+    {
+        "message": "turn 229: ant 9aa4b2df-0393-4a32-8641-ce89ca03725f moved from {-41 80} to {-41 79}",
+        "time": "2025-07-11T18:32:36.200865408Z"
+    },
+    {
+        "message": "turn 229: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:36.200867688Z"
+    },
+    {
+        "message": "turn 229: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-40 78} to {-41 78}",
+        "time": "2025-07-11T18:32:36.200872283Z"
+    },
+    {
+        "message": "turn 229: ant c563da6b-75dd-418f-bbc4-2000cc49cbab moved from {-42 82} to {-42 81}",
+        "time": "2025-07-11T18:32:36.200882433Z"
+    },
+    {
+        "message": "turn 229: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-57 91} to {-56 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:36.200895426Z"
+    },
+    {
+        "message": "turn 229: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 moved from {-42 80} to {-42 79}",
+        "time": "2025-07-11T18:32:36.200906613Z"
+    },
+    {
+        "message": "turn 229: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e moved from {-38 79} to {-38 78}",
+        "time": "2025-07-11T18:32:36.200922278Z"
+    },
+    {
+        "message": "turn 229: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-41 84} to {-41 83}",
+        "time": "2025-07-11T18:32:36.20093493Z"
+    },
+    {
+        "message": "turn 229: ant 47d553e5-5871-40fe-90f3-2864be73cc49 cannot move to {-43 81}, your own ant 1c0cc928-1e93-454f-a432-1a1610750214 with same type is there",
+        "time": "2025-07-11T18:32:36.20093953Z"
+    },
+    {
+        "message": "turn 229: ant dfe451a4-e469-4843-ab37-38424af44124 moved from {-39 83} to {-38 83}",
+        "time": "2025-07-11T18:32:36.200948152Z"
+    },
+    {
+        "message": "turn 229: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 cannot move to {-42 81}, your own ant c563da6b-75dd-418f-bbc4-2000cc49cbab with same type is there",
+        "time": "2025-07-11T18:32:36.200958447Z"
+    },
+    {
+        "message": "turn 229: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-43 84} Rock tile",
+        "time": "2025-07-11T18:32:36.200963372Z"
+    },
+    {
+        "message": "turn 229: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-52 86} to {-53 86}",
+        "time": "2025-07-11T18:32:36.200974578Z"
+    },
+    {
+        "message": "turn 229: ant 2dc6ca04-f7af-4efa-a46d-6b0c1e8d5c53 cannot move to {-46 87} Rock tile",
+        "time": "2025-07-11T18:32:36.200981533Z"
+    },
+    {
+        "message": "turn 229: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-49 82} to {-50 83}",
+        "time": "2025-07-11T18:32:36.20099111Z"
+    },
+    {
+        "message": "turn 229: ant 169281ac-406f-413d-beec-2c7070219849 damaged by acid, health now 120",
+        "time": "2025-07-11T18:32:36.201000783Z"
+    },
+    {
+        "message": "turn 229: ant 169281ac-406f-413d-beec-2c7070219849 moved from {-44 79} to {-45 79}",
+        "time": "2025-07-11T18:32:36.201006745Z"
+    },
+    {
+        "message": "turn 229: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 81} to {-44 81}",
+        "time": "2025-07-11T18:32:36.201027982Z"
+    },
+    {
+        "message": "turn 229: ant 167cd692-c037-4bd0-b113-81ace38916eb moved from {-42 83} to {-41 83}",
+        "time": "2025-07-11T18:32:36.201044069Z"
+    },
+    {
+        "message": "turn 229: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 moved from {-40 79} to {-40 78}",
+        "time": "2025-07-11T18:32:36.201059552Z"
+    },
+    {
+        "message": "turn 229: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-38 81} to {-39 81}",
+        "time": "2025-07-11T18:32:36.201073662Z"
+    },
+    {
+        "message": "turn 229: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-46 81} to {-46 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:36.201122912Z"
+    },
+    {
+        "message": "turn 229: ant ff8b0720-7def-4796-93af-9824a3c33541 cannot move to {-39 81}, your own ant 9080802d-e910-4aa6-bc8c-becc7356a043 with same type is there",
+        "time": "2025-07-11T18:32:36.201138279Z"
+    },
+    {
+        "message": "turn 229: ant c9cfe6c2-742d-41cc-b526-69a012105414 cannot move to {-38 80}, your own ant 9d2167de-987c-44ea-850e-d88e2da7e63d with same type is there",
+        "time": "2025-07-11T18:32:36.201141709Z"
+    },
+    {
+        "message": "turn 229: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 cannot move to {-39 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:36.201146597Z"
+    },
+    {
+        "message": "turn 229: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 moved from {-38 77} to {-38 76}",
+        "time": "2025-07-11T18:32:36.201157517Z"
+    },
+    {
+        "message": "turn 229: ant ad7a792a-e23e-4fff-9991-ae49cf20a2c1 moved from {-44 81} to {-45 81}",
+        "time": "2025-07-11T18:32:36.201173838Z"
+    },
+    {
+        "message": "turn 229: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 cannot move to {-44 83} Rock tile",
+        "time": "2025-07-11T18:32:36.201180636Z"
+    },
+    {
+        "message": "turn 229: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-37 83} to {-36 82}",
+        "time": "2025-07-11T18:32:36.201189056Z"
+    },
+    {
+        "message": "turn 229: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-44 83} Rock tile",
+        "time": "2025-07-11T18:32:36.201196046Z"
+    },
+    {
+        "message": "turn 229: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-42 90} to {-41 90}",
+        "time": "2025-07-11T18:32:36.201211823Z"
+    },
+    {
+        "message": "turn 229: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b cannot move to {-44 83} Rock tile",
+        "time": "2025-07-11T18:32:36.201220536Z"
+    },
+    {
+        "message": "turn 229: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-33 76} to {-34 77} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:36.201232334Z"
+    },
+    {
+        "message": "turn 229: ant 66fb4677-02d0-46e2-914d-01e7df111964 cannot move to {-43 84} Rock tile",
+        "time": "2025-07-11T18:32:36.201240763Z"
+    },
+    {
+        "message": "turn 229: ant 6e546bad-2f11-43b1-8945-77db4d704a16 damaged by acid, health now 100",
+        "time": "2025-07-11T18:32:36.201244271Z"
+    },
+    {
+        "message": "turn 230: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-39 79} to {-40 79}",
+        "time": "2025-07-11T18:32:38.200442632Z"
+    },
+    {
+        "message": "turn 230: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-36 82} to {-37 82}",
+        "time": "2025-07-11T18:32:38.20045345Z"
+    },
+    {
+        "message": "turn 230: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 78} to {-43 78}",
+        "time": "2025-07-11T18:32:38.200466378Z"
+    },
+    {
+        "message": "turn 230: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-38 80} to {-37 80}",
+        "time": "2025-07-11T18:32:38.200478663Z"
+    },
+    {
+        "message": "turn 230: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:32:38.200490012Z"
+    },
+    {
+        "message": "turn 230: ant 19811b30-e429-4a90-90a9-6636b1859ca9 cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:38.200497062Z"
+    },
+    {
+        "message": "turn 230: ant 7b418820-f689-4a07-9708-967b91cad7cc cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:38.20049886Z"
+    },
+    {
+        "message": "turn 230: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 78} to {-41 79}",
+        "time": "2025-07-11T18:32:38.200506328Z"
+    },
+    {
+        "message": "turn 230: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-41 81} to {-42 81}",
+        "time": "2025-07-11T18:32:38.200513563Z"
+    },
+    {
+        "message": "turn 230: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-38 80} to {-37 80}",
+        "time": "2025-07-11T18:32:38.200521509Z"
+    },
+    {
+        "message": "turn 230: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-41 82} to {-42 83}",
+        "time": "2025-07-11T18:32:38.200532899Z"
+    },
+    {
+        "message": "turn 230: ant 9782b172-4872-4917-ad2a-c4130f156812 cannot move to {-45 88} Rock tile",
+        "time": "2025-07-11T18:32:38.200539247Z"
+    },
+    {
+        "message": "turn 230: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 81} to {-42 80}",
+        "time": "2025-07-11T18:32:38.200546842Z"
+    },
+    {
+        "message": "turn 230: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-40 80} to {-40 79}",
+        "time": "2025-07-11T18:32:38.200553228Z"
+    },
+    {
+        "message": "turn 230: ant b8d50db2-05bf-44d7-b747-335caa5549dc cannot move to {-40 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:38.200556628Z"
+    },
+    {
+        "message": "turn 230: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-52 87} to {-51 87} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:38.20056548Z"
+    },
+    {
+        "message": "turn 230: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-39 83} to {-38 83}",
+        "time": "2025-07-11T18:32:38.200575675Z"
+    },
+    {
+        "message": "turn 230: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 79} to {-40 80}",
+        "time": "2025-07-11T18:32:38.200586046Z"
+    },
+    {
+        "message": "turn 230: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 140",
+        "time": "2025-07-11T18:32:38.200589265Z"
+    },
+    {
+        "message": "turn 230: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:38.200596617Z"
+    },
+    {
+        "message": "turn 230: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-42 79} to {-43 81}",
+        "time": "2025-07-11T18:32:38.200601602Z"
+    },
+    {
+        "message": "turn 230: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-41 78} to {-41 77}",
+        "time": "2025-07-11T18:32:38.200612661Z"
+    },
+    {
+        "message": "turn 230: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 cannot move to {-42 80}, your own ant 1c0cc928-1e93-454f-a432-1a1610750214 with same type is there",
+        "time": "2025-07-11T18:32:38.200619991Z"
+    },
+    {
+        "message": "turn 230: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e moved from {-38 78} to {-38 79}",
+        "time": "2025-07-11T18:32:38.20062691Z"
+    },
+    {
+        "message": "turn 230: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-41 83} to {-40 82}",
+        "time": "2025-07-11T18:32:38.200636691Z"
+    },
+    {
+        "message": "turn 230: ant 47d553e5-5871-40fe-90f3-2864be73cc49 cannot move to {-42 80}, your own ant 1c0cc928-1e93-454f-a432-1a1610750214 with same type is there",
+        "time": "2025-07-11T18:32:38.200642301Z"
+    },
+    {
+        "message": "turn 230: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:38.200645093Z"
+    },
+    {
+        "message": "turn 230: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 cannot move to {-43 81}, your own ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d with same type is there",
+        "time": "2025-07-11T18:32:38.200648488Z"
+    },
+    {
+        "message": "turn 230: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 moved from {-41 80} to {-42 80}",
+        "time": "2025-07-11T18:32:38.200650893Z"
+    },
+    {
+        "message": "turn 230: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-49 88} to {-50 89}",
+        "time": "2025-07-11T18:32:38.200662008Z"
+    },
+    {
+        "message": "turn 230: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-42 83}, your own ant 10526263-65c4-4d90-bee0-62a56cada411 with same type is there",
+        "time": "2025-07-11T18:32:38.200667708Z"
+    },
+    {
+        "message": "turn 230: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-53 86} to {-52 86}",
+        "time": "2025-07-11T18:32:38.200677113Z"
+    },
+    {
+        "message": "turn 230: ant 2dc6ca04-f7af-4efa-a46d-6b0c1e8d5c53 cannot move to {-46 87} Rock tile",
+        "time": "2025-07-11T18:32:38.200682231Z"
+    },
+    {
+        "message": "turn 230: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-50 83} to {-46 83} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:38.200700226Z"
+    },
+    {
+        "message": "turn 230: ant 169281ac-406f-413d-beec-2c7070219849 damaged by acid, health now 100",
+        "time": "2025-07-11T18:32:38.200706289Z"
+    },
+    {
+        "message": "turn 230: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 cannot move to {-43 81}, your own ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d with same type is there",
+        "time": "2025-07-11T18:32:38.200708851Z"
+    },
+    {
+        "message": "turn 230: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-46 82} to {-46 83} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:38.20071708Z"
+    },
+    {
+        "message": "turn 230: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-38 79} to {-37 78}",
+        "time": "2025-07-11T18:32:38.200728431Z"
+    },
+    {
+        "message": "turn 230: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-36 82} to {-41 82}",
+        "time": "2025-07-11T18:32:38.20075022Z"
+    },
+    {
+        "message": "turn 230: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-41 90} to {-42 90}",
+        "time": "2025-07-11T18:32:38.200762069Z"
+    },
+    {
+        "message": "turn 230: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b cannot move to {-43 84} Rock tile",
+        "time": "2025-07-11T18:32:38.200768036Z"
+    },
+    {
+        "message": "turn 230: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-34 77} to {-33 77} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:38.200777528Z"
+    },
+    {
+        "message": "turn 230: ant 66fb4677-02d0-46e2-914d-01e7df111964 moved from {-42 84} to {-42 83}",
+        "time": "2025-07-11T18:32:38.200785732Z"
+    },
+    {
+        "message": "turn 230: ant 6e546bad-2f11-43b1-8945-77db4d704a16 damaged by acid, health now 80",
+        "time": "2025-07-11T18:32:38.200790152Z"
+    },
+    {
+        "message": "turn 230: new ant spawned Soldier",
+        "time": "2025-07-11T18:32:38.200805267Z"
+    },
+    {
+        "message": "turn 231: ant 19811b30-e429-4a90-90a9-6636b1859ca9 cannot move to {-41 85} Rock tile",
+        "time": "2025-07-11T18:32:40.195218623Z"
+    },
+    {
+        "message": "turn 231: ant 7b418820-f689-4a07-9708-967b91cad7cc moved from {-40 84} to {-40 83}",
+        "time": "2025-07-11T18:32:40.195227704Z"
+    },
+    {
+        "message": "turn 231: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-37 80} to {-38 81}",
+        "time": "2025-07-11T18:32:40.195245006Z"
+    },
+    {
+        "message": "turn 231: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-41 79} to {-40 78}",
+        "time": "2025-07-11T18:32:40.195260786Z"
+    },
+    {
+        "message": "turn 231: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff cannot move to {-42 76} Rock tile",
+        "time": "2025-07-11T18:32:40.195272383Z"
+    },
+    {
+        "message": "turn 231: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d cannot move to {-42 80}, your own ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 with same type is there",
+        "time": "2025-07-11T18:32:40.195277589Z"
+    },
+    {
+        "message": "turn 231: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-56 91} to {-57 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:40.195291562Z"
+    },
+    {
+        "message": "turn 231: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 cannot move to {-41 79}, your own ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 with same type is there",
+        "time": "2025-07-11T18:32:40.195299107Z"
+    },
+    {
+        "message": "turn 231: ant 47d553e5-5871-40fe-90f3-2864be73cc49 moved from {-43 80} to {-43 79}",
+        "time": "2025-07-11T18:32:40.195312909Z"
+    },
+    {
+        "message": "turn 231: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-42 84} to {-41 84}",
+        "time": "2025-07-11T18:32:40.195326094Z"
+    },
+    {
+        "message": "turn 231: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-52 86} to {-53 87}",
+        "time": "2025-07-11T18:32:40.195336502Z"
+    },
+    {
+        "message": "turn 231: ant 2dc6ca04-f7af-4efa-a46d-6b0c1e8d5c53 cannot move to {-46 87} Rock tile",
+        "time": "2025-07-11T18:32:40.195342973Z"
+    },
+    {
+        "message": "turn 231: ant 169281ac-406f-413d-beec-2c7070219849 damaged by acid, health now 80",
+        "time": "2025-07-11T18:32:40.195346776Z"
+    },
+    {
+        "message": "turn 231: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 cannot move to {-43 81}, your own ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d with same type is there",
+        "time": "2025-07-11T18:32:40.195351953Z"
+    },
+    {
+        "message": "turn 231: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-46 83} to {-47 83}",
+        "time": "2025-07-11T18:32:40.195364269Z"
+    },
+    {
+        "message": "turn 231: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-37 78} to {-37 79}",
+        "time": "2025-07-11T18:32:40.195379951Z"
+    },
+    {
+        "message": "turn 231: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-42 90} to {-42 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:40.195400174Z"
+    },
+    {
+        "message": "turn 231: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b cannot move to {-42 83}, your own ant 66fb4677-02d0-46e2-914d-01e7df111964 with same type is there",
+        "time": "2025-07-11T18:32:40.195407556Z"
+    },
+    {
+        "message": "turn 231: ant 66fb4677-02d0-46e2-914d-01e7df111964 moved from {-42 83} to {-41 84}",
+        "time": "2025-07-11T18:32:40.195412396Z"
+    },
+    {
+        "message": "turn 231: ant 6e546bad-2f11-43b1-8945-77db4d704a16 damaged by acid, health now 60",
+        "time": "2025-07-11T18:32:40.19541668Z"
+    },
+    {
+        "message": "turn 231: new ant spawned Worker",
+        "time": "2025-07-11T18:32:40.195435555Z"
+    },
+    {
+        "message": "turn 232: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-40 79} to {-39 79}",
+        "time": "2025-07-11T18:32:42.205278413Z"
+    },
+    {
+        "message": "turn 232: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-37 82} to {-38 82}",
+        "time": "2025-07-11T18:32:42.205314803Z"
+    },
+    {
+        "message": "turn 232: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-43 78} to {-41 79}",
+        "time": "2025-07-11T18:32:42.205348798Z"
+    },
+    {
+        "message": "turn 232: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 80} to {-36 80}",
+        "time": "2025-07-11T18:32:42.205382529Z"
+    },
+    {
+        "message": "turn 232: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 81} to {-40 82}",
+        "time": "2025-07-11T18:32:42.205404604Z"
+    },
+    {
+        "message": "turn 232: ant 7b418820-f689-4a07-9708-967b91cad7cc moved from {-40 83} to {-40 84}",
+        "time": "2025-07-11T18:32:42.205426244Z"
+    },
+    {
+        "message": "turn 232: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 79} to {-41 80}",
+        "time": "2025-07-11T18:32:42.205450306Z"
+    },
+    {
+        "message": "turn 232: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-42 81} to {-42 82}",
+        "time": "2025-07-11T18:32:42.205471397Z"
+    },
+    {
+        "message": "turn 232: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-38 81} to {-37 80}",
+        "time": "2025-07-11T18:32:42.205493199Z"
+    },
+    {
+        "message": "turn 232: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-42 83} to {-41 83}",
+        "time": "2025-07-11T18:32:42.205510902Z"
+    },
+    {
+        "message": "turn 232: ant 9782b172-4872-4917-ad2a-c4130f156812 cannot move to {-46 87} Rock tile",
+        "time": "2025-07-11T18:32:42.205522954Z"
+    },
+    {
+        "message": "turn 232: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-42 80} to {-43 80}",
+        "time": "2025-07-11T18:32:42.205543782Z"
+    },
+    {
+        "message": "turn 232: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-40 79} to {-39 79}",
+        "time": "2025-07-11T18:32:42.205559139Z"
+    },
+    {
+        "message": "turn 232: ant b8d50db2-05bf-44d7-b747-335caa5549dc cannot move to {-41 79}, your own ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d with same type is there",
+        "time": "2025-07-11T18:32:42.205570505Z"
+    },
+    {
+        "message": "turn 232: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-38 83} to {-37 83}",
+        "time": "2025-07-11T18:32:42.205585087Z"
+    },
+    {
+        "message": "turn 232: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-40 80} to {-41 80}",
+        "time": "2025-07-11T18:32:42.205603016Z"
+    },
+    {
+        "message": "turn 232: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:32:42.205634316Z"
+    },
+    {
+        "message": "turn 232: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 cannot move to {-41 80}, your own ant 8108c416-a3cb-4ef9-9308-051a0986ad2d with same type is there",
+        "time": "2025-07-11T18:32:42.205646058Z"
+    },
+    {
+        "message": "turn 232: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-43 77} to {-43 78}",
+        "time": "2025-07-11T18:32:42.205664241Z"
+    },
+    {
+        "message": "turn 232: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-43 81} to {-43 80}",
+        "time": "2025-07-11T18:32:42.205679586Z"
+    },
+    {
+        "message": "turn 232: ant b2d3829c-334e-4c27-bbd9-248df2a0224d cannot move to {-43 78}, your own ant 9a268908-a9aa-4287-bd1e-755fa69c0fff with same type is there",
+        "time": "2025-07-11T18:32:42.205689851Z"
+    },
+    {
+        "message": "turn 232: ant 9aa4b2df-0393-4a32-8641-ce89ca03725f moved from {-41 79} to {-40 79}",
+        "time": "2025-07-11T18:32:42.205703606Z"
+    },
+    {
+        "message": "turn 232: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-39 84} to {-38 84}",
+        "time": "2025-07-11T18:32:42.205721951Z"
+    },
+    {
+        "message": "turn 232: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 cannot move to {-41 79}, your own ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d with same type is there",
+        "time": "2025-07-11T18:32:42.205740526Z"
+    },
+    {
+        "message": "turn 232: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-41 77} to {-41 78}",
+        "time": "2025-07-11T18:32:42.205749381Z"
+    },
+    {
+        "message": "turn 232: ant c563da6b-75dd-418f-bbc4-2000cc49cbab moved from {-42 81} to {-42 82}",
+        "time": "2025-07-11T18:32:42.205763089Z"
+    },
+    {
+        "message": "turn 232: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e moved from {-38 79} to {-38 80}",
+        "time": "2025-07-11T18:32:42.205785036Z"
+    },
+    {
+        "message": "turn 232: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 cannot move to {-41 83}, your own ant 10526263-65c4-4d90-bee0-62a56cada411 with same type is there",
+        "time": "2025-07-11T18:32:42.205796314Z"
+    },
+    {
+        "message": "turn 232: ant 47d553e5-5871-40fe-90f3-2864be73cc49 cannot move to {-43 80}, your own ant 1c0cc928-1e93-454f-a432-1a1610750214 with same type is there",
+        "time": "2025-07-11T18:32:42.205819167Z"
+    },
+    {
+        "message": "turn 232: ant dfe451a4-e469-4843-ab37-38424af44124 cannot move to {-38 82}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:32:42.205826557Z"
+    },
+    {
+        "message": "turn 232: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-41 84} to {-42 84}",
+        "time": "2025-07-11T18:32:42.205849247Z"
+    },
+    {
+        "message": "turn 232: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 cannot move to {-45 83} Rock tile",
+        "time": "2025-07-11T18:32:42.205868062Z"
+    },
+    {
+        "message": "turn 232: ant 169281ac-406f-413d-beec-2c7070219849 damaged by acid, health now 60",
+        "time": "2025-07-11T18:32:42.205872349Z"
+    },
+    {
+        "message": "turn 232: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:32:42.205882402Z"
+    },
+    {
+        "message": "turn 232: ant 167cd692-c037-4bd0-b113-81ace38916eb cannot move to {-40 82}, your own ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 with same type is there",
+        "time": "2025-07-11T18:32:42.205893787Z"
+    },
+    {
+        "message": "turn 232: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-39 81} to {-39 82}",
+        "time": "2025-07-11T18:32:42.205906547Z"
+    },
+    {
+        "message": "turn 232: ant 086ea985-3073-4385-92f5-9a32a7f4c400 moved from {-39 82} to {-39 83}",
+        "time": "2025-07-11T18:32:42.2059189Z"
+    },
+    {
+        "message": "turn 232: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-49 88} to {-50 89}",
+        "time": "2025-07-11T18:32:42.205935672Z"
+    },
+    {
+        "message": "turn 232: ant ff8b0720-7def-4796-93af-9824a3c33541 cannot move to {-39 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:42.205952985Z"
+    },
+    {
+        "message": "turn 232: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-37 79} to {-36 78}",
+        "time": "2025-07-11T18:32:42.205977042Z"
+    },
+    {
+        "message": "turn 232: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 moved from {-38 76} to {-39 77}",
+        "time": "2025-07-11T18:32:42.206008963Z"
+    },
+    {
+        "message": "turn 232: ant ad7a792a-e23e-4fff-9991-ae49cf20a2c1 moved from {-45 81} to {-45 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:42.206037758Z"
+    },
+    {
+        "message": "turn 232: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f cannot move to {-42 82}, your own ant c563da6b-75dd-418f-bbc4-2000cc49cbab with same type is there",
+        "time": "2025-07-11T18:32:42.20606958Z"
+    },
+    {
+        "message": "turn 232: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-49 86} to {-53 86}",
+        "time": "2025-07-11T18:32:42.206131216Z"
+    },
+    {
+        "message": "turn 232: ant 3fb59324-ce09-4db6-8397-596a636896cc collected 8 Bread at {-53 86}",
+        "time": "2025-07-11T18:32:42.206145258Z"
+    },
+    {
+        "message": "turn 232: ant e6b72f78-8bdf-4def-9fea-820285f8d020 cannot move to {-44 90} Rock tile",
+        "time": "2025-07-11T18:32:42.206164146Z"
+    },
+    {
+        "message": "turn 232: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-42 91} to {-44 91}",
+        "time": "2025-07-11T18:32:42.206173353Z"
+    },
+    {
+        "message": "turn 232: ant 715a6c59-d7dc-4c4a-88a4-33384dd46f25 moved from {-42 82} to {-42 83}",
+        "time": "2025-07-11T18:32:42.206199971Z"
+    },
+    {
+        "message": "turn 232: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-39 75} to {-38 74}",
+        "time": "2025-07-11T18:32:42.206222636Z"
+    },
+    {
+        "message": "turn 232: new ant spawned Soldier",
+        "time": "2025-07-11T18:32:42.206279009Z"
+    },
+    {
+        "message": "turn 233: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-39 79} to {-40 79}",
+        "time": "2025-07-11T18:32:44.21023183Z"
+    },
+    {
+        "message": "turn 233: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-41 79} to {-42 79}",
+        "time": "2025-07-11T18:32:44.210250992Z"
+    },
+    {
+        "message": "turn 233: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-36 80} to {-37 81}",
+        "time": "2025-07-11T18:32:44.210269617Z"
+    },
+    {
+        "message": "turn 233: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 82} to {-40 80}",
+        "time": "2025-07-11T18:32:44.210288517Z"
+    },
+    {
+        "message": "turn 233: ant 7b418820-f689-4a07-9708-967b91cad7cc cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:44.210293727Z"
+    },
+    {
+        "message": "turn 233: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 80} to {-41 79}",
+        "time": "2025-07-11T18:32:44.210304827Z"
+    },
+    {
+        "message": "turn 233: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-42 82} to {-41 82}",
+        "time": "2025-07-11T18:32:44.210313847Z"
+    },
+    {
+        "message": "turn 233: ant 9d2167de-987c-44ea-850e-d88e2da7e63d cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:44.210345578Z"
+    },
+    {
+        "message": "turn 233: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-37 80} to {-39 84}",
+        "time": "2025-07-11T18:32:44.210350603Z"
+    },
+    {
+        "message": "turn 233: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-41 83} to {-40 83}",
+        "time": "2025-07-11T18:32:44.210366058Z"
+    },
+    {
+        "message": "turn 233: ant 9782b172-4872-4917-ad2a-c4130f156812 cannot move to {-44 86} Rock tile",
+        "time": "2025-07-11T18:32:44.21037478Z"
+    },
+    {
+        "message": "turn 233: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 80} to {-43 81}",
+        "time": "2025-07-11T18:32:44.21038799Z"
+    },
+    {
+        "message": "turn 233: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-40 80} to {-39 80}",
+        "time": "2025-07-11T18:32:44.210400695Z"
+    },
+    {
+        "message": "turn 233: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 cannot move to {-39 80}, your own ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 with same type is there",
+        "time": "2025-07-11T18:32:44.21040798Z"
+    },
+    {
+        "message": "turn 233: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-51 87} to {-51 86}",
+        "time": "2025-07-11T18:32:44.210421873Z"
+    },
+    {
+        "message": "turn 233: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-41 78} to {-41 77}",
+        "time": "2025-07-11T18:32:44.210471181Z"
+    },
+    {
+        "message": "turn 233: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-57 91} to {-56 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:44.210500638Z"
+    },
+    {
+        "message": "turn 233: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 85} to {-39 84}",
+        "time": "2025-07-11T18:32:44.210517778Z"
+    },
+    {
+        "message": "turn 233: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 cannot move to {-50 90} Rock tile",
+        "time": "2025-07-11T18:32:44.210525296Z"
+    },
+    {
+        "message": "turn 233: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-43 85} Rock tile",
+        "time": "2025-07-11T18:32:44.210528911Z"
+    },
+    {
+        "message": "turn 233: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-53 87} to {-52 86}",
+        "time": "2025-07-11T18:32:44.210541504Z"
+    },
+    {
+        "message": "turn 233: ant 169281ac-406f-413d-beec-2c7070219849 damaged by acid, health now 40",
+        "time": "2025-07-11T18:32:44.210550891Z"
+    },
+    {
+        "message": "turn 233: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-44 81} to {-45 81}",
+        "time": "2025-07-11T18:32:44.210562594Z"
+    },
+    {
+        "message": "turn 233: ant 9080802d-e910-4aa6-bc8c-becc7356a043 cannot move to {-39 84}, your own ant 9d2167de-987c-44ea-850e-d88e2da7e63d with same type is there",
+        "time": "2025-07-11T18:32:44.210576361Z"
+    },
+    {
+        "message": "turn 233: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-39 82} to {-39 83}",
+        "time": "2025-07-11T18:32:44.210580336Z"
+    },
+    {
+        "message": "turn 233: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-47 83} to {-46 83} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:44.210594764Z"
+    },
+    {
+        "message": "turn 233: ant ff8b0720-7def-4796-93af-9824a3c33541 cannot move to {-39 83}, your own ant 9080802d-e910-4aa6-bc8c-becc7356a043 with same type is there",
+        "time": "2025-07-11T18:32:44.210616289Z"
+    },
+    {
+        "message": "turn 233: ant ff8b0720-7def-4796-93af-9824a3c33541 moved from {-39 80} to {-38 82}",
+        "time": "2025-07-11T18:32:44.210620744Z"
+    },
+    {
+        "message": "turn 233: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 damaged by acid, health now 80",
+        "time": "2025-07-11T18:32:44.210636834Z"
+    },
+    {
+        "message": "turn 233: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 damaged by acid, health now 60",
+        "time": "2025-07-11T18:32:44.210655799Z"
+    },
+    {
+        "message": "turn 233: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 moved from {-39 77} to {-43 77}",
+        "time": "2025-07-11T18:32:44.210661539Z"
+    },
+    {
+        "message": "turn 233: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 cannot move to {-45 83} Rock tile",
+        "time": "2025-07-11T18:32:44.210670157Z"
+    },
+    {
+        "message": "turn 233: ant 3fb59324-ce09-4db6-8397-596a636896cc cannot move to {-52 86}, your own ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 with same type is there",
+        "time": "2025-07-11T18:32:44.210676729Z"
+    },
+    {
+        "message": "turn 233: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b cannot move to {-44 83} Rock tile",
+        "time": "2025-07-11T18:32:44.210681027Z"
+    },
+    {
+        "message": "turn 233: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-33 77} to {-38 77} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:44.210710159Z"
+    },
+    {
+        "message": "turn 233: new ant spawned Soldier",
+        "time": "2025-07-11T18:32:44.210732524Z"
+    },
+    {
+        "message": "turn 234: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-37 73} to {-38 77}",
+        "time": "2025-07-11T18:32:46.205686212Z"
+    },
+    {
+        "message": "turn 234: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-40 79} to {-41 79}",
+        "time": "2025-07-11T18:32:46.205703662Z"
+    },
+    {
+        "message": "turn 234: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-38 82} to {-37 82}",
+        "time": "2025-07-11T18:32:46.205716622Z"
+    },
+    {
+        "message": "turn 234: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d cannot move to {-41 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:46.205727468Z"
+    },
+    {
+        "message": "turn 234: ant 6836dc11-aab5-4145-932f-e0e994076a39 cannot move to {-37 82}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:32:46.205732899Z"
+    },
+    {
+        "message": "turn 234: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:32:46.205743419Z"
+    },
+    {
+        "message": "turn 234: ant 19811b30-e429-4a90-90a9-6636b1859ca9 cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:46.205753542Z"
+    },
+    {
+        "message": "turn 234: ant 7b418820-f689-4a07-9708-967b91cad7cc moved from {-40 84} to {-41 84}",
+        "time": "2025-07-11T18:32:46.205763709Z"
+    },
+    {
+        "message": "turn 234: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 79} to {-40 79}",
+        "time": "2025-07-11T18:32:46.205776602Z"
+    },
+    {
+        "message": "turn 234: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-41 82} to {-42 82}",
+        "time": "2025-07-11T18:32:46.205786825Z"
+    },
+    {
+        "message": "turn 234: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-39 84} to {-39 85}",
+        "time": "2025-07-11T18:32:46.205805109Z"
+    },
+    {
+        "message": "turn 234: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-40 83} to {-39 82}",
+        "time": "2025-07-11T18:32:46.205826802Z"
+    },
+    {
+        "message": "turn 234: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-45 87} to {-44 87}",
+        "time": "2025-07-11T18:32:46.205863366Z"
+    },
+    {
+        "message": "turn 234: ant 1c0cc928-1e93-454f-a432-1a1610750214 cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:46.205873619Z"
+    },
+    {
+        "message": "turn 234: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-39 80} to {-39 81}",
+        "time": "2025-07-11T18:32:46.205886693Z"
+    },
+    {
+        "message": "turn 234: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 cannot move to {-40 79}, your own ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 with same type is there",
+        "time": "2025-07-11T18:32:46.205894743Z"
+    },
+    {
+        "message": "turn 234: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-40 78} to {-41 78}",
+        "time": "2025-07-11T18:32:46.205908403Z"
+    },
+    {
+        "message": "turn 234: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-37 83} to {-36 82}",
+        "time": "2025-07-11T18:32:46.205927263Z"
+    },
+    {
+        "message": "turn 234: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-41 80} to {-42 81}",
+        "time": "2025-07-11T18:32:46.205943053Z"
+    },
+    {
+        "message": "turn 234: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 81} to {-40 80}",
+        "time": "2025-07-11T18:32:46.205954143Z"
+    },
+    {
+        "message": "turn 234: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-43 78} to {-44 82}",
+        "time": "2025-07-11T18:32:46.205979123Z"
+    },
+    {
+        "message": "turn 234: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:46.205991263Z"
+    },
+    {
+        "message": "turn 234: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-43 80} to {-43 81}",
+        "time": "2025-07-11T18:32:46.205995303Z"
+    },
+    {
+        "message": "turn 234: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 cannot move to {-41 78}, your own ant b8d50db2-05bf-44d7-b747-335caa5549dc with same type is there",
+        "time": "2025-07-11T18:32:46.206005923Z"
+    },
+    {
+        "message": "turn 234: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 moved from {-42 79} to {-41 78}",
+        "time": "2025-07-11T18:32:46.206018473Z"
+    },
+    {
+        "message": "turn 234: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e moved from {-38 80} to {-38 81}",
+        "time": "2025-07-11T18:32:46.20603405Z"
+    },
+    {
+        "message": "turn 234: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-40 82} to {-41 83}",
+        "time": "2025-07-11T18:32:46.206046897Z"
+    },
+    {
+        "message": "turn 234: ant dfe451a4-e469-4843-ab37-38424af44124 moved from {-38 83} to {-37 83}",
+        "time": "2025-07-11T18:32:46.206063513Z"
+    },
+    {
+        "message": "turn 234: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 84} to {-39 85}",
+        "time": "2025-07-11T18:32:46.206074623Z"
+    },
+    {
+        "message": "turn 234: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-50 89} to {-49 88} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:46.206091423Z"
+    },
+    {
+        "message": "turn 234: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-42 85} Rock tile",
+        "time": "2025-07-11T18:32:46.20609922Z"
+    },
+    {
+        "message": "turn 234: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-46 83} to {-47 83}",
+        "time": "2025-07-11T18:32:46.206116107Z"
+    },
+    {
+        "message": "turn 234: ant 169281ac-406f-413d-beec-2c7070219849 damaged by acid, health now 20",
+        "time": "2025-07-11T18:32:46.206124677Z"
+    },
+    {
+        "message": "turn 234: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 cannot move to {-45 83} Rock tile",
+        "time": "2025-07-11T18:32:46.2061309Z"
+    },
+    {
+        "message": "turn 234: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 81} to {-45 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:46.20613584Z"
+    },
+    {
+        "message": "turn 234: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 cannot move to {-39 81}, your own ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 with same type is there",
+        "time": "2025-07-11T18:32:46.206146497Z"
+    },
+    {
+        "message": "turn 234: ant ff8b0720-7def-4796-93af-9824a3c33541 cannot move to {-39 85}, your own ant 9d2167de-987c-44ea-850e-d88e2da7e63d with same type is there",
+        "time": "2025-07-11T18:32:46.206165484Z"
+    },
+    {
+        "message": "turn 234: ant ff8b0720-7def-4796-93af-9824a3c33541 moved from {-38 82} to {-38 84}",
+        "time": "2025-07-11T18:32:46.206169214Z"
+    },
+    {
+        "message": "turn 234: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-36 78} to {-35 78}",
+        "time": "2025-07-11T18:32:46.206184974Z"
+    },
+    {
+        "message": "turn 234: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-38 78} to {-37 82}",
+        "time": "2025-07-11T18:32:46.206212561Z"
+    },
+    {
+        "message": "turn 234: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 damaged by acid, health now 40",
+        "time": "2025-07-11T18:32:46.206219114Z"
+    },
+    {
+        "message": "turn 234: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-38 77} to {-37 77}",
+        "time": "2025-07-11T18:32:46.206239628Z"
+    },
+    {
+        "message": "turn 235: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-38 77} to {-39 77}",
+        "time": "2025-07-11T18:32:48.208239346Z"
+    },
+    {
+        "message": "turn 235: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 79} to {-41 80}",
+        "time": "2025-07-11T18:32:48.208252454Z"
+    },
+    {
+        "message": "turn 235: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-37 82} to {-36 82}",
+        "time": "2025-07-11T18:32:48.208264509Z"
+    },
+    {
+        "message": "turn 235: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 79} to {-42 78}",
+        "time": "2025-07-11T18:32:48.208274821Z"
+    },
+    {
+        "message": "turn 235: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 81} to {-37 80}",
+        "time": "2025-07-11T18:32:48.208288254Z"
+    },
+    {
+        "message": "turn 235: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 81} to {-40 80}",
+        "time": "2025-07-11T18:32:48.208300686Z"
+    },
+    {
+        "message": "turn 235: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-40 79} to {-41 79}",
+        "time": "2025-07-11T18:32:48.208312158Z"
+    },
+    {
+        "message": "turn 235: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-39 82} to {-38 82}",
+        "time": "2025-07-11T18:32:48.208325856Z"
+    },
+    {
+        "message": "turn 235: ant 9782b172-4872-4917-ad2a-c4130f156812 cannot move to {-44 86} Rock tile",
+        "time": "2025-07-11T18:32:48.208332271Z"
+    },
+    {
+        "message": "turn 235: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 81} to {-43 80}",
+        "time": "2025-07-11T18:32:48.20834109Z"
+    },
+    {
+        "message": "turn 235: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-39 81} to {-38 80}",
+        "time": "2025-07-11T18:32:48.208353255Z"
+    },
+    {
+        "message": "turn 235: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-39 79} to {-39 80}",
+        "time": "2025-07-11T18:32:48.208372241Z"
+    },
+    {
+        "message": "turn 235: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-41 78} to {-40 79}",
+        "time": "2025-07-11T18:32:48.208383658Z"
+    },
+    {
+        "message": "turn 235: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-51 86} to {-51 85}",
+        "time": "2025-07-11T18:32:48.208393522Z"
+    },
+    {
+        "message": "turn 235: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 cannot move to {-40 80}, your own ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 with same type is there",
+        "time": "2025-07-11T18:32:48.208403172Z"
+    },
+    {
+        "message": "turn 235: ant b2d3829c-334e-4c27-bbd9-248df2a0224d damaged by acid, health now 140",
+        "time": "2025-07-11T18:32:48.208414757Z"
+    },
+    {
+        "message": "turn 235: ant b2d3829c-334e-4c27-bbd9-248df2a0224d damaged by acid, health now 120",
+        "time": "2025-07-11T18:32:48.208419495Z"
+    },
+    {
+        "message": "turn 235: ant b2d3829c-334e-4c27-bbd9-248df2a0224d moved from {-42 78} to {-46 79}",
+        "time": "2025-07-11T18:32:48.208427525Z"
+    },
+    {
+        "message": "turn 235: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-41 77} to {-40 76}",
+        "time": "2025-07-11T18:32:48.2084437Z"
+    },
+    {
+        "message": "turn 235: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-56 91} to {-56 92} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:48.20845805Z"
+    },
+    {
+        "message": "turn 235: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 cannot move to {-40 85} Rock tile",
+        "time": "2025-07-11T18:32:48.20846869Z"
+    },
+    {
+        "message": "turn 235: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-49 88} to {-49 87} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:48.208482802Z"
+    },
+    {
+        "message": "turn 235: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-42 85} Rock tile",
+        "time": "2025-07-11T18:32:48.208489702Z"
+    },
+    {
+        "message": "turn 235: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-52 86} to {-52 87} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:48.208500162Z"
+    },
+    {
+        "message": "turn 235: ant 169281ac-406f-413d-beec-2c7070219849 killed by acid",
+        "time": "2025-07-11T18:32:48.208507502Z"
+    },
+    {
+        "message": "turn 235: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 cannot move to {-45 83} Rock tile",
+        "time": "2025-07-11T18:32:48.208510062Z"
+    },
+    {
+        "message": "turn 235: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-46 83} to {-46 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:48.208524036Z"
+    },
+    {
+        "message": "turn 235: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 damaged by acid, health now 20",
+        "time": "2025-07-11T18:32:48.208532987Z"
+    },
+    {
+        "message": "turn 235: ant ad7a792a-e23e-4fff-9991-ae49cf20a2c1 moved from {-45 82} to {-49 83} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:48.208551612Z"
+    },
+    {
+        "message": "turn 235: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 cannot move to {-45 83} Rock tile",
+        "time": "2025-07-11T18:32:48.208557822Z"
+    },
+    {
+        "message": "turn 235: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-53 86} to {-53 87}",
+        "time": "2025-07-11T18:32:48.208570944Z"
+    },
+    {
+        "message": "turn 236: ant 169281ac-406f-413d-beec-2c7070219849 killed",
+        "time": "2025-07-11T18:32:50.179990884Z"
+    },
+    {
+        "message": "turn 236: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-39 77} to {-40 79}",
+        "time": "2025-07-11T18:32:50.218044108Z"
+    },
+    {
+        "message": "turn 236: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 80} to {-41 79}",
+        "time": "2025-07-11T18:32:50.21805338Z"
+    },
+    {
+        "message": "turn 236: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-36 82} to {-36 81}",
+        "time": "2025-07-11T18:32:50.218076235Z"
+    },
+    {
+        "message": "turn 236: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d damaged by acid, health now 110",
+        "time": "2025-07-11T18:32:50.218089078Z"
+    },
+    {
+        "message": "turn 236: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 78} to {-42 77}",
+        "time": "2025-07-11T18:32:50.21809486Z"
+    },
+    {
+        "message": "turn 236: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 80} to {-37 81}",
+        "time": "2025-07-11T18:32:50.218111023Z"
+    },
+    {
+        "message": "turn 236: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 80} to {-39 80}",
+        "time": "2025-07-11T18:32:50.218122838Z"
+    },
+    {
+        "message": "turn 236: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 cannot move to {-40 79}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:32:50.218132843Z"
+    },
+    {
+        "message": "turn 236: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-42 82} to {-42 83}",
+        "time": "2025-07-11T18:32:50.218141768Z"
+    },
+    {
+        "message": "turn 236: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-38 82} to {-37 82}",
+        "time": "2025-07-11T18:32:50.218154626Z"
+    },
+    {
+        "message": "turn 236: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-44 87} to {-44 88}",
+        "time": "2025-07-11T18:32:50.218168318Z"
+    },
+    {
+        "message": "turn 236: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 80} to {-44 81}",
+        "time": "2025-07-11T18:32:50.218183321Z"
+    },
+    {
+        "message": "turn 236: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-38 80} to {-39 81}",
+        "time": "2025-07-11T18:32:50.218198621Z"
+    },
+    {
+        "message": "turn 236: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-39 80} to {-39 79}",
+        "time": "2025-07-11T18:32:50.218211501Z"
+    },
+    {
+        "message": "turn 236: ant b8d50db2-05bf-44d7-b747-335caa5549dc cannot move to {-41 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:50.218219313Z"
+    },
+    {
+        "message": "turn 236: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-36 82} to {-37 83}",
+        "time": "2025-07-11T18:32:50.218228018Z"
+    },
+    {
+        "message": "turn 236: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 moved from {-41 81} to {-40 81}",
+        "time": "2025-07-11T18:32:50.218242698Z"
+    },
+    {
+        "message": "turn 236: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:50.218249728Z"
+    },
+    {
+        "message": "turn 236: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-38 84} to {-38 83}",
+        "time": "2025-07-11T18:32:50.218262894Z"
+    },
+    {
+        "message": "turn 236: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-40 76} to {-40 77}",
+        "time": "2025-07-11T18:32:50.218276154Z"
+    },
+    {
+        "message": "turn 236: ant c563da6b-75dd-418f-bbc4-2000cc49cbab cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:50.218282109Z"
+    },
+    {
+        "message": "turn 236: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 moved from {-41 78} to {-42 79}",
+        "time": "2025-07-11T18:32:50.218295724Z"
+    },
+    {
+        "message": "turn 236: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-41 83} to {-41 82}",
+        "time": "2025-07-11T18:32:50.218308066Z"
+    },
+    {
+        "message": "turn 236: ant 47d553e5-5871-40fe-90f3-2864be73cc49 moved from {-43 79} to {-43 78}",
+        "time": "2025-07-11T18:32:50.218320604Z"
+    },
+    {
+        "message": "turn 236: ant dfe451a4-e469-4843-ab37-38424af44124 cannot move to {-38 83}, your own ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a with same type is there",
+        "time": "2025-07-11T18:32:50.218328386Z"
+    },
+    {
+        "message": "turn 236: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 moved from {-42 80} to {-42 79}",
+        "time": "2025-07-11T18:32:50.218335769Z"
+    },
+    {
+        "message": "turn 236: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-42 85} Rock tile",
+        "time": "2025-07-11T18:32:50.218343069Z"
+    },
+    {
+        "message": "turn 236: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-47 83} to {-48 83}",
+        "time": "2025-07-11T18:32:50.218355666Z"
+    },
+    {
+        "message": "turn 236: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 cannot move to {-39 81}, your own ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 with same type is there",
+        "time": "2025-07-11T18:32:50.218366202Z"
+    },
+    {
+        "message": "turn 236: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 moved from {-40 78} to {-40 77}",
+        "time": "2025-07-11T18:32:50.218373804Z"
+    },
+    {
+        "message": "turn 236: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-39 83} to {-38 82}",
+        "time": "2025-07-11T18:32:50.218388094Z"
+    },
+    {
+        "message": "turn 236: ant 086ea985-3073-4385-92f5-9a32a7f4c400 cannot move to {-38 83}, your own ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a with same type is there",
+        "time": "2025-07-11T18:32:50.218394894Z"
+    },
+    {
+        "message": "turn 236: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-50 89} to {-49 88} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:50.218408869Z"
+    },
+    {
+        "message": "turn 236: ant ff8b0720-7def-4796-93af-9824a3c33541 moved from {-38 84} to {-38 85}",
+        "time": "2025-07-11T18:32:50.218423967Z"
+    },
+    {
+        "message": "turn 236: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-35 78} to {-36 79}",
+        "time": "2025-07-11T18:32:50.218461512Z"
+    },
+    {
+        "message": "turn 236: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 cannot move to {-42 76} Rock tile",
+        "time": "2025-07-11T18:32:50.218469977Z"
+    },
+    {
+        "message": "turn 236: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b moved from {-43 83} to {-42 83}",
+        "time": "2025-07-11T18:32:50.218485567Z"
+    },
+    {
+        "message": "turn 236: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-37 77} to {-38 77}",
+        "time": "2025-07-11T18:32:50.218499272Z"
+    },
+    {
+        "message": "turn 236: ant 66fb4677-02d0-46e2-914d-01e7df111964 cannot move to {-42 85} Rock tile",
+        "time": "2025-07-11T18:32:50.21850597Z"
+    },
+    {
+        "message": "turn 236: new ant spawned Worker",
+        "time": "2025-07-11T18:32:50.218524275Z"
+    },
+    {
+        "message": "turn 237: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-36 81} to {-35 82}",
+        "time": "2025-07-11T18:32:52.208189Z"
+    },
+    {
+        "message": "turn 237: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d damaged by acid, health now 90",
+        "time": "2025-07-11T18:32:52.208195643Z"
+    },
+    {
+        "message": "turn 237: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 cannot move to {-40 81}, your own ant 53c0a426-8b8e-404c-998c-858c2b9600f3 with same type is there",
+        "time": "2025-07-11T18:32:52.20820254Z"
+    },
+    {
+        "message": "turn 237: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 cannot move to {-42 79}, your own ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 with same type is there",
+        "time": "2025-07-11T18:32:52.208211438Z"
+    },
+    {
+        "message": "turn 237: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b cannot move to {-41 82}, your own ant 5451e7a9-79f8-4515-a025-83e8b84d1577 with same type is there",
+        "time": "2025-07-11T18:32:52.208215555Z"
+    },
+    {
+        "message": "turn 237: ant 9d2167de-987c-44ea-850e-d88e2da7e63d cannot move to {-38 85}, your own ant ff8b0720-7def-4796-93af-9824a3c33541 with same type is there",
+        "time": "2025-07-11T18:32:52.208221272Z"
+    },
+    {
+        "message": "turn 237: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-39 79} to {-38 79}",
+        "time": "2025-07-11T18:32:52.208236787Z"
+    },
+    {
+        "message": "turn 237: ant b8d50db2-05bf-44d7-b747-335caa5549dc cannot move to {-41 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:52.208244198Z"
+    },
+    {
+        "message": "turn 237: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 80} to {-41 81}",
+        "time": "2025-07-11T18:32:52.20825917Z"
+    },
+    {
+        "message": "turn 237: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff cannot move to {-45 83} Rock tile",
+        "time": "2025-07-11T18:32:52.20826573Z"
+    },
+    {
+        "message": "turn 237: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-43 81} to {-43 80}",
+        "time": "2025-07-11T18:32:52.208275048Z"
+    },
+    {
+        "message": "turn 237: ant c563da6b-75dd-418f-bbc4-2000cc49cbab cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:52.20828581Z"
+    },
+    {
+        "message": "turn 237: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e cannot move to {-39 81}, your own ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 with same type is there",
+        "time": "2025-07-11T18:32:52.208292607Z"
+    },
+    {
+        "message": "turn 237: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 cannot move to {-42 83}, your own ant c82a39cc-2e78-4066-ba0b-a135552f5c0b with same type is there",
+        "time": "2025-07-11T18:32:52.208296154Z"
+    },
+    {
+        "message": "turn 237: ant dfe451a4-e469-4843-ab37-38424af44124 moved from {-37 83} to {-37 84}",
+        "time": "2025-07-11T18:32:52.208306229Z"
+    },
+    {
+        "message": "turn 237: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 85} to {-38 85}",
+        "time": "2025-07-11T18:32:52.208315429Z"
+    },
+    {
+        "message": "turn 237: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-42 83}, your own ant c82a39cc-2e78-4066-ba0b-a135552f5c0b with same type is there",
+        "time": "2025-07-11T18:32:52.208322837Z"
+    },
+    {
+        "message": "turn 237: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-48 83} to {-47 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:52.208334657Z"
+    },
+    {
+        "message": "turn 237: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 82} to {-46 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:52.208346787Z"
+    },
+    {
+        "message": "turn 237: ant 167cd692-c037-4bd0-b113-81ace38916eb moved from {-41 83} to {-40 83}",
+        "time": "2025-07-11T18:32:52.208360282Z"
+    },
+    {
+        "message": "turn 237: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-38 82} to {-39 82}",
+        "time": "2025-07-11T18:32:52.208372026Z"
+    },
+    {
+        "message": "turn 237: ant 086ea985-3073-4385-92f5-9a32a7f4c400 cannot move to {-38 83}, your own ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a with same type is there",
+        "time": "2025-07-11T18:32:52.208380117Z"
+    },
+    {
+        "message": "turn 237: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-49 88} to {-50 88} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:52.208390982Z"
+    },
+    {
+        "message": "turn 237: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-37 82} to {-37 81}",
+        "time": "2025-07-11T18:32:52.208403471Z"
+    },
+    {
+        "message": "turn 237: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 cannot move to {-43 78}, your own ant 47d553e5-5871-40fe-90f3-2864be73cc49 with same type is there",
+        "time": "2025-07-11T18:32:52.208410306Z"
+    },
+    {
+        "message": "turn 237: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f cannot move to {-42 83}, your own ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b with same type is there",
+        "time": "2025-07-11T18:32:52.208415786Z"
+    },
+    {
+        "message": "turn 237: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-43 82} Rock tile",
+        "time": "2025-07-11T18:32:52.208418257Z"
+    },
+    {
+        "message": "turn 237: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-38 77} to {-37 78}",
+        "time": "2025-07-11T18:32:52.208429099Z"
+    },
+    {
+        "message": "turn 237: ant 66fb4677-02d0-46e2-914d-01e7df111964 moved from {-41 84} to {-42 84}",
+        "time": "2025-07-11T18:32:52.208444978Z"
+    },
+    {
+        "message": "turn 237: ant 715a6c59-d7dc-4c4a-88a4-33384dd46f25 moved from {-42 83} to {-41 83}",
+        "time": "2025-07-11T18:32:52.208456488Z"
+    },
+    {
+        "message": "turn 237: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-38 74} to {-39 74}",
+        "time": "2025-07-11T18:32:52.208468074Z"
+    },
+    {
+        "message": "turn 238: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d damaged by acid, health now 70",
+        "time": "2025-07-11T18:32:54.196932808Z"
+    },
+    {
+        "message": "turn 238: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 killed by acid",
+        "time": "2025-07-11T18:32:54.19700119Z"
+    },
+    {
+        "message": "turn 239: ant 03b5f3ca-c8eb-4558-8b35-e307a621fac1 killed",
+        "time": "2025-07-11T18:32:56.180894037Z"
+    },
+    {
+        "message": "turn 239: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-40 79} to {-40 78}",
+        "time": "2025-07-11T18:32:56.204122421Z"
+    },
+    {
+        "message": "turn 239: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 79} to {-41 78}",
+        "time": "2025-07-11T18:32:56.20413718Z"
+    },
+    {
+        "message": "turn 239: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-35 82} to {-35 83}",
+        "time": "2025-07-11T18:32:56.204150766Z"
+    },
+    {
+        "message": "turn 239: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d damaged by acid, health now 50",
+        "time": "2025-07-11T18:32:56.204156416Z"
+    },
+    {
+        "message": "turn 239: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 81} to {-37 80}",
+        "time": "2025-07-11T18:32:56.204175898Z"
+    },
+    {
+        "message": "turn 239: ant 19811b30-e429-4a90-90a9-6636b1859ca9 moved from {-40 84} to {-41 84}",
+        "time": "2025-07-11T18:32:56.204190003Z"
+    },
+    {
+        "message": "turn 239: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-42 83} to {-41 83}",
+        "time": "2025-07-11T18:32:56.204203525Z"
+    },
+    {
+        "message": "turn 239: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-37 82} to {-36 82}",
+        "time": "2025-07-11T18:32:56.204217663Z"
+    },
+    {
+        "message": "turn 239: ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c moved from {-40 80} to {-41 80}",
+        "time": "2025-07-11T18:32:56.204229646Z"
+    },
+    {
+        "message": "turn 239: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-44 88} to {-44 87}",
+        "time": "2025-07-11T18:32:56.204242858Z"
+    },
+    {
+        "message": "turn 239: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-44 81} to {-43 81}",
+        "time": "2025-07-11T18:32:56.204256541Z"
+    },
+    {
+        "message": "turn 239: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-39 81} to {-38 80}",
+        "time": "2025-07-11T18:32:56.20427138Z"
+    },
+    {
+        "message": "turn 239: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 cannot move to {-38 80}, your own ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 with same type is there",
+        "time": "2025-07-11T18:32:56.204280261Z"
+    },
+    {
+        "message": "turn 239: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-51 85} to {-50 84}",
+        "time": "2025-07-11T18:32:56.204306653Z"
+    },
+    {
+        "message": "turn 239: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-37 83} to {-36 82}",
+        "time": "2025-07-11T18:32:56.204319348Z"
+    },
+    {
+        "message": "turn 239: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-42 81} to {-43 81}",
+        "time": "2025-07-11T18:32:56.204328775Z"
+    },
+    {
+        "message": "turn 239: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-41 81} to {-40 80}",
+        "time": "2025-07-11T18:32:56.204342885Z"
+    },
+    {
+        "message": "turn 239: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 moved from {-40 81} to {-40 82}",
+        "time": "2025-07-11T18:32:56.204359838Z"
+    },
+    {
+        "message": "turn 239: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-44 82} to {-45 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:56.20438531Z"
+    },
+    {
+        "message": "turn 239: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-43 80} to {-44 80}",
+        "time": "2025-07-11T18:32:56.204399593Z"
+    },
+    {
+        "message": "turn 239: ant b2d3829c-334e-4c27-bbd9-248df2a0224d moved from {-46 79} to {-47 79}",
+        "time": "2025-07-11T18:32:56.204412035Z"
+    },
+    {
+        "message": "turn 239: ant 9aa4b2df-0393-4a32-8641-ce89ca03725f moved from {-40 79} to {-39 79}",
+        "time": "2025-07-11T18:32:56.204430949Z"
+    },
+    {
+        "message": "turn 239: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-40 77} to {-41 77}",
+        "time": "2025-07-11T18:32:56.204452077Z"
+    },
+    {
+        "message": "turn 239: ant c563da6b-75dd-418f-bbc4-2000cc49cbab moved from {-42 82} to {-43 83}",
+        "time": "2025-07-11T18:32:56.204466984Z"
+    },
+    {
+        "message": "turn 239: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 moved from {-42 79} to {-41 78}",
+        "time": "2025-07-11T18:32:56.204479827Z"
+    },
+    {
+        "message": "turn 239: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e cannot move to {-38 80}, your own ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 with same type is there",
+        "time": "2025-07-11T18:32:56.204488109Z"
+    },
+    {
+        "message": "turn 239: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-41 82} to {-41 81}",
+        "time": "2025-07-11T18:32:56.204512877Z"
+    },
+    {
+        "message": "turn 239: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-38 85} to {-38 84}",
+        "time": "2025-07-11T18:32:56.204534227Z"
+    },
+    {
+        "message": "turn 239: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 moved from {-42 79} to {-42 80}",
+        "time": "2025-07-11T18:32:56.204550161Z"
+    },
+    {
+        "message": "turn 239: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-49 87} to {-48 87} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:56.204576283Z"
+    },
+    {
+        "message": "turn 239: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-52 87} to {-52 86}",
+        "time": "2025-07-11T18:32:56.204594561Z"
+    },
+    {
+        "message": "turn 239: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-47 84} to {-48 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:56.204614356Z"
+    },
+    {
+        "message": "turn 239: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 moved from {-40 81} to {-39 80}",
+        "time": "2025-07-11T18:32:56.204628716Z"
+    },
+    {
+        "message": "turn 239: ant 167cd692-c037-4bd0-b113-81ace38916eb moved from {-40 83} to {-37 85}",
+        "time": "2025-07-11T18:32:56.204657533Z"
+    },
+    {
+        "message": "turn 239: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 moved from {-40 77} to {-41 77}",
+        "time": "2025-07-11T18:32:56.204668765Z"
+    },
+    {
+        "message": "turn 239: ant 9080802d-e910-4aa6-bc8c-becc7356a043 cannot move to {-40 82}, your own ant 53c0a426-8b8e-404c-998c-858c2b9600f3 with same type is there",
+        "time": "2025-07-11T18:32:56.204689996Z"
+    },
+    {
+        "message": "turn 239: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-46 84} to {-46 85}",
+        "time": "2025-07-11T18:32:56.20470364Z"
+    },
+    {
+        "message": "turn 239: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-36 79} to {-37 79}",
+        "time": "2025-07-11T18:32:56.204735047Z"
+    },
+    {
+        "message": "turn 239: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-37 81} to {-37 80}",
+        "time": "2025-07-11T18:32:56.204745548Z"
+    },
+    {
+        "message": "turn 239: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 moved from {-44 82} to {-45 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:56.204757095Z"
+    },
+    {
+        "message": "turn 239: ant 77811d13-53fc-437c-bab9-fc7d9b322013 cannot move to {-41 81}, your own ant 5451e7a9-79f8-4515-a025-83e8b84d1577 with same type is there",
+        "time": "2025-07-11T18:32:56.204764393Z"
+    },
+    {
+        "message": "turn 239: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-41 82} to {-41 83}",
+        "time": "2025-07-11T18:32:56.204772929Z"
+    },
+    {
+        "message": "turn 239: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-43 81}, your own ant 1c0cc928-1e93-454f-a432-1a1610750214 with same type is there",
+        "time": "2025-07-11T18:32:56.204789369Z"
+    },
+    {
+        "message": "turn 239: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea moved from {-43 83} to {-42 81}",
+        "time": "2025-07-11T18:32:56.20479559Z"
+    },
+    {
+        "message": "turn 239: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-53 87} to {-53 88} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:56.204811949Z"
+    },
+    {
+        "message": "turn 239: ant e6b72f78-8bdf-4def-9fea-820285f8d020 cannot move to {-45 90} Rock tile",
+        "time": "2025-07-11T18:32:56.204836065Z"
+    },
+    {
+        "message": "turn 239: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-44 91} to {-45 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:56.204844824Z"
+    },
+    {
+        "message": "turn 239: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-39 74} to {-38 74}",
+        "time": "2025-07-11T18:32:56.204866487Z"
+    },
+    {
+        "message": "turn 240: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-40 78} to {-40 79}",
+        "time": "2025-07-11T18:32:58.210683168Z"
+    },
+    {
+        "message": "turn 240: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 78} to {-41 79}",
+        "time": "2025-07-11T18:32:58.210691369Z"
+    },
+    {
+        "message": "turn 240: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d cannot move to {-41 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:58.210707915Z"
+    },
+    {
+        "message": "turn 240: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 77} to {-42 79}",
+        "time": "2025-07-11T18:32:58.210712258Z"
+    },
+    {
+        "message": "turn 240: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 80} to {-37 79}",
+        "time": "2025-07-11T18:32:58.21072222Z"
+    },
+    {
+        "message": "turn 240: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-39 80} to {-40 80}",
+        "time": "2025-07-11T18:32:58.210733474Z"
+    },
+    {
+        "message": "turn 240: ant 19811b30-e429-4a90-90a9-6636b1859ca9 moved from {-41 84} to {-36 84}",
+        "time": "2025-07-11T18:32:58.210757741Z"
+    },
+    {
+        "message": "turn 240: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-41 83} to {-39 85}",
+        "time": "2025-07-11T18:32:58.210784401Z"
+    },
+    {
+        "message": "turn 240: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-36 82} to {-37 83}",
+        "time": "2025-07-11T18:32:58.210810883Z"
+    },
+    {
+        "message": "turn 240: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-44 87} to {-45 87}",
+        "time": "2025-07-11T18:32:58.210823829Z"
+    },
+    {
+        "message": "turn 240: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 moved from {-40 82} to {-37 84}",
+        "time": "2025-07-11T18:32:58.210859463Z"
+    },
+    {
+        "message": "turn 240: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-45 82} to {-45 85} (dirt on path: 3)",
+        "time": "2025-07-11T18:32:58.210881085Z"
+    },
+    {
+        "message": "turn 240: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-38 83} to {-38 82}",
+        "time": "2025-07-11T18:32:58.210895607Z"
+    },
+    {
+        "message": "turn 240: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 cannot move to {-41 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:32:58.210915752Z"
+    },
+    {
+        "message": "turn 240: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-41 77} to {-40 78}",
+        "time": "2025-07-11T18:32:58.21092196Z"
+    },
+    {
+        "message": "turn 240: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e moved from {-38 81} to {-37 81}",
+        "time": "2025-07-11T18:32:58.210941802Z"
+    },
+    {
+        "message": "turn 240: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-41 81} to {-44 81}",
+        "time": "2025-07-11T18:32:58.210981958Z"
+    },
+    {
+        "message": "turn 240: ant dfe451a4-e469-4843-ab37-38424af44124 moved from {-37 84} to {-36 84}",
+        "time": "2025-07-11T18:32:58.21099563Z"
+    },
+    {
+        "message": "turn 240: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 cannot move to {-39 85}, your own ant c82a39cc-2e78-4066-ba0b-a135552f5c0b with same type is there",
+        "time": "2025-07-11T18:32:58.211001618Z"
+    },
+    {
+        "message": "turn 240: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-48 87} to {-47 82} (dirt on path: 3)",
+        "time": "2025-07-11T18:32:58.21103077Z"
+    },
+    {
+        "message": "turn 240: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-42 84} to {-42 83}",
+        "time": "2025-07-11T18:32:58.211041153Z"
+    },
+    {
+        "message": "turn 240: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-48 84} to {-48 85}",
+        "time": "2025-07-11T18:32:58.211054955Z"
+    },
+    {
+        "message": "turn 240: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-46 82} to {-45 86} (dirt on path: 4)",
+        "time": "2025-07-11T18:32:58.211083831Z"
+    },
+    {
+        "message": "turn 240: ant 9080802d-e910-4aa6-bc8c-becc7356a043 cannot move to {-37 84}, your own ant 53c0a426-8b8e-404c-998c-858c2b9600f3 with same type is there",
+        "time": "2025-07-11T18:32:58.211098609Z"
+    },
+    {
+        "message": "turn 240: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-39 82} to {-38 84}",
+        "time": "2025-07-11T18:32:58.211102434Z"
+    },
+    {
+        "message": "turn 240: ant 086ea985-3073-4385-92f5-9a32a7f4c400 moved from {-39 83} to {-40 83}",
+        "time": "2025-07-11T18:32:58.211117646Z"
+    },
+    {
+        "message": "turn 240: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 cannot move to {-37 84}, your own ant 53c0a426-8b8e-404c-998c-858c2b9600f3 with same type is there",
+        "time": "2025-07-11T18:32:58.211136459Z"
+    },
+    {
+        "message": "turn 240: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-37 80} to {-37 83}",
+        "time": "2025-07-11T18:32:58.211140664Z"
+    },
+    {
+        "message": "turn 240: ant 77811d13-53fc-437c-bab9-fc7d9b322013 cannot move to {-44 81}, your own ant 5451e7a9-79f8-4515-a025-83e8b84d1577 with same type is there",
+        "time": "2025-07-11T18:32:58.211157363Z"
+    },
+    {
+        "message": "turn 240: ant 77811d13-53fc-437c-bab9-fc7d9b322013 moved from {-40 80} to {-43 80}",
+        "time": "2025-07-11T18:32:58.211178618Z"
+    },
+    {
+        "message": "turn 240: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f cannot move to {-38 84}, your own ant 9080802d-e910-4aa6-bc8c-becc7356a043 with same type is there",
+        "time": "2025-07-11T18:32:58.211221221Z"
+    },
+    {
+        "message": "turn 240: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-41 83} to {-39 84}",
+        "time": "2025-07-11T18:32:58.211231282Z"
+    },
+    {
+        "message": "turn 240: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-43 80}, your own ant 77811d13-53fc-437c-bab9-fc7d9b322013 with same type is there",
+        "time": "2025-07-11T18:32:58.211245187Z"
+    },
+    {
+        "message": "turn 240: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea moved from {-42 81} to {-42 80}",
+        "time": "2025-07-11T18:32:58.211249545Z"
+    },
+    {
+        "message": "turn 240: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-45 91} to {-45 92} (dirt on path: 1)",
+        "time": "2025-07-11T18:32:58.211269236Z"
+    },
+    {
+        "message": "turn 240: ant e6b72f78-8bdf-4def-9fea-820285f8d020 collected 8 Apple at {-45 92}",
+        "time": "2025-07-11T18:32:58.211279514Z"
+    },
+    {
+        "message": "turn 241: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-40 79} to {-40 80}",
+        "time": "2025-07-11T18:33:00.203671103Z"
+    },
+    {
+        "message": "turn 241: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 79} to {-41 78}",
+        "time": "2025-07-11T18:33:00.203683071Z"
+    },
+    {
+        "message": "turn 241: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-35 83} to {-36 80}",
+        "time": "2025-07-11T18:33:00.203706091Z"
+    },
+    {
+        "message": "turn 241: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 79} to {-43 79}",
+        "time": "2025-07-11T18:33:00.20371719Z"
+    },
+    {
+        "message": "turn 241: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 79} to {-37 80}",
+        "time": "2025-07-11T18:33:00.203727293Z"
+    },
+    {
+        "message": "turn 241: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 80} to {-41 81}",
+        "time": "2025-07-11T18:33:00.203738083Z"
+    },
+    {
+        "message": "turn 241: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 79} to {-41 80}",
+        "time": "2025-07-11T18:33:00.20374879Z"
+    },
+    {
+        "message": "turn 241: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-37 83} to {-40 82}",
+        "time": "2025-07-11T18:33:00.20376846Z"
+    },
+    {
+        "message": "turn 241: ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c moved from {-41 80} to {-42 81}",
+        "time": "2025-07-11T18:33:00.203779065Z"
+    },
+    {
+        "message": "turn 241: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-45 87} to {-46 84} (dirt on path: 3)",
+        "time": "2025-07-11T18:33:00.203798383Z"
+    },
+    {
+        "message": "turn 241: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 cannot move to {-40 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:00.20380988Z"
+    },
+    {
+        "message": "turn 241: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-38 80} to {-40 81}",
+        "time": "2025-07-11T18:33:00.203814291Z"
+    },
+    {
+        "message": "turn 241: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-38 79} to {-37 78}",
+        "time": "2025-07-11T18:33:00.20382324Z"
+    },
+    {
+        "message": "turn 241: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-40 79} to {-39 78}",
+        "time": "2025-07-11T18:33:00.203971155Z"
+    },
+    {
+        "message": "turn 241: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-36 82} to {-36 83}",
+        "time": "2025-07-11T18:33:00.203982712Z"
+    },
+    {
+        "message": "turn 241: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-43 81} to {-44 81}",
+        "time": "2025-07-11T18:33:00.20399264Z"
+    },
+    {
+        "message": "turn 241: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 80} to {-40 79}",
+        "time": "2025-07-11T18:33:00.204005431Z"
+    },
+    {
+        "message": "turn 241: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-45 85} to {-45 86} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:00.204012342Z"
+    },
+    {
+        "message": "turn 241: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-44 80} to {-45 80}",
+        "time": "2025-07-11T18:33:00.204025226Z"
+    },
+    {
+        "message": "turn 241: ant b2d3829c-334e-4c27-bbd9-248df2a0224d moved from {-47 79} to {-46 78}",
+        "time": "2025-07-11T18:33:00.204036091Z"
+    },
+    {
+        "message": "turn 241: ant 9aa4b2df-0393-4a32-8641-ce89ca03725f cannot move to {-40 79}, your own ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 with same type is there",
+        "time": "2025-07-11T18:33:00.20404186Z"
+    },
+    {
+        "message": "turn 241: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 cannot move to {-41 78}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:33:00.204046243Z"
+    },
+    {
+        "message": "turn 241: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-56 92} to {-56 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:00.204055795Z"
+    },
+    {
+        "message": "turn 241: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 moved from {-41 78} to {-42 79}",
+        "time": "2025-07-11T18:33:00.204065755Z"
+    },
+    {
+        "message": "turn 241: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-44 81} to {-45 81}",
+        "time": "2025-07-11T18:33:00.204076713Z"
+    },
+    {
+        "message": "turn 241: ant 47d553e5-5871-40fe-90f3-2864be73cc49 moved from {-43 78} to {-43 79}",
+        "time": "2025-07-11T18:33:00.20408507Z"
+    },
+    {
+        "message": "turn 241: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 cannot move to {-40 82}, your own ant 10526263-65c4-4d90-bee0-62a56cada411 with same type is there",
+        "time": "2025-07-11T18:33:00.20409901Z"
+    },
+    {
+        "message": "turn 241: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-38 84} to {-39 82}",
+        "time": "2025-07-11T18:33:00.20410314Z"
+    },
+    {
+        "message": "turn 241: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-47 82} to {-47 83}",
+        "time": "2025-07-11T18:33:00.204114196Z"
+    },
+    {
+        "message": "turn 241: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-52 86} to {-53 86}",
+        "time": "2025-07-11T18:33:00.204127746Z"
+    },
+    {
+        "message": "turn 241: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-48 85} to {-47 85} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:00.204141041Z"
+    },
+    {
+        "message": "turn 241: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 86} to {-44 87}",
+        "time": "2025-07-11T18:33:00.204153981Z"
+    },
+    {
+        "message": "turn 241: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 collected 8 Bread at {-44 87}",
+        "time": "2025-07-11T18:33:00.204160099Z"
+    },
+    {
+        "message": "turn 241: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 moved from {-39 80} to {-40 77}",
+        "time": "2025-07-11T18:33:00.204190684Z"
+    },
+    {
+        "message": "turn 241: ant 167cd692-c037-4bd0-b113-81ace38916eb moved from {-37 85} to {-37 86} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:00.204204198Z"
+    },
+    {
+        "message": "turn 241: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-38 84} to {-38 83}",
+        "time": "2025-07-11T18:33:00.204216033Z"
+    },
+    {
+        "message": "turn 241: ant 086ea985-3073-4385-92f5-9a32a7f4c400 moved from {-40 83} to {-36 82}",
+        "time": "2025-07-11T18:33:00.204273712Z"
+    },
+    {
+        "message": "turn 241: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-46 85} to {-47 85} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:00.204281411Z"
+    },
+    {
+        "message": "turn 241: ant ff8b0720-7def-4796-93af-9824a3c33541 moved from {-38 85} to {-38 86}",
+        "time": "2025-07-11T18:33:00.204295099Z"
+    },
+    {
+        "message": "turn 241: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-37 79} to {-37 80}",
+        "time": "2025-07-11T18:33:00.204301752Z"
+    },
+    {
+        "message": "turn 241: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-37 83} to {-37 82}",
+        "time": "2025-07-11T18:33:00.2043107Z"
+    },
+    {
+        "message": "turn 241: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 moved from {-45 82} to {-46 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:00.204321619Z"
+    },
+    {
+        "message": "turn 241: ant 77811d13-53fc-437c-bab9-fc7d9b322013 cannot move to {-45 81}, your own ant 5451e7a9-79f8-4515-a025-83e8b84d1577 with same type is there",
+        "time": "2025-07-11T18:33:00.204328965Z"
+    },
+    {
+        "message": "turn 241: ant 77811d13-53fc-437c-bab9-fc7d9b322013 moved from {-43 80} to {-44 80}",
+        "time": "2025-07-11T18:33:00.204333437Z"
+    },
+    {
+        "message": "turn 241: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-39 84} to {-39 83}",
+        "time": "2025-07-11T18:33:00.204342399Z"
+    },
+    {
+        "message": "turn 241: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-53 88} to {-53 89}",
+        "time": "2025-07-11T18:33:00.204353122Z"
+    },
+    {
+        "message": "turn 241: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-37 78} to {-37 77}",
+        "time": "2025-07-11T18:33:00.204367481Z"
+    },
+    {
+        "message": "turn 241: new ant spawned Worker",
+        "time": "2025-07-11T18:33:00.204381382Z"
+    },
+    {
+        "message": "turn 242: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-40 80} to {-39 80}",
+        "time": "2025-07-11T18:33:02.199333229Z"
+    },
+    {
+        "message": "turn 242: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 78} to {-41 79}",
+        "time": "2025-07-11T18:33:02.199347499Z"
+    },
+    {
+        "message": "turn 242: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-36 80} to {-36 81}",
+        "time": "2025-07-11T18:33:02.199357416Z"
+    },
+    {
+        "message": "turn 242: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d cannot move to {-41 79}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:33:02.19936786Z"
+    },
+    {
+        "message": "turn 242: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-43 79} to {-42 79}",
+        "time": "2025-07-11T18:33:02.199378824Z"
+    },
+    {
+        "message": "turn 242: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-37 80} to {-38 81}",
+        "time": "2025-07-11T18:33:02.199393264Z"
+    },
+    {
+        "message": "turn 242: ant 19811b30-e429-4a90-90a9-6636b1859ca9 moved from {-36 84} to {-35 84}",
+        "time": "2025-07-11T18:33:02.199407122Z"
+    },
+    {
+        "message": "turn 242: ant 7b418820-f689-4a07-9708-967b91cad7cc moved from {-41 84} to {-38 85}",
+        "time": "2025-07-11T18:33:02.19943283Z"
+    },
+    {
+        "message": "turn 242: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 80} to {-42 81}",
+        "time": "2025-07-11T18:33:02.199442489Z"
+    },
+    {
+        "message": "turn 242: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-39 85} to {-39 84}",
+        "time": "2025-07-11T18:33:02.199455657Z"
+    },
+    {
+        "message": "turn 242: ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c moved from {-42 81} to {-41 80}",
+        "time": "2025-07-11T18:33:02.199467938Z"
+    },
+    {
+        "message": "turn 242: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-46 84} to {-45 80} (dirt on path: 2)",
+        "time": "2025-07-11T18:33:02.199488353Z"
+    },
+    {
+        "message": "turn 242: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 81} to {-43 80}",
+        "time": "2025-07-11T18:33:02.199502374Z"
+    },
+    {
+        "message": "turn 242: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-37 78} to {-37 79}",
+        "time": "2025-07-11T18:33:02.199516009Z"
+    },
+    {
+        "message": "turn 242: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-39 78} to {-40 79}",
+        "time": "2025-07-11T18:33:02.199525845Z"
+    },
+    {
+        "message": "turn 242: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-36 83} to {-35 82}",
+        "time": "2025-07-11T18:33:02.19953598Z"
+    },
+    {
+        "message": "turn 242: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-44 81} to {-44 82}",
+        "time": "2025-07-11T18:33:02.19954874Z"
+    },
+    {
+        "message": "turn 242: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 79} to {-40 80}",
+        "time": "2025-07-11T18:33:02.199557553Z"
+    },
+    {
+        "message": "turn 242: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 moved from {-37 84} to {-38 84}",
+        "time": "2025-07-11T18:33:02.19956616Z"
+    },
+    {
+        "message": "turn 242: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-45 86} to {-45 87}",
+        "time": "2025-07-11T18:33:02.199580978Z"
+    },
+    {
+        "message": "turn 242: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff collected 2 Bread at {-45 87}",
+        "time": "2025-07-11T18:33:02.199587975Z"
+    },
+    {
+        "message": "turn 242: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 cannot move to {-40 79}, your own ant b8d50db2-05bf-44d7-b747-335caa5549dc with same type is there",
+        "time": "2025-07-11T18:33:02.199593976Z"
+    },
+    {
+        "message": "turn 242: ant c563da6b-75dd-418f-bbc4-2000cc49cbab moved from {-43 83} to {-42 82}",
+        "time": "2025-07-11T18:33:02.199606188Z"
+    },
+    {
+        "message": "turn 242: ant 7777400d-d824-491e-8949-5dede760efbc cannot move to {-41 80}, your own ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c with same type is there",
+        "time": "2025-07-11T18:33:02.199611243Z"
+    },
+    {
+        "message": "turn 242: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e cannot move to {-38 85}, your own ant 7b418820-f689-4a07-9708-967b91cad7cc with same type is there",
+        "time": "2025-07-11T18:33:02.199623392Z"
+    },
+    {
+        "message": "turn 242: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e moved from {-37 81} to {-38 84}",
+        "time": "2025-07-11T18:33:02.199627027Z"
+    },
+    {
+        "message": "turn 242: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 82} to {-39 83}",
+        "time": "2025-07-11T18:33:02.199638808Z"
+    },
+    {
+        "message": "turn 242: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 moved from {-42 80} to {-43 81}",
+        "time": "2025-07-11T18:33:02.199649339Z"
+    },
+    {
+        "message": "turn 242: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-42 83} to {-41 82}",
+        "time": "2025-07-11T18:33:02.199662741Z"
+    },
+    {
+        "message": "turn 242: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-44 87} to {-45 87}",
+        "time": "2025-07-11T18:33:02.199671824Z"
+    },
+    {
+        "message": "turn 242: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-37 80} to {-38 81}",
+        "time": "2025-07-11T18:33:02.199686925Z"
+    },
+    {
+        "message": "turn 242: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-37 82} to {-38 82}",
+        "time": "2025-07-11T18:33:02.199695109Z"
+    },
+    {
+        "message": "turn 242: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-45 92} to {-46 92} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:02.199713817Z"
+    },
+    {
+        "message": "turn 242: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b moved from {-42 83} to {-41 83}",
+        "time": "2025-07-11T18:33:02.199725027Z"
+    },
+    {
+        "message": "turn 242: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-37 77} to {-36 77}",
+        "time": "2025-07-11T18:33:02.199744086Z"
+    },
+    {
+        "message": "turn 243: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-39 80} to {-40 80}",
+        "time": "2025-07-11T18:33:04.211792339Z"
+    },
+    {
+        "message": "turn 243: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-36 81} to {-38 79}",
+        "time": "2025-07-11T18:33:04.211819132Z"
+    },
+    {
+        "message": "turn 243: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 79} to {-43 79}",
+        "time": "2025-07-11T18:33:04.211835237Z"
+    },
+    {
+        "message": "turn 243: ant 6836dc11-aab5-4145-932f-e0e994076a39 cannot move to {-38 79}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:33:04.21184815Z"
+    },
+    {
+        "message": "turn 243: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-38 81} to {-38 80}",
+        "time": "2025-07-11T18:33:04.21185449Z"
+    },
+    {
+        "message": "turn 243: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-41 81} to {-42 81}",
+        "time": "2025-07-11T18:33:04.211865316Z"
+    },
+    {
+        "message": "turn 243: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-42 81} to {-41 79}",
+        "time": "2025-07-11T18:33:04.21188202Z"
+    },
+    {
+        "message": "turn 243: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-40 82} to {-40 83}",
+        "time": "2025-07-11T18:33:04.21189698Z"
+    },
+    {
+        "message": "turn 243: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 cannot move to {-38 80}, your own ant 6836dc11-aab5-4145-932f-e0e994076a39 with same type is there",
+        "time": "2025-07-11T18:33:04.211911118Z"
+    },
+    {
+        "message": "turn 243: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-40 81} to {-39 81}",
+        "time": "2025-07-11T18:33:04.211917295Z"
+    },
+    {
+        "message": "turn 243: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-37 79} to {-37 83}",
+        "time": "2025-07-11T18:33:04.211940303Z"
+    },
+    {
+        "message": "turn 243: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-40 79} to {-37 81}",
+        "time": "2025-07-11T18:33:04.211969413Z"
+    },
+    {
+        "message": "turn 243: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-50 84} to {-50 83}",
+        "time": "2025-07-11T18:33:04.211983403Z"
+    },
+    {
+        "message": "turn 243: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-35 82} to {-36 82}",
+        "time": "2025-07-11T18:33:04.21199555Z"
+    },
+    {
+        "message": "turn 243: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-45 87} to {-46 84} (dirt on path: 3)",
+        "time": "2025-07-11T18:33:04.212024243Z"
+    },
+    {
+        "message": "turn 243: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-45 80} to {-46 80}",
+        "time": "2025-07-11T18:33:04.212041686Z"
+    },
+    {
+        "message": "turn 243: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a cannot move to {-37 83}, your own ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 with same type is there",
+        "time": "2025-07-11T18:33:04.212054011Z"
+    },
+    {
+        "message": "turn 243: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-38 82} to {-38 83}",
+        "time": "2025-07-11T18:33:04.212059151Z"
+    },
+    {
+        "message": "turn 243: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-40 78} to {-40 79}",
+        "time": "2025-07-11T18:33:04.212071883Z"
+    },
+    {
+        "message": "turn 243: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 stocked up 6 Apple (60 cal)",
+        "time": "2025-07-11T18:33:04.212074628Z"
+    },
+    {
+        "message": "turn 243: ant 7777400d-d824-491e-8949-5dede760efbc cannot move to {-37 81}, your own ant b8d50db2-05bf-44d7-b747-335caa5549dc with same type is there",
+        "time": "2025-07-11T18:33:04.212093369Z"
+    },
+    {
+        "message": "turn 243: ant 7777400d-d824-491e-8949-5dede760efbc moved from {-40 80} to {-37 80}",
+        "time": "2025-07-11T18:33:04.212098422Z"
+    },
+    {
+        "message": "turn 243: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-56 91} to {-56 92} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:04.212112781Z"
+    },
+    {
+        "message": "turn 243: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 damaged by acid, health now 20",
+        "time": "2025-07-11T18:33:04.212134548Z"
+    },
+    {
+        "message": "turn 243: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 moved from {-42 79} to {-45 79}",
+        "time": "2025-07-11T18:33:04.212139957Z"
+    },
+    {
+        "message": "turn 243: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 cannot move to {-39 81}, your own ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 with same type is there",
+        "time": "2025-07-11T18:33:04.212154844Z"
+    },
+    {
+        "message": "turn 243: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 83} to {-39 82}",
+        "time": "2025-07-11T18:33:04.212161317Z"
+    },
+    {
+        "message": "turn 243: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 moved from {-43 81} to {-43 80}",
+        "time": "2025-07-11T18:33:04.212171529Z"
+    },
+    {
+        "message": "turn 243: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-47 83} to {-47 82}",
+        "time": "2025-07-11T18:33:04.212185079Z"
+    },
+    {
+        "message": "turn 243: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-40 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:04.212196882Z"
+    },
+    {
+        "message": "turn 243: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-41 82} to {-41 81}",
+        "time": "2025-07-11T18:33:04.212203991Z"
+    },
+    {
+        "message": "turn 243: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 cannot move to {-46 84}, your own ant 9a268908-a9aa-4287-bd1e-755fa69c0fff with same type is there",
+        "time": "2025-07-11T18:33:04.212213021Z"
+    },
+    {
+        "message": "turn 243: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 87} to {-45 86} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:04.212225182Z"
+    },
+    {
+        "message": "turn 243: ant 167cd692-c037-4bd0-b113-81ace38916eb moved from {-37 86} to {-37 85}",
+        "time": "2025-07-11T18:33:04.212241554Z"
+    },
+    {
+        "message": "turn 243: ant 9080802d-e910-4aa6-bc8c-becc7356a043 cannot move to {-38 82}, your own ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 with same type is there",
+        "time": "2025-07-11T18:33:04.21225184Z"
+    },
+    {
+        "message": "turn 243: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-47 85} to {-47 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:04.212265515Z"
+    },
+    {
+        "message": "turn 243: ant ff8b0720-7def-4796-93af-9824a3c33541 moved from {-38 86} to {-39 87}",
+        "time": "2025-07-11T18:33:04.21228133Z"
+    },
+    {
+        "message": "turn 243: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-38 81} to {-39 81}",
+        "time": "2025-07-11T18:33:04.212290954Z"
+    },
+    {
+        "message": "turn 243: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-38 82} to {-39 85}",
+        "time": "2025-07-11T18:33:04.212318394Z"
+    },
+    {
+        "message": "turn 243: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 cannot move to {-47 82}, your own ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 with same type is there",
+        "time": "2025-07-11T18:33:04.212326995Z"
+    },
+    {
+        "message": "turn 243: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f cannot move to {-39 81}, your own ant c9cfe6c2-742d-41cc-b526-69a012105414 with same type is there",
+        "time": "2025-07-11T18:33:04.212333774Z"
+    },
+    {
+        "message": "turn 243: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-39 83} to {-39 82}",
+        "time": "2025-07-11T18:33:04.21233639Z"
+    },
+    {
+        "message": "turn 243: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-53 89} to {-52 88} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:04.21235337Z"
+    },
+    {
+        "message": "turn 243: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-46 92} to {-46 93}",
+        "time": "2025-07-11T18:33:04.212375065Z"
+    },
+    {
+        "message": "turn 243: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b moved from {-41 83} to {-41 82}",
+        "time": "2025-07-11T18:33:04.212399406Z"
+    },
+    {
+        "message": "turn 243: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-36 77} to {-35 76}",
+        "time": "2025-07-11T18:33:04.212413373Z"
+    },
+    {
+        "message": "turn 243: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-38 74} to {-38 78}",
+        "time": "2025-07-11T18:33:04.212440345Z"
+    },
+    {
+        "message": "turn 244: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-40 80} to {-39 80}",
+        "time": "2025-07-11T18:33:06.19668781Z"
+    },
+    {
+        "message": "turn 244: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-38 79} to {-37 78}",
+        "time": "2025-07-11T18:33:06.196701092Z"
+    },
+    {
+        "message": "turn 244: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-43 79} to {-44 79}",
+        "time": "2025-07-11T18:33:06.196714888Z"
+    },
+    {
+        "message": "turn 244: ant 6836dc11-aab5-4145-932f-e0e994076a39 cannot move to {-39 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:06.196721883Z"
+    },
+    {
+        "message": "turn 244: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-42 81} to {-40 80}",
+        "time": "2025-07-11T18:33:06.196730405Z"
+    },
+    {
+        "message": "turn 244: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 79} to {-41 80}",
+        "time": "2025-07-11T18:33:06.196738435Z"
+    },
+    {
+        "message": "turn 244: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-39 84} to {-37 84}",
+        "time": "2025-07-11T18:33:06.196763487Z"
+    },
+    {
+        "message": "turn 244: ant 10526263-65c4-4d90-bee0-62a56cada411 cannot move to {-39 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:06.196789712Z"
+    },
+    {
+        "message": "turn 244: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-40 83} to {-40 81}",
+        "time": "2025-07-11T18:33:06.196793718Z"
+    },
+    {
+        "message": "turn 244: ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c moved from {-41 80} to {-41 81}",
+        "time": "2025-07-11T18:33:06.196801242Z"
+    },
+    {
+        "message": "turn 244: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 80} to {-44 81}",
+        "time": "2025-07-11T18:33:06.196813906Z"
+    },
+    {
+        "message": "turn 244: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 cannot move to {-39 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:06.196820182Z"
+    },
+    {
+        "message": "turn 244: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-50 83} to {-50 84}",
+        "time": "2025-07-11T18:33:06.19683205Z"
+    },
+    {
+        "message": "turn 244: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-36 82} to {-36 83}",
+        "time": "2025-07-11T18:33:06.196844245Z"
+    },
+    {
+        "message": "turn 244: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-44 82} to {-45 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:06.196854783Z"
+    },
+    {
+        "message": "turn 244: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 80} to {-41 79}",
+        "time": "2025-07-11T18:33:06.19686346Z"
+    },
+    {
+        "message": "turn 244: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-46 84} to {-46 85}",
+        "time": "2025-07-11T18:33:06.196872625Z"
+    },
+    {
+        "message": "turn 244: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-40 79} to {-43 81}",
+        "time": "2025-07-11T18:33:06.196897409Z"
+    },
+    {
+        "message": "turn 244: ant c563da6b-75dd-418f-bbc4-2000cc49cbab moved from {-42 82} to {-38 82}",
+        "time": "2025-07-11T18:33:06.196917861Z"
+    },
+    {
+        "message": "turn 244: ant 7777400d-d824-491e-8949-5dede760efbc cannot move to {-38 82}, your own ant c563da6b-75dd-418f-bbc4-2000cc49cbab with same type is there",
+        "time": "2025-07-11T18:33:06.196926586Z"
+    },
+    {
+        "message": "turn 244: ant 7777400d-d824-491e-8949-5dede760efbc moved from {-37 80} to {-38 81}",
+        "time": "2025-07-11T18:33:06.196930358Z"
+    },
+    {
+        "message": "turn 244: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 killed by acid",
+        "time": "2025-07-11T18:33:06.196935091Z"
+    },
+    {
+        "message": "turn 244: ant 47d553e5-5871-40fe-90f3-2864be73cc49 damaged by acid, health now 160",
+        "time": "2025-07-11T18:33:06.196941044Z"
+    },
+    {
+        "message": "turn 244: ant 47d553e5-5871-40fe-90f3-2864be73cc49 damaged by acid, health now 140",
+        "time": "2025-07-11T18:33:06.196944781Z"
+    },
+    {
+        "message": "turn 244: ant 47d553e5-5871-40fe-90f3-2864be73cc49 moved from {-43 79} to {-46 79}",
+        "time": "2025-07-11T18:33:06.196950836Z"
+    },
+    {
+        "message": "turn 244: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 82} to {-40 82}",
+        "time": "2025-07-11T18:33:06.196962326Z"
+    },
+    {
+        "message": "turn 244: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-40 81}, your own ant 10526263-65c4-4d90-bee0-62a56cada411 with same type is there",
+        "time": "2025-07-11T18:33:06.196969157Z"
+    },
+    {
+        "message": "turn 244: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-53 86} to {-54 87}",
+        "time": "2025-07-11T18:33:06.196978732Z"
+    },
+    {
+        "message": "turn 244: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 cannot move to {-45 82}, your own ant 8108c416-a3cb-4ef9-9308-051a0986ad2d with same type is there",
+        "time": "2025-07-11T18:33:06.197002984Z"
+    },
+    {
+        "message": "turn 244: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 86} to {-46 83} (dirt on path: 4)",
+        "time": "2025-07-11T18:33:06.197008233Z"
+    },
+    {
+        "message": "turn 244: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-47 84} to {-48 85}",
+        "time": "2025-07-11T18:33:06.197023063Z"
+    },
+    {
+        "message": "turn 244: ant c9cfe6c2-742d-41cc-b526-69a012105414 cannot move to {-40 80}, your own ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 with same type is there",
+        "time": "2025-07-11T18:33:06.197032873Z"
+    },
+    {
+        "message": "turn 244: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-39 81} to {-40 81}",
+        "time": "2025-07-11T18:33:06.197035431Z"
+    },
+    {
+        "message": "turn 244: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 moved from {-46 82} to {-47 83}",
+        "time": "2025-07-11T18:33:06.197046127Z"
+    },
+    {
+        "message": "turn 244: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f cannot move to {-38 82}, your own ant c563da6b-75dd-418f-bbc4-2000cc49cbab with same type is there",
+        "time": "2025-07-11T18:33:06.197052722Z"
+    },
+    {
+        "message": "turn 245: ant 7c12228b-e0f1-46cb-bb09-966bd5cd80b7 killed",
+        "time": "2025-07-11T18:33:08.180277103Z"
+    },
+    {
+        "message": "turn 245: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-39 80} to {-40 80}",
+        "time": "2025-07-11T18:33:08.199954938Z"
+    },
+    {
+        "message": "turn 245: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 79} to {-41 80}",
+        "time": "2025-07-11T18:33:08.199964961Z"
+    },
+    {
+        "message": "turn 245: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-37 78} to {-40 79}",
+        "time": "2025-07-11T18:33:08.19999001Z"
+    },
+    {
+        "message": "turn 245: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d damaged by acid, health now 30",
+        "time": "2025-07-11T18:33:08.199996029Z"
+    },
+    {
+        "message": "turn 245: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-44 79} to {-44 78}",
+        "time": "2025-07-11T18:33:08.200000953Z"
+    },
+    {
+        "message": "turn 245: ant 6836dc11-aab5-4145-932f-e0e994076a39 cannot move to {-40 79}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:33:08.200013644Z"
+    },
+    {
+        "message": "turn 245: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-38 80} to {-39 79}",
+        "time": "2025-07-11T18:33:08.200017962Z"
+    },
+    {
+        "message": "turn 245: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-39 81} to {-42 83}",
+        "time": "2025-07-11T18:33:08.200053591Z"
+    },
+    {
+        "message": "turn 245: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-50 84} to {-50 85}",
+        "time": "2025-07-11T18:33:08.200070189Z"
+    },
+    {
+        "message": "turn 245: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-46 85} to {-44 82} (dirt on path: 3)",
+        "time": "2025-07-11T18:33:08.20010289Z"
+    },
+    {
+        "message": "turn 245: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-56 92} to {-56 93}",
+        "time": "2025-07-11T18:33:08.20012545Z"
+    },
+    {
+        "message": "turn 245: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-47 82} to {-48 82}",
+        "time": "2025-07-11T18:33:08.200146409Z"
+    },
+    {
+        "message": "turn 245: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-40 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:08.20015455Z"
+    },
+    {
+        "message": "turn 245: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-54 87} to {-54 88}",
+        "time": "2025-07-11T18:33:08.200164257Z"
+    },
+    {
+        "message": "turn 245: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 cannot move to {-44 82}, your own ant 9a268908-a9aa-4287-bd1e-755fa69c0fff with same type is there",
+        "time": "2025-07-11T18:33:08.200178813Z"
+    },
+    {
+        "message": "turn 245: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-47 85} to {-45 82} (dirt on path: 3)",
+        "time": "2025-07-11T18:33:08.200184002Z"
+    },
+    {
+        "message": "turn 245: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 160",
+        "time": "2025-07-11T18:33:08.200196497Z"
+    },
+    {
+        "message": "turn 245: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 140",
+        "time": "2025-07-11T18:33:08.200202721Z"
+    },
+    {
+        "message": "turn 245: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 120",
+        "time": "2025-07-11T18:33:08.200206627Z"
+    },
+    {
+        "message": "turn 245: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 100",
+        "time": "2025-07-11T18:33:08.200211158Z"
+    },
+    {
+        "message": "turn 245: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 moved from {-41 77} to {-45 77}",
+        "time": "2025-07-11T18:33:08.200215996Z"
+    },
+    {
+        "message": "turn 245: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-40 81} to {-40 82}",
+        "time": "2025-07-11T18:33:08.200237186Z"
+    },
+    {
+        "message": "turn 245: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-39 82} to {-36 81}",
+        "time": "2025-07-11T18:33:08.200269799Z"
+    },
+    {
+        "message": "turn 245: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-52 88} to {-53 89}",
+        "time": "2025-07-11T18:33:08.200285154Z"
+    },
+    {
+        "message": "turn 245: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-46 93} to {-45 93} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:08.200300946Z"
+    },
+    {
+        "message": "turn 245: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-38 78} to {-37 81}",
+        "time": "2025-07-11T18:33:08.20032923Z"
+    },
+    {
+        "message": "turn 246: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-41 80} to {-42 80}",
+        "time": "2025-07-11T18:33:10.210527846Z"
+    },
+    {
+        "message": "turn 246: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d damaged by acid, health now 10",
+        "time": "2025-07-11T18:33:10.210539476Z"
+    },
+    {
+        "message": "turn 246: ant 6836dc11-aab5-4145-932f-e0e994076a39 cannot move to {-40 79}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:33:10.210551788Z"
+    },
+    {
+        "message": "turn 246: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-40 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:10.21059396Z"
+    },
+    {
+        "message": "turn 246: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-46 83} to {-46 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:10.210615728Z"
+    },
+    {
+        "message": "turn 246: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 80",
+        "time": "2025-07-11T18:33:10.210626928Z"
+    },
+    {
+        "message": "turn 246: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-48 85} to {-48 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:10.210640298Z"
+    },
+    {
+        "message": "turn 246: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-50 88} to {-51 88}",
+        "time": "2025-07-11T18:33:10.210667854Z"
+    },
+    {
+        "message": "turn 246: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 moved from {-47 83} to {-47 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:10.210688388Z"
+    },
+    {
+        "message": "turn 246: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-53 89} to {-53 88} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:10.210705523Z"
+    },
+    {
+        "message": "turn 246: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-45 93} to {-45 92} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:10.210719388Z"
+    },
+    {
+        "message": "turn 246: new ant spawned Scout",
+        "time": "2025-07-11T18:33:10.210742297Z"
+    },
+    {
+        "message": "turn 247: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-40 80} to {-39 80}",
+        "time": "2025-07-11T18:33:12.204279372Z"
+    },
+    {
+        "message": "turn 247: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-40 79} to {-40 78}",
+        "time": "2025-07-11T18:33:12.20431136Z"
+    },
+    {
+        "message": "turn 247: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-44 78} to {-40 79}",
+        "time": "2025-07-11T18:33:12.204340492Z"
+    },
+    {
+        "message": "turn 247: ant 6836dc11-aab5-4145-932f-e0e994076a39 cannot move to {-39 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:12.204344233Z"
+    },
+    {
+        "message": "turn 247: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 cannot move to {-40 79}, your own ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d with same type is there",
+        "time": "2025-07-11T18:33:12.204348783Z"
+    },
+    {
+        "message": "turn 247: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 80} to {-41 79}",
+        "time": "2025-07-11T18:33:12.204372393Z"
+    },
+    {
+        "message": "turn 247: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-39 85} to {-39 84}",
+        "time": "2025-07-11T18:33:12.204389792Z"
+    },
+    {
+        "message": "turn 247: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-37 84} to {-37 83}",
+        "time": "2025-07-11T18:33:12.204415785Z"
+    },
+    {
+        "message": "turn 247: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-44 81} to {-43 80}",
+        "time": "2025-07-11T18:33:12.204464664Z"
+    },
+    {
+        "message": "turn 247: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-42 83} to {-41 82}",
+        "time": "2025-07-11T18:33:12.204479034Z"
+    },
+    {
+        "message": "turn 247: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-37 83} to {-36 83}",
+        "time": "2025-07-11T18:33:12.20449311Z"
+    },
+    {
+        "message": "turn 247: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-37 81} to {-36 80}",
+        "time": "2025-07-11T18:33:12.204511489Z"
+    },
+    {
+        "message": "turn 247: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-36 83} to {-36 82}",
+        "time": "2025-07-11T18:33:12.204536447Z"
+    },
+    {
+        "message": "turn 247: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-45 82} to {-46 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:12.204554245Z"
+    },
+    {
+        "message": "turn 247: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 cannot move to {-40 80}, your own ant 9b850782-6baf-4b6e-8104-acb59807112a with same type is there",
+        "time": "2025-07-11T18:33:12.204567593Z"
+    },
+    {
+        "message": "turn 247: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-41 79} to {-40 79}",
+        "time": "2025-07-11T18:33:12.204570773Z"
+    },
+    {
+        "message": "turn 247: ant 7777400d-d824-491e-8949-5dede760efbc cannot move to {-40 79}, your own ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d with same type is there",
+        "time": "2025-07-11T18:33:12.204593174Z"
+    },
+    {
+        "message": "turn 247: ant 7777400d-d824-491e-8949-5dede760efbc moved from {-38 81} to {-39 79}",
+        "time": "2025-07-11T18:33:12.204597641Z"
+    },
+    {
+        "message": "turn 247: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-40 82} to {-39 82}",
+        "time": "2025-07-11T18:33:12.204623037Z"
+    },
+    {
+        "message": "turn 247: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-41 81} to {-42 81}",
+        "time": "2025-07-11T18:33:12.204648515Z"
+    },
+    {
+        "message": "turn 247: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 60",
+        "time": "2025-07-11T18:33:12.204667934Z"
+    },
+    {
+        "message": "turn 247: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-40 82} to {-40 83}",
+        "time": "2025-07-11T18:33:12.204690025Z"
+    },
+    {
+        "message": "turn 247: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-43 80}, your own ant 1c0cc928-1e93-454f-a432-1a1610750214 with same type is there",
+        "time": "2025-07-11T18:33:12.204705187Z"
+    },
+    {
+        "message": "turn 247: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-35 76} to {-35 75}",
+        "time": "2025-07-11T18:33:12.204720086Z"
+    },
+    {
+        "message": "turn 247: ant 6e546bad-2f11-43b1-8945-77db4d704a16 cannot move to {-36 83}, your own ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 with same type is there",
+        "time": "2025-07-11T18:33:12.204743486Z"
+    },
+    {
+        "message": "turn 247: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-37 81} to {-35 82}",
+        "time": "2025-07-11T18:33:12.204748802Z"
+    },
+    {
+        "message": "turn 247: new ant spawned Soldier",
+        "time": "2025-07-11T18:33:12.204768638Z"
+    },
+    {
+        "message": "turn 248: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-39 80} to {-38 80}",
+        "time": "2025-07-11T18:33:14.212608736Z"
+    },
+    {
+        "message": "turn 248: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-40 78} to {-40 79}",
+        "time": "2025-07-11T18:33:14.212627864Z"
+    },
+    {
+        "message": "turn 248: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-40 79} to {-41 79}",
+        "time": "2025-07-11T18:33:14.212640179Z"
+    },
+    {
+        "message": "turn 248: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-39 79} to {-39 78}",
+        "time": "2025-07-11T18:33:14.212653198Z"
+    },
+    {
+        "message": "turn 248: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:33:14.21266535Z"
+    },
+    {
+        "message": "turn 248: ant 19811b30-e429-4a90-90a9-6636b1859ca9 moved from {-35 84} to {-36 85}",
+        "time": "2025-07-11T18:33:14.212677553Z"
+    },
+    {
+        "message": "turn 248: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 79} to {-42 79}",
+        "time": "2025-07-11T18:33:14.212692516Z"
+    },
+    {
+        "message": "turn 248: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-39 84} to {-40 84}",
+        "time": "2025-07-11T18:33:14.212705636Z"
+    },
+    {
+        "message": "turn 248: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-37 83} to {-37 82}",
+        "time": "2025-07-11T18:33:14.212718443Z"
+    },
+    {
+        "message": "turn 248: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-40 81} to {-41 81}",
+        "time": "2025-07-11T18:33:14.212728694Z"
+    },
+    {
+        "message": "turn 248: ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c moved from {-41 81} to {-41 80}",
+        "time": "2025-07-11T18:33:14.212738037Z"
+    },
+    {
+        "message": "turn 248: ant 9b850782-6baf-4b6e-8104-acb59807112a moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:33:14.212743938Z"
+    },
+    {
+        "message": "turn 248: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-45 80} to {-46 80}",
+        "time": "2025-07-11T18:33:14.212753213Z"
+    },
+    {
+        "message": "turn 248: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 80} to {-43 79}",
+        "time": "2025-07-11T18:33:14.212766554Z"
+    },
+    {
+        "message": "turn 248: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 cannot move to {-41 81}, your own ant 10526263-65c4-4d90-bee0-62a56cada411 with same type is there",
+        "time": "2025-07-11T18:33:14.212772311Z"
+    },
+    {
+        "message": "turn 248: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-36 83} to {-35 83}",
+        "time": "2025-07-11T18:33:14.212789912Z"
+    },
+    {
+        "message": "turn 248: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-36 80} to {-37 80}",
+        "time": "2025-07-11T18:33:14.212804911Z"
+    },
+    {
+        "message": "turn 248: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-36 82} to {-35 82}",
+        "time": "2025-07-11T18:33:14.212816165Z"
+    },
+    {
+        "message": "turn 248: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-46 82} to {-45 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:14.212826515Z"
+    },
+    {
+        "message": "turn 248: ant 6c76f26c-9e37-4d55-b188-5e74eccc6427 moved from {-40 79} to {-41 79}",
+        "time": "2025-07-11T18:33:14.212833739Z"
+    },
+    {
+        "message": "turn 248: ant ccd7f9ea-b65c-4bab-9bef-11b56782f81d cannot move to {-40 79}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:33:14.212836276Z"
+    },
+    {
+        "message": "turn 248: ant 53c0a426-8b8e-404c-998c-858c2b9600f3 moved from {-38 84} to {-37 84}",
+        "time": "2025-07-11T18:33:14.212846481Z"
+    },
+    {
+        "message": "turn 248: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-44 82} to {-44 81}",
+        "time": "2025-07-11T18:33:14.212860656Z"
+    },
+    {
+        "message": "turn 248: ant d82c1920-8cd5-4c1a-a231-9b3e76967b4d moved from {-46 80} to {-47 81}",
+        "time": "2025-07-11T18:33:14.212871069Z"
+    },
+    {
+        "message": "turn 248: ant 9aa4b2df-0393-4a32-8641-ce89ca03725f moved from {-39 79} to {-39 78}",
+        "time": "2025-07-11T18:33:14.212881146Z"
+    },
+    {
+        "message": "turn 248: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-38 83} to {-38 82}",
+        "time": "2025-07-11T18:33:14.212891432Z"
+    },
+    {
+        "message": "turn 248: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-43 81} to {-42 81}",
+        "time": "2025-07-11T18:33:14.212899062Z"
+    },
+    {
+        "message": "turn 248: ant c563da6b-75dd-418f-bbc4-2000cc49cbab moved from {-38 82} to {-39 82}",
+        "time": "2025-07-11T18:33:14.212908589Z"
+    },
+    {
+        "message": "turn 248: ant 7777400d-d824-491e-8949-5dede760efbc moved from {-39 79} to {-39 78}",
+        "time": "2025-07-11T18:33:14.212914717Z"
+    },
+    {
+        "message": "turn 248: ant b2de31fd-0639-4d93-be97-b29a1e1fe44e moved from {-38 84} to {-39 85}",
+        "time": "2025-07-11T18:33:14.212930804Z"
+    },
+    {
+        "message": "turn 248: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 cannot move to {-44 81}, your own ant 9a268908-a9aa-4287-bd1e-755fa69c0fff with same type is there",
+        "time": "2025-07-11T18:33:14.21293614Z"
+    },
+    {
+        "message": "turn 248: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 cannot move to {-38 82}, your own ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a with same type is there",
+        "time": "2025-07-11T18:33:14.212939945Z"
+    },
+    {
+        "message": "turn 248: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-42 81} to {-41 80}",
+        "time": "2025-07-11T18:33:14.212946745Z"
+    },
+    {
+        "message": "turn 248: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-45 82} to {-46 83} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:14.212960225Z"
+    },
+    {
+        "message": "turn 248: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 moved from {-40 77} to {-41 77}",
+        "time": "2025-07-11T18:33:14.212977449Z"
+    },
+    {
+        "message": "turn 248: ant 167cd692-c037-4bd0-b113-81ace38916eb moved from {-37 85} to {-38 85}",
+        "time": "2025-07-11T18:33:14.212987454Z"
+    },
+    {
+        "message": "turn 248: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 moved from {-45 77} to {-44 76}",
+        "time": "2025-07-11T18:33:14.21299902Z"
+    },
+    {
+        "message": "turn 248: ant 086ea985-3073-4385-92f5-9a32a7f4c400 moved from {-36 82} to {-36 81}",
+        "time": "2025-07-11T18:33:14.213008777Z"
+    },
+    {
+        "message": "turn 248: ant ff8b0720-7def-4796-93af-9824a3c33541 moved from {-39 87} to {-38 87}",
+        "time": "2025-07-11T18:33:14.213024122Z"
+    },
+    {
+        "message": "turn 248: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-39 85} to {-39 84}",
+        "time": "2025-07-11T18:33:14.213036313Z"
+    },
+    {
+        "message": "turn 248: ant 77811d13-53fc-437c-bab9-fc7d9b322013 moved from {-44 80} to {-44 79}",
+        "time": "2025-07-11T18:33:14.21304959Z"
+    },
+    {
+        "message": "turn 248: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-36 81} to {-35 80}",
+        "time": "2025-07-11T18:33:14.213059565Z"
+    },
+    {
+        "message": "turn 248: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-42 79}, your own ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 with same type is there",
+        "time": "2025-07-11T18:33:14.213065107Z"
+    },
+    {
+        "message": "turn 248: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-45 92} to {-46 93}",
+        "time": "2025-07-11T18:33:14.21307538Z"
+    },
+    {
+        "message": "turn 248: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b moved from {-41 82} to {-42 82}",
+        "time": "2025-07-11T18:33:14.213113081Z"
+    },
+    {
+        "message": "turn 248: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-35 75} to {-35 74}",
+        "time": "2025-07-11T18:33:14.213123914Z"
+    },
+    {
+        "message": "turn 248: ant 715a6c59-d7dc-4c4a-88a4-33384dd46f25 moved from {-41 83} to {-41 84}",
+        "time": "2025-07-11T18:33:14.213136871Z"
+    },
+    {
+        "message": "turn 248: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-35 82} to {-35 81}",
+        "time": "2025-07-11T18:33:14.213155416Z"
+    },
+    {
+        "message": "turn 248: new ant spawned Worker",
+        "time": "2025-07-11T18:33:14.213171701Z"
+    },
+    {
+        "message": "turn 249: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-38 80} to {-38 79}",
+        "time": "2025-07-11T18:33:16.194206811Z"
+    },
+    {
+        "message": "turn 249: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-39 78} to {-38 78}",
+        "time": "2025-07-11T18:33:16.194222433Z"
+    },
+    {
+        "message": "turn 249: ant 19811b30-e429-4a90-90a9-6636b1859ca9 moved from {-36 85} to {-36 84}",
+        "time": "2025-07-11T18:33:16.194232998Z"
+    },
+    {
+        "message": "turn 249: ant 7b418820-f689-4a07-9708-967b91cad7cc cannot move to {-39 85}, your own ant b2de31fd-0639-4d93-be97-b29a1e1fe44e with same type is there",
+        "time": "2025-07-11T18:33:16.194240907Z"
+    },
+    {
+        "message": "turn 249: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-41 81} to {-40 82}",
+        "time": "2025-07-11T18:33:16.194254166Z"
+    },
+    {
+        "message": "turn 249: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-46 80} to {-46 81}",
+        "time": "2025-07-11T18:33:16.194270529Z"
+    },
+    {
+        "message": "turn 249: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-41 82} to {-41 83}",
+        "time": "2025-07-11T18:33:16.194290567Z"
+    },
+    {
+        "message": "turn 249: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-37 80} to {-37 81}",
+        "time": "2025-07-11T18:33:16.194304654Z"
+    },
+    {
+        "message": "turn 249: ant ccd7f9ea-b65c-4bab-9bef-11b56782f81d cannot move to {-40 79}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:33:16.194315369Z"
+    },
+    {
+        "message": "turn 249: ant 9aa4b2df-0393-4a32-8641-ce89ca03725f moved from {-39 78} to {-38 78}",
+        "time": "2025-07-11T18:33:16.194322826Z"
+    },
+    {
+        "message": "turn 249: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-38 82} to {-39 83}",
+        "time": "2025-07-11T18:33:16.194333226Z"
+    },
+    {
+        "message": "turn 249: ant 7777400d-d824-491e-8949-5dede760efbc moved from {-39 78} to {-38 78}",
+        "time": "2025-07-11T18:33:16.194346174Z"
+    },
+    {
+        "message": "turn 249: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 cannot move to {-44 81}, your own ant 9a268908-a9aa-4287-bd1e-755fa69c0fff with same type is there",
+        "time": "2025-07-11T18:33:16.194353674Z"
+    },
+    {
+        "message": "turn 249: ant dfe451a4-e469-4843-ab37-38424af44124 moved from {-36 84} to {-37 85}",
+        "time": "2025-07-11T18:33:16.194362414Z"
+    },
+    {
+        "message": "turn 249: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 moved from {-41 77} to {-40 76}",
+        "time": "2025-07-11T18:33:16.194385727Z"
+    },
+    {
+        "message": "turn 249: ant 167cd692-c037-4bd0-b113-81ace38916eb cannot move to {-37 84}, your own ant 53c0a426-8b8e-404c-998c-858c2b9600f3 with same type is there",
+        "time": "2025-07-11T18:33:16.194393147Z"
+    },
+    {
+        "message": "turn 249: ant 9080802d-e910-4aa6-bc8c-becc7356a043 cannot move to {-37 82}, your own ant 9d2167de-987c-44ea-850e-d88e2da7e63d with same type is there",
+        "time": "2025-07-11T18:33:16.194396826Z"
+    },
+    {
+        "message": "turn 249: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-40 83} to {-40 82}",
+        "time": "2025-07-11T18:33:16.194405122Z"
+    },
+    {
+        "message": "turn 249: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-41 80}, your own ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 with same type is there",
+        "time": "2025-07-11T18:33:16.194415342Z"
+    },
+    {
+        "message": "turn 249: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-35 74} to {-34 74}",
+        "time": "2025-07-11T18:33:16.194427337Z"
+    },
+    {
+        "message": "turn 249: ant 66fb4677-02d0-46e2-914d-01e7df111964 moved from {-42 84} to {-42 83}",
+        "time": "2025-07-11T18:33:16.194455369Z"
+    },
+    {
+        "message": "turn 250: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-38 79} to {-37 79}",
+        "time": "2025-07-11T18:33:18.19510575Z"
+    },
+    {
+        "message": "turn 250: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-42 80} to {-43 81}",
+        "time": "2025-07-11T18:33:18.195119219Z"
+    },
+    {
+        "message": "turn 250: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-40 79} to {-41 79}",
+        "time": "2025-07-11T18:33:18.195130277Z"
+    },
+    {
+        "message": "turn 250: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-41 79} to {-42 79}",
+        "time": "2025-07-11T18:33:18.195135507Z"
+    },
+    {
+        "message": "turn 250: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-38 78} to {-39 79}",
+        "time": "2025-07-11T18:33:18.19514783Z"
+    },
+    {
+        "message": "turn 250: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-40 81} to {-41 81}",
+        "time": "2025-07-11T18:33:18.195159964Z"
+    },
+    {
+        "message": "turn 250: ant 19811b30-e429-4a90-90a9-6636b1859ca9 moved from {-36 84} to {-37 85}",
+        "time": "2025-07-11T18:33:18.195167512Z"
+    },
+    {
+        "message": "turn 250: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 cannot move to {-41 79}, your own ant 3012f86b-f097-49fd-9baa-db00f0e9b673 with same type is there",
+        "time": "2025-07-11T18:33:18.195175087Z"
+    },
+    {
+        "message": "turn 250: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-40 84} to {-41 84}",
+        "time": "2025-07-11T18:33:18.195180749Z"
+    },
+    {
+        "message": "turn 250: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-37 82} to {-36 82}",
+        "time": "2025-07-11T18:33:18.195195447Z"
+    },
+    {
+        "message": "turn 250: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-40 82} to {-40 83}",
+        "time": "2025-07-11T18:33:18.19520616Z"
+    },
+    {
+        "message": "turn 250: ant 9b850782-6baf-4b6e-8104-acb59807112a moved from {-40 81} to {-40 80}",
+        "time": "2025-07-11T18:33:18.195214544Z"
+    },
+    {
+        "message": "turn 250: ant 9782b172-4872-4917-ad2a-c4130f156812 damaged by acid, health now 20",
+        "time": "2025-07-11T18:33:18.195223434Z"
+    },
+    {
+        "message": "turn 250: ant 9782b172-4872-4917-ad2a-c4130f156812 killed by acid",
+        "time": "2025-07-11T18:33:18.195228709Z"
+    },
+    {
+        "message": "turn 250: ant 9782b172-4872-4917-ad2a-c4130f156812 moved from {-46 81} to {-44 78}",
+        "time": "2025-07-11T18:33:18.195231922Z"
+    },
+    {
+        "message": "turn 250: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-41 83} to {-43 81}",
+        "time": "2025-07-11T18:33:18.19524052Z"
+    },
+    {
+        "message": "turn 250: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-50 85} to {-49 84}",
+        "time": "2025-07-11T18:33:18.195269762Z"
+    },
+    {
+        "message": "turn 250: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 120",
+        "time": "2025-07-11T18:33:18.195286706Z"
+    },
+    {
+        "message": "turn 250: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff cannot move to {-44 78}, your own ant 9782b172-4872-4917-ad2a-c4130f156812 with same type is there",
+        "time": "2025-07-11T18:33:18.195288653Z"
+    },
+    {
+        "message": "turn 250: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-44 81} to {-45 79}",
+        "time": "2025-07-11T18:33:18.195291893Z"
+    },
+    {
+        "message": "turn 250: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-39 83} to {-36 84}",
+        "time": "2025-07-11T18:33:18.195314916Z"
+    },
+    {
+        "message": "turn 250: ant 7777400d-d824-491e-8949-5dede760efbc moved from {-38 78} to {-36 81}",
+        "time": "2025-07-11T18:33:18.195335715Z"
+    },
+    {
+        "message": "turn 250: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-56 93} to {-55 93}",
+        "time": "2025-07-11T18:33:18.195347365Z"
+    },
+    {
+        "message": "turn 250: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-48 82} to {-48 83}",
+        "time": "2025-07-11T18:33:18.195363203Z"
+    },
+    {
+        "message": "turn 250: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-41 80} to {-42 81}",
+        "time": "2025-07-11T18:33:18.195376439Z"
+    },
+    {
+        "message": "turn 250: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-54 88} to {-54 89} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:18.195387486Z"
+    },
+    {
+        "message": "turn 250: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-46 83} to {-46 80} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:18.195422253Z"
+    },
+    {
+        "message": "turn 250: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-46 84} to {-46 85}",
+        "time": "2025-07-11T18:33:18.195433793Z"
+    },
+    {
+        "message": "turn 250: ant 086ea985-3073-4385-92f5-9a32a7f4c400 cannot move to {-36 84}, your own ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a with same type is there",
+        "time": "2025-07-11T18:33:18.195451949Z"
+    },
+    {
+        "message": "turn 250: ant 086ea985-3073-4385-92f5-9a32a7f4c400 moved from {-36 81} to {-36 83}",
+        "time": "2025-07-11T18:33:18.195455636Z"
+    },
+    {
+        "message": "turn 250: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 moved from {-48 84} to {-49 85}",
+        "time": "2025-07-11T18:33:18.195465003Z"
+    },
+    {
+        "message": "turn 250: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-51 88} to {-51 89}",
+        "time": "2025-07-11T18:33:18.195476631Z"
+    },
+    {
+        "message": "turn 250: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 moved from {-47 84} to {-48 85}",
+        "time": "2025-07-11T18:33:18.195489864Z"
+    },
+    {
+        "message": "turn 250: ant 88bb37c8-fc5a-4821-9135-d4171b25962f cannot move to {-36 81}, your own ant 7777400d-d824-491e-8949-5dede760efbc with same type is there",
+        "time": "2025-07-11T18:33:18.195511022Z"
+    },
+    {
+        "message": "turn 250: ant 88bb37c8-fc5a-4821-9135-d4171b25962f moved from {-40 80} to {-36 80}",
+        "time": "2025-07-11T18:33:18.195514629Z"
+    },
+    {
+        "message": "turn 250: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-46 93} to {-45 92} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:18.195524283Z"
+    },
+    {
+        "message": "turn 250: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b moved from {-42 82} to {-38 82}",
+        "time": "2025-07-11T18:33:18.195542693Z"
+    },
+    {
+        "message": "turn 250: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-34 74} to {-34 75}",
+        "time": "2025-07-11T18:33:18.195553357Z"
+    },
+    {
+        "message": "turn 250: ant 66fb4677-02d0-46e2-914d-01e7df111964 cannot move to {-38 82}, your own ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b with same type is there",
+        "time": "2025-07-11T18:33:18.195565519Z"
+    },
+    {
+        "message": "turn 250: ant 66fb4677-02d0-46e2-914d-01e7df111964 moved from {-42 83} to {-39 83}",
+        "time": "2025-07-11T18:33:18.195568654Z"
+    },
+    {
+        "message": "turn 250: new ant spawned Worker",
+        "time": "2025-07-11T18:33:18.195582466Z"
+    },
+    {
+        "message": "turn 251: ant 9782b172-4872-4917-ad2a-c4130f156812 killed",
+        "time": "2025-07-11T18:33:20.179661241Z"
+    },
+    {
+        "message": "turn 251: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-37 79} to {-40 79}",
+        "time": "2025-07-11T18:33:20.208758608Z"
+    },
+    {
+        "message": "turn 251: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 cannot move to {-40 79}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:20.208764609Z"
+    },
+    {
+        "message": "turn 251: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 79} to {-42 80}",
+        "time": "2025-07-11T18:33:20.208773523Z"
+    },
+    {
+        "message": "turn 251: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-39 79} to {-39 78}",
+        "time": "2025-07-11T18:33:20.208789093Z"
+    },
+    {
+        "message": "turn 251: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-42 79} to {-41 78}",
+        "time": "2025-07-11T18:33:20.208806195Z"
+    },
+    {
+        "message": "turn 251: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-40 83} to {-41 83}",
+        "time": "2025-07-11T18:33:20.2088414Z"
+    },
+    {
+        "message": "turn 251: ant 9b850782-6baf-4b6e-8104-acb59807112a moved from {-40 80} to {-39 80}",
+        "time": "2025-07-11T18:33:20.208857427Z"
+    },
+    {
+        "message": "turn 251: ant 6fc19bb0-0de2-4afe-a04b-e6aa7b348922 moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:33:20.208871288Z"
+    },
+    {
+        "message": "turn 251: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 79} to {-43 80}",
+        "time": "2025-07-11T18:33:20.208885582Z"
+    },
+    {
+        "message": "turn 251: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 moved from {-43 81} to {-44 81}",
+        "time": "2025-07-11T18:33:20.208898962Z"
+    },
+    {
+        "message": "turn 251: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 moved from {-35 83} to {-34 82}",
+        "time": "2025-07-11T18:33:20.208913957Z"
+    },
+    {
+        "message": "turn 251: ant b8d50db2-05bf-44d7-b747-335caa5549dc moved from {-37 81} to {-37 82}",
+        "time": "2025-07-11T18:33:20.208928953Z"
+    },
+    {
+        "message": "turn 251: ant e0d079fd-e630-4c30-b01b-dc9f9a419e58 moved from {-35 82} to {-35 83}",
+        "time": "2025-07-11T18:33:20.208943749Z"
+    },
+    {
+        "message": "turn 251: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d damaged by acid, health now 110",
+        "time": "2025-07-11T18:33:20.208963789Z"
+    },
+    {
+        "message": "turn 251: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-45 82} to {-44 78}",
+        "time": "2025-07-11T18:33:20.208970034Z"
+    },
+    {
+        "message": "turn 251: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d collected 2 Apple at {-44 78}",
+        "time": "2025-07-11T18:33:20.208976879Z"
+    },
+    {
+        "message": "turn 251: ant ccd7f9ea-b65c-4bab-9bef-11b56782f81d moved from {-40 80} to {-40 81}",
+        "time": "2025-07-11T18:33:20.208982462Z"
+    },
+    {
+        "message": "turn 251: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 100",
+        "time": "2025-07-11T18:33:20.208990875Z"
+    },
+    {
+        "message": "turn 251: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-45 79} to {-45 78}",
+        "time": "2025-07-11T18:33:20.208995587Z"
+    },
+    {
+        "message": "turn 251: ant b2d3829c-334e-4c27-bbd9-248df2a0224d damaged by acid, health now 100",
+        "time": "2025-07-11T18:33:20.209005877Z"
+    },
+    {
+        "message": "turn 251: ant b2d3829c-334e-4c27-bbd9-248df2a0224d moved from {-46 78} to {-46 77}",
+        "time": "2025-07-11T18:33:20.209011559Z"
+    },
+    {
+        "message": "turn 251: ant 9aa4b2df-0393-4a32-8641-ce89ca03725f moved from {-38 78} to {-39 78}",
+        "time": "2025-07-11T18:33:20.209019414Z"
+    },
+    {
+        "message": "turn 251: ant 6d3ab6a1-04b2-4277-97f8-8b2134e4af3a moved from {-36 84} to {-37 84}",
+        "time": "2025-07-11T18:33:20.209029369Z"
+    },
+    {
+        "message": "turn 251: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-42 81} to {-42 82}",
+        "time": "2025-07-11T18:33:20.209041932Z"
+    },
+    {
+        "message": "turn 251: ant 7777400d-d824-491e-8949-5dede760efbc moved from {-36 81} to {-35 81}",
+        "time": "2025-07-11T18:33:20.209054272Z"
+    },
+    {
+        "message": "turn 251: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-45 81} to {-45 80}",
+        "time": "2025-07-11T18:33:20.209069122Z"
+    },
+    {
+        "message": "turn 251: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 82} to {-38 82}",
+        "time": "2025-07-11T18:33:20.209103706Z"
+    },
+    {
+        "message": "turn 251: ant 8edbe1bd-2c1e-4a73-bb1f-1b42e209e0d8 moved from {-43 80} to {-43 79}",
+        "time": "2025-07-11T18:33:20.209117464Z"
+    },
+    {
+        "message": "turn 251: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-42 81} to {-41 80}",
+        "time": "2025-07-11T18:33:20.209128651Z"
+    },
+    {
+        "message": "turn 251: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-46 80} to {-47 80}",
+        "time": "2025-07-11T18:33:20.20916124Z"
+    },
+    {
+        "message": "turn 251: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-46 85} to {-46 86} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:20.209177168Z"
+    },
+    {
+        "message": "turn 251: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 moved from {-40 76} to {-41 77}",
+        "time": "2025-07-11T18:33:20.209190355Z"
+    },
+    {
+        "message": "turn 251: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 40",
+        "time": "2025-07-11T18:33:20.209199945Z"
+    },
+    {
+        "message": "turn 251: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 moved from {-44 76} to {-44 77}",
+        "time": "2025-07-11T18:33:20.20920489Z"
+    },
+    {
+        "message": "turn 251: ant 9080802d-e910-4aa6-bc8c-becc7356a043 cannot move to {-37 82}, your own ant b8d50db2-05bf-44d7-b747-335caa5549dc with same type is there",
+        "time": "2025-07-11T18:33:20.20921284Z"
+    },
+    {
+        "message": "turn 251: ant 086ea985-3073-4385-92f5-9a32a7f4c400 moved from {-36 83} to {-35 82}",
+        "time": "2025-07-11T18:33:20.209222368Z"
+    },
+    {
+        "message": "turn 251: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-51 89} to {-51 88}",
+        "time": "2025-07-11T18:33:20.209237947Z"
+    },
+    {
+        "message": "turn 251: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-40 82} to {-40 83}",
+        "time": "2025-07-11T18:33:20.209253165Z"
+    },
+    {
+        "message": "turn 251: ant 279dd28f-ef64-46ca-bd92-5d3e46be5116 moved from {-39 84} to {-40 84}",
+        "time": "2025-07-11T18:33:20.209264785Z"
+    },
+    {
+        "message": "turn 251: ant 77811d13-53fc-437c-bab9-fc7d9b322013 moved from {-44 79} to {-43 78}",
+        "time": "2025-07-11T18:33:20.209279185Z"
+    },
+    {
+        "message": "turn 251: ant 7c4b8065-e6a1-4405-99f4-7f0621b5f99f moved from {-35 80} to {-35 79}",
+        "time": "2025-07-11T18:33:20.209298404Z"
+    },
+    {
+        "message": "turn 251: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-41 80}, your own ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 with same type is there",
+        "time": "2025-07-11T18:33:20.209304444Z"
+    },
+    {
+        "message": "turn 251: ant 88bb37c8-fc5a-4821-9135-d4171b25962f moved from {-36 80} to {-37 80}",
+        "time": "2025-07-11T18:33:20.209323252Z"
+    },
+    {
+        "message": "turn 251: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-45 92} to {-45 91} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:20.209337585Z"
+    },
+    {
+        "message": "turn 251: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b moved from {-38 82} to {-38 81}",
+        "time": "2025-07-11T18:33:20.209350551Z"
+    },
+    {
+        "message": "turn 251: ant 66fb4677-02d0-46e2-914d-01e7df111964 cannot move to {-40 83}, your own ant c9cfe6c2-742d-41cc-b526-69a012105414 with same type is there",
+        "time": "2025-07-11T18:33:20.20935739Z"
+    },
+    {
+        "message": "turn 251: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-35 81} to {-36 81}",
+        "time": "2025-07-11T18:33:20.20936837Z"
+    },
+    {
+        "message": "turn 251: new ant spawned Worker",
+        "time": "2025-07-11T18:33:20.20938673Z"
+    },
+    {
+        "message": "turn 252: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 cannot move to {-40 79}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:22.222844541Z"
+    },
+    {
+        "message": "turn 252: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-39 78} to {-38 78}",
+        "time": "2025-07-11T18:33:22.222858418Z"
+    },
+    {
+        "message": "turn 252: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 cannot move to {-40 81}, your own ant 6fc19bb0-0de2-4afe-a04b-e6aa7b348922 with same type is there",
+        "time": "2025-07-11T18:33:22.222868491Z"
+    },
+    {
+        "message": "turn 252: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-41 78} to {-42 78}",
+        "time": "2025-07-11T18:33:22.222880341Z"
+    },
+    {
+        "message": "turn 252: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-41 83} to {-40 84}",
+        "time": "2025-07-11T18:33:22.222896271Z"
+    },
+    {
+        "message": "turn 252: ant 6fc19bb0-0de2-4afe-a04b-e6aa7b348922 moved from {-40 81} to {-39 80}",
+        "time": "2025-07-11T18:33:22.222910201Z"
+    },
+    {
+        "message": "turn 252: ant 1521dc8b-31c4-439d-823c-4eeb1d542eb3 cannot move to {-43 80}, your own ant 1c0cc928-1e93-454f-a432-1a1610750214 with same type is there",
+        "time": "2025-07-11T18:33:22.22291959Z"
+    },
+    {
+        "message": "turn 252: ant 0f7a04a9-8f4a-4028-8ea7-ce751d708696 cannot move to {-35 82}, your own ant 086ea985-3073-4385-92f5-9a32a7f4c400 with same type is there",
+        "time": "2025-07-11T18:33:22.222924713Z"
+    },
+    {
+        "message": "turn 252: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d damaged by acid, health now 90",
+        "time": "2025-07-11T18:33:22.22293144Z"
+    },
+    {
+        "message": "turn 252: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 80",
+        "time": "2025-07-11T18:33:22.222937855Z"
+    },
+    {
+        "message": "turn 252: ant b2d3829c-334e-4c27-bbd9-248df2a0224d cannot move to {-45 78}, your own ant 9a268908-a9aa-4287-bd1e-755fa69c0fff with same type is there",
+        "time": "2025-07-11T18:33:22.22294372Z"
+    },
+    {
+        "message": "turn 252: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-38 82} to {-39 81}",
+        "time": "2025-07-11T18:33:22.222964368Z"
+    },
+    {
+        "message": "turn 252: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-41 80} to {-41 81}",
+        "time": "2025-07-11T18:33:22.222978648Z"
+    },
+    {
+        "message": "turn 252: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-47 80} to {-47 81}",
+        "time": "2025-07-11T18:33:22.222991942Z"
+    },
+    {
+        "message": "turn 252: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 damaged by acid, health now 20",
+        "time": "2025-07-11T18:33:22.223000865Z"
+    },
+    {
+        "message": "turn 252: ant 9080802d-e910-4aa6-bc8c-becc7356a043 moved from {-38 83} to {-38 84}",
+        "time": "2025-07-11T18:33:22.223012849Z"
+    },
+    {
+        "message": "turn 252: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-40 83} to {-41 83}",
+        "time": "2025-07-11T18:33:22.223028724Z"
+    },
+    {
+        "message": "turn 252: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea moved from {-42 80} to {-41 80}",
+        "time": "2025-07-11T18:33:22.223043684Z"
+    },
+    {
+        "message": "turn 252: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-34 75} to {-33 74} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:22.223060452Z"
+    },
+    {
+        "message": "turn 252: ant 66fb4677-02d0-46e2-914d-01e7df111964 moved from {-39 83} to {-40 83}",
+        "time": "2025-07-11T18:33:22.223075196Z"
+    },
+    {
+        "message": "turn 252: ant 6e546bad-2f11-43b1-8945-77db4d704a16 moved from {-36 81} to {-36 82}",
+        "time": "2025-07-11T18:33:22.223084964Z"
+    },
+    {
+        "message": "turn 253: ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 moved from {-40 79} to {-40 80}",
+        "time": "2025-07-11T18:33:24.202876852Z"
+    },
+    {
+        "message": "turn 253: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-41 79} to {-40 78}",
+        "time": "2025-07-11T18:33:24.202908613Z"
+    },
+    {
+        "message": "turn 253: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-42 80} to {-43 80}",
+        "time": "2025-07-11T18:33:24.202924891Z"
+    },
+    {
+        "message": "turn 253: ant 6836dc11-aab5-4145-932f-e0e994076a39 moved from {-38 78} to {-39 77}",
+        "time": "2025-07-11T18:33:24.202940219Z"
+    },
+    {
+        "message": "turn 253: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 moved from {-41 81} to {-42 81}",
+        "time": "2025-07-11T18:33:24.202977515Z"
+    },
+    {
+        "message": "turn 253: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-41 84} to {-42 81}",
+        "time": "2025-07-11T18:33:24.203005955Z"
+    },
+    {
+        "message": "turn 253: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-36 82} to {-36 83}",
+        "time": "2025-07-11T18:33:24.203029892Z"
+    },
+    {
+        "message": "turn 253: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-44 78} to {-41 79}",
+        "time": "2025-07-11T18:33:24.203077955Z"
+    },
+    {
+        "message": "turn 253: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d stocked up 2 Apple (20 cal)",
+        "time": "2025-07-11T18:33:24.203082388Z"
+    },
+    {
+        "message": "turn 253: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 60",
+        "time": "2025-07-11T18:33:24.203099029Z"
+    },
+    {
+        "message": "turn 253: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff moved from {-45 78} to {-45 79}",
+        "time": "2025-07-11T18:33:24.203104208Z"
+    },
+    {
+        "message": "turn 253: ant b2d3829c-334e-4c27-bbd9-248df2a0224d damaged by acid, health now 80",
+        "time": "2025-07-11T18:33:24.203111452Z"
+    },
+    {
+        "message": "turn 253: ant c563da6b-75dd-418f-bbc4-2000cc49cbab cannot move to {-39 80}, your own ant 6fc19bb0-0de2-4afe-a04b-e6aa7b348922 with same type is there",
+        "time": "2025-07-11T18:33:24.203121397Z"
+    },
+    {
+        "message": "turn 253: ant c563da6b-75dd-418f-bbc4-2000cc49cbab moved from {-39 82} to {-39 81}",
+        "time": "2025-07-11T18:33:24.203126045Z"
+    },
+    {
+        "message": "turn 253: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-45 80} to {-46 84} (dirt on path: 3)",
+        "time": "2025-07-11T18:33:24.20316504Z"
+    },
+    {
+        "message": "turn 253: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 cannot move to {-40 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:24.203184429Z"
+    },
+    {
+        "message": "turn 253: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 81} to {-39 80}",
+        "time": "2025-07-11T18:33:24.203188229Z"
+    },
+    {
+        "message": "turn 253: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-40 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:24.203197854Z"
+    },
+    {
+        "message": "turn 253: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-46 86} to {-45 86} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:24.203212488Z"
+    },
+    {
+        "message": "turn 253: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 killed by acid",
+        "time": "2025-07-11T18:33:24.203222604Z"
+    },
+    {
+        "message": "turn 253: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-41 83} to {-40 82}",
+        "time": "2025-07-11T18:33:24.203241676Z"
+    },
+    {
+        "message": "turn 253: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-45 91} to {-44 91}",
+        "time": "2025-07-11T18:33:24.203266326Z"
+    },
+    {
+        "message": "turn 253: ant d0d0e984-6f4a-40d8-af63-6f8bb2e2dc1b cannot move to {-39 81}, your own ant c563da6b-75dd-418f-bbc4-2000cc49cbab with same type is there",
+        "time": "2025-07-11T18:33:24.203274482Z"
+    },
+    {
+        "message": "turn 254: ant 37ee8078-0de6-4f2d-ad07-b7521c99dcb1 killed",
+        "time": "2025-07-11T18:33:26.180846149Z"
+    },
+    {
+        "message": "turn 254: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-42 78} to {-43 79}",
+        "time": "2025-07-11T18:33:26.200745444Z"
+    },
+    {
+        "message": "turn 254: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-40 84} to {-42 82}",
+        "time": "2025-07-11T18:33:26.200769619Z"
+    },
+    {
+        "message": "turn 254: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 40",
+        "time": "2025-07-11T18:33:26.200790747Z"
+    },
+    {
+        "message": "turn 254: ant b2d3829c-334e-4c27-bbd9-248df2a0224d damaged by acid, health now 60",
+        "time": "2025-07-11T18:33:26.20079419Z"
+    },
+    {
+        "message": "turn 254: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 cannot move to {-40 80}, your own ant 636a57ad-7e92-46e1-a575-8e35cdbcb042 with same type is there",
+        "time": "2025-07-11T18:33:26.200811838Z"
+    },
+    {
+        "message": "turn 254: ant 952eaa8c-032a-4431-8799-18396ad3e5f8 moved from {-47 81} to {-47 80}",
+        "time": "2025-07-11T18:33:26.200826385Z"
+    },
+    {
+        "message": "turn 254: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 86} to {-45 85} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:26.200838355Z"
+    },
+    {
+        "message": "turn 254: ant 4a7f63eb-9f41-4c0f-9539-2973d6dc2a46 moved from {-41 77} to {-43 81}",
+        "time": "2025-07-11T18:33:26.200859932Z"
+    },
+    {
+        "message": "turn 254: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-51 88} to {-52 89}",
+        "time": "2025-07-11T18:33:26.200879775Z"
+    },
+    {
+        "message": "turn 255: ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b moved from {-43 81} to {-42 80}",
+        "time": "2025-07-11T18:33:28.20623467Z"
+    },
+    {
+        "message": "turn 255: ant 3012f86b-f097-49fd-9baa-db00f0e9b673 moved from {-40 78} to {-40 79}",
+        "time": "2025-07-11T18:33:28.206257287Z"
+    },
+    {
+        "message": "turn 255: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-43 80} to {-44 80}",
+        "time": "2025-07-11T18:33:28.206271007Z"
+    },
+    {
+        "message": "turn 255: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 cannot move to {-42 80}, your own ant fb9b7b97-7f9b-4c74-8464-65dfb0a6cf0b with same type is there",
+        "time": "2025-07-11T18:33:28.206288959Z"
+    },
+    {
+        "message": "turn 255: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-43 79} to {-42 78}",
+        "time": "2025-07-11T18:33:28.206306439Z"
+    },
+    {
+        "message": "turn 255: ant c82a39cc-2e78-4066-ba0b-a135552f5c0b moved from {-42 81} to {-42 80}",
+        "time": "2025-07-11T18:33:28.206320668Z"
+    },
+    {
+        "message": "turn 255: ant 9d2167de-987c-44ea-850e-d88e2da7e63d moved from {-36 83} to {-36 84}",
+        "time": "2025-07-11T18:33:28.206351851Z"
+    },
+    {
+        "message": "turn 255: ant 10526263-65c4-4d90-bee0-62a56cada411 moved from {-42 82} to {-42 83}",
+        "time": "2025-07-11T18:33:28.206406449Z"
+    },
+    {
+        "message": "turn 255: ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c moved from {-41 80} to {-41 81}",
+        "time": "2025-07-11T18:33:28.20642594Z"
+    },
+    {
+        "message": "turn 255: ant 9b850782-6baf-4b6e-8104-acb59807112a moved from {-39 80} to {-40 80}",
+        "time": "2025-07-11T18:33:28.20648832Z"
+    },
+    {
+        "message": "turn 255: ant 1c0cc928-1e93-454f-a432-1a1610750214 moved from {-43 80} to {-46 83} (dirt on path: 2)",
+        "time": "2025-07-11T18:33:28.206521114Z"
+    },
+    {
+        "message": "turn 255: ant 46b98c26-94c5-4e3f-94e7-f728632982e3 moved from {-49 84} to {-50 85}",
+        "time": "2025-07-11T18:33:28.206561741Z"
+    },
+    {
+        "message": "turn 255: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d cannot move to {-44 80}, your own ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d with same type is there",
+        "time": "2025-07-11T18:33:28.206589438Z"
+    },
+    {
+        "message": "turn 255: ant 8108c416-a3cb-4ef9-9308-051a0986ad2d moved from {-41 79} to {-44 79}",
+        "time": "2025-07-11T18:33:28.206597101Z"
+    },
+    {
+        "message": "turn 255: ant a7cfe61d-fbd7-4c0d-9d7d-71da49b434e5 moved from {-40 80} to {-43 78}",
+        "time": "2025-07-11T18:33:28.206623515Z"
+    },
+    {
+        "message": "turn 255: ant ccd7f9ea-b65c-4bab-9bef-11b56782f81d moved from {-40 81} to {-38 83}",
+        "time": "2025-07-11T18:33:28.206654164Z"
+    },
+    {
+        "message": "turn 255: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff damaged by acid, health now 20",
+        "time": "2025-07-11T18:33:28.206663981Z"
+    },
+    {
+        "message": "turn 255: ant b2d3829c-334e-4c27-bbd9-248df2a0224d damaged by acid, health now 40",
+        "time": "2025-07-11T18:33:28.206669013Z"
+    },
+    {
+        "message": "turn 255: ant 5fd78749-8a1b-44de-af36-9a58c7d2fd43 moved from {-42 82} to {-42 83}",
+        "time": "2025-07-11T18:33:28.206679867Z"
+    },
+    {
+        "message": "turn 255: ant bd4f660e-a13d-4179-8a9d-8e920f705944 moved from {-55 93} to {-55 92}",
+        "time": "2025-07-11T18:33:28.206702053Z"
+    },
+    {
+        "message": "turn 255: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 moved from {-46 84} to {-45 87} (dirt on path: 2)",
+        "time": "2025-07-11T18:33:28.206752171Z"
+    },
+    {
+        "message": "turn 255: ant 5451e7a9-79f8-4515-a025-83e8b84d1577 collected 2 Bread at {-45 87}",
+        "time": "2025-07-11T18:33:28.206768919Z"
+    },
+    {
+        "message": "turn 255: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 80} to {-39 81}",
+        "time": "2025-07-11T18:33:28.206782636Z"
+    },
+    {
+        "message": "turn 255: ant b7cfe474-635c-4ce7-aa5b-fa053c0e00f2 moved from {-48 83} to {-48 84} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:28.206803445Z"
+    },
+    {
+        "message": "turn 255: ant 7a6f0a36-6fd7-4a21-9246-57a85750a2e0 moved from {-41 81} to {-41 82}",
+        "time": "2025-07-11T18:33:28.206822645Z"
+    },
+    {
+        "message": "turn 255: ant faa79e8a-254e-40ff-92f7-47bf4d70cb38 moved from {-54 89} to {-54 88}",
+        "time": "2025-07-11T18:33:28.206841902Z"
+    },
+    {
+        "message": "turn 255: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-45 85} to {-46 85}",
+        "time": "2025-07-11T18:33:28.206881005Z"
+    },
+    {
+        "message": "turn 255: ant dd8b8852-ad92-4cec-b37d-ac0270abab17 cannot move to {-50 85}, your own ant 46b98c26-94c5-4e3f-94e7-f728632982e3 with same type is there",
+        "time": "2025-07-11T18:33:28.206895282Z"
+    },
+    {
+        "message": "turn 255: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-52 89} to {-51 88}",
+        "time": "2025-07-11T18:33:28.206910297Z"
+    },
+    {
+        "message": "turn 255: ant c9cfe6c2-742d-41cc-b526-69a012105414 moved from {-40 82} to {-40 81}",
+        "time": "2025-07-11T18:33:28.206930785Z"
+    },
+    {
+        "message": "turn 255: ant 0dd66bc7-db10-4d1e-9a41-aa04993afaf0 moved from {-48 85} to {-48 86} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:28.206951465Z"
+    },
+    {
+        "message": "turn 255: ant 77811d13-53fc-437c-bab9-fc7d9b322013 moved from {-43 78} to {-45 82} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:28.206979766Z"
+    },
+    {
+        "message": "turn 255: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-42 80}, your own ant c82a39cc-2e78-4066-ba0b-a135552f5c0b with same type is there",
+        "time": "2025-07-11T18:33:28.206993597Z"
+    },
+    {
+        "message": "turn 255: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-53 88} to {-53 87}",
+        "time": "2025-07-11T18:33:28.207015526Z"
+    },
+    {
+        "message": "turn 255: ant e6b72f78-8bdf-4def-9fea-820285f8d020 moved from {-44 91} to {-43 90}",
+        "time": "2025-07-11T18:33:28.207036532Z"
+    },
+    {
+        "message": "turn 255: ant 621f2a45-f7fb-4d31-9714-6af5bb102a22 moved from {-33 74} to {-34 75}",
+        "time": "2025-07-11T18:33:28.207056514Z"
+    },
+    {
+        "message": "turn 255: new ant spawned Worker",
+        "time": "2025-07-11T18:33:28.207097425Z"
+    },
+    {
+        "message": "turn 256: ant e9e5380c-f31d-4eff-9d8b-7273fe75c11d moved from {-44 80} to {-44 81}",
+        "time": "2025-07-11T18:33:30.204492963Z"
+    },
+    {
+        "message": "turn 256: ant 1ba1f469-cfe9-4a3e-bd7e-4f08e5885126 cannot move to {-41 81}, your own ant 4461e93f-28bf-4ecd-9e0d-c6a0f42f615c with same type is there",
+        "time": "2025-07-11T18:33:30.20450541Z"
+    },
+    {
+        "message": "turn 256: ant b6459b20-1dd7-45a9-bf49-fb4d6a39d859 moved from {-42 78} to {-42 79}",
+        "time": "2025-07-11T18:33:30.204517803Z"
+    },
+    {
+        "message": "turn 256: ant 9a268908-a9aa-4287-bd1e-755fa69c0fff killed by acid",
+        "time": "2025-07-11T18:33:30.204545987Z"
+    },
+    {
+        "message": "turn 256: ant b2d3829c-334e-4c27-bbd9-248df2a0224d damaged by acid, health now 20",
+        "time": "2025-07-11T18:33:30.20454909Z"
+    },
+    {
+        "message": "turn 256: ant c8b0c282-ed0d-4638-9037-00e13fe12b24 moved from {-39 81} to {-38 80}",
+        "time": "2025-07-11T18:33:30.204568774Z"
+    },
+    {
+        "message": "turn 256: ant 9b5e05b1-fa51-4beb-87c6-177c88bfddd6 moved from {-46 85} to {-46 86} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:30.204590799Z"
+    },
+    {
+        "message": "turn 256: ant f5471e8a-9f72-4a10-8a55-9677332b3c07 moved from {-51 88} to {-51 89}",
+        "time": "2025-07-11T18:33:30.204609812Z"
+    },
+    {
+        "message": "turn 256: ant 7fbb804e-72a1-40ef-822d-67d9feef00ea cannot move to {-42 80}, your own ant c82a39cc-2e78-4066-ba0b-a135552f5c0b with same type is there",
+        "time": "2025-07-11T18:33:30.204626209Z"
+    },
+    {
+        "message": "turn 256: ant 3fb59324-ce09-4db6-8397-596a636896cc moved from {-53 87} to {-52 88} (dirt on path: 1)",
+        "time": "2025-07-11T18:33:30.204634914Z"
+    }
+]
