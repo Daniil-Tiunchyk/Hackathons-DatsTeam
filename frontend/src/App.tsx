@@ -124,7 +124,6 @@ function App() {
           <Layout
             size={{ x: 3, y: 3 }}
             flat={false}
-            spacing={1.1}
             origin={{ x: 0, y: 0 }}
           >
             {normalizedHexes.map(({ q, r, rq, rr, type }) => {
