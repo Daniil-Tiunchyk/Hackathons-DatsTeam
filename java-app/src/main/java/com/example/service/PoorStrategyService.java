@@ -75,8 +75,10 @@ public class PoorStrategyService {
                             .findFirst();
 
                     int tileCost = tileInfo.map(ArenaStateDto.MapCellDto::cost).orElse(1); // Стоимость по умолчанию, если не найдена
-                    if (tileCost == 0) tileCost = 1; // Предотвращаем деление на ноль или бесконечный цикл, если стоимость 0
-                    if (tileCost == Integer.MAX_VALUE || tileCost == 9999) tileCost = speed + 1; // Считаем фактически непроходимым
+                    if (tileCost == 0)
+                        tileCost = 1; // Предотвращаем деление на ноль или бесконечный цикл, если стоимость 0
+                    if (tileCost == Integer.MAX_VALUE || tileCost == 9999)
+                        tileCost = speed + 1; // Считаем фактически непроходимым
 
                     if (currentSpeedPoints >= tileCost) {
                         movePath.add(nextHex);
@@ -180,7 +182,8 @@ public class PoorStrategyService {
                     int tileCost = tileInfo.get().cost();
 
                     // Избегаем камней (тип 5) и очень дорогих/непроходимых гексов
-                    if (tileType == 5 || tileCost == 0 || tileCost == Integer.MAX_VALUE || tileCost == 9999) return false;
+                    if (tileType == 5 || tileCost == 0 || tileCost == Integer.MAX_VALUE || tileCost == 9999)
+                        return false;
 
                     // Избегаем кислоты (тип 4)
                     if (tileType == 4) return false;
@@ -225,7 +228,8 @@ public class PoorStrategyService {
                     int tileCost = tileInfo.get().cost();
 
                     // Избегаем камней и очень дорогих/непроходимых гексов
-                    if (tileType == 5 || tileCost == 0 || tileCost == Integer.MAX_VALUE || tileCost == 9999) return false;
+                    if (tileType == 5 || tileCost == 0 || tileCost == Integer.MAX_VALUE || tileCost == 9999)
+                        return false;
 
                     // В случае атаки, возможно, допустимо заходить на кислоту, но пока избегаем
                     if (tileType == 4) return false;
