@@ -1,5 +1,6 @@
 package com.example.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -100,6 +101,21 @@ public record Hex(int q, int r) {
             rs = -rq - rr;
         }
         return new Hex((int) rq, (int) rr);
+    }
+
+    /**
+     * Возвращает список всех 6 смежных гексов.
+     */
+    public List<Hex> getNeighbors() {
+        List<Hex> neighbors = new ArrayList<>();
+        // Аксиальные направления
+        int[][] directions = {
+                {1, 0}, {0, 1}, {-1, 1}, {-1, 0}, {0, -1}, {1, -1}
+        };
+        for (int[] dir : directions) {
+            neighbors.add(new Hex(q + dir[0], r + dir[1]));
+        }
+        return neighbors;
     }
 
     @Override
