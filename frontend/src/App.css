@@ -6,6 +6,9 @@ html, body, #root {
   overflow: hidden;
 }
 
+.custom-hex {
+  z-index: 1000;
+}
 
 .custom-hex polygon {
   fill: #000;
@@ -19,5 +22,13 @@ html, body, #root {
   fill: #848484;
 }
 .custom-hex text {
-  font-size: 2px;
+  font-size: 1px;
+}
+
+svg {
+  overflow: visible;
+}
+
+.react-svg-pan-zoom-wrapper {
+  overflow: visible;
 }

@@ -1,82 +1,104 @@
 import { HexGrid, Layout, Hexagon } from "react-hexgrid";
 import "./App.css";
-
-const hexes = [
-  { q: 0, r: 0, s: 0 },
-  { q: 0, r: 1, s: -1 },
-  { q: 0, r: 2, s: -2 },
-  { q: 0, r: 3, s: -3 },
-  { q: 0, r: 4, s: -4 },
-  { q: 0, r: 5, s: -5 },
-
-  { q: 1, r: 0, s: -1 },
-  { q: 1, r: 1, s: -2 },
-  { q: 1, r: 2, s: -3 },
-  { q: 1, r: 3, s: -4 },
-  { q: 1, r: 4, s: -5 },
-  { q: 1, r: 5, s: -6 },
-
-  { q: 2, r: 0, s: -2 },
-  { q: 2, r: 1, s: -3 },
-  { q: 2, r: 2, s: -4 },
-  { q: 2, r: 3, s: -5 },
-  { q: 2, r: 4, s: -6 },
-  { q: 2, r: 5, s: -7 },
-
-  { q: 3, r: 0, s: -3 },
-  { q: 3, r: 1, s: -4 },
-  { q: 3, r: 2, s: -5 },
-  { q: 3, r: 3, s: -6 },
-  { q: 3, r: 4, s: -7 },
-  { q: 3, r: 5, s: -8 },
-
-  { q: 4, r: 0, s: -4 },
-  { q: 4, r: 1, s: -5 },
-  { q: 4, r: 2, s: -6 },
-  { q: 4, r: 3, s: -7 },
-  { q: 4, r: 4, s: -8 },
-  { q: 4, r: 5, s: -9 },
-
-  { q: 5, r: 0, s: -5 },
-  { q: 5, r: 1, s: -6 },
-  { q: 5, r: 2, s: -7 },
-  { q: 5, r: 3, s: -8 },
-  { q: 5, r: 4, s: -9 },
-  { q: 5, r: 5, s: -10 },
-];
+import { request } from "./arenarequest";
+import { UncontrolledReactSVGPanZoom } from "react-svg-pan-zoom";
+import { useMemo } from "react";
 
 function App() {
+  // const API_KEY = `e9d0504b-f145-4d78-8219-c688ca06550f`;
+  /*  const [data, setData] = useState();
+  useEffect(() => {
+    const fetchMapData = async () => {
+      try {
+        const response = await axios.get(
+          "https://games-test.datsteam.dev/api/arena",
+          {
+            headers: {
+              "Content-Type": "application/json",
+              "X-AUTH-TOKEN": API_KEY,
+            },
+          }
+        );
+
+        const respData = response.data;
+        console.log(respData);
+        setData(respData); // предполагается, что setData доступен в области видимости
+        return respData;
+      } catch (error) {
+        console.error("Ошибка запроса:", error);
+        return [];
+      }
+    };
+
+  }, []); */
+
+  console.log(request.map);
+  const minQ = Math.min(...request.map.map((hex) => hex.q));
+  const minR = Math.min(...request.map.map((hex) => hex.r));
+
+  // 2. Нормализуем координаты (сдвигаем к (0,0))
+  const normalizedHexes = useMemo(
+    () =>
+      request.map.map((hex) => ({
+        ...hex,
+        q: hex.q - minQ, // Сдвигаем q
+        r: hex.r - minR, // Сдвигаем r
+        rq: hex.q,
+        rr: hex.r,
+      })),
+    [minQ, minR]
+  );
+
   return (
-    <HexGrid width={window.innerWidth} height={window.innerHeight}>
-      <Layout
-        size={{ x: 3, y: 3 }}
-        flat={false}
-        spacing={1.1}
-        origin={{ x: 0, y: 0 }}
-      >
-        {hexes.map(({ q, r }) => (
-          <Hexagon
-            key={`${q},${r}`}
-            q={q}
-            r={r}
-            s={-q - r}
-            className="custom-hex"
+    <UncontrolledReactSVGPanZoom
+      width={window.innerWidth}
+      height={window.innerHeight}
+    >
+      <svg width={300} height={300}>
+        <HexGrid width={100} height={100}>
+          <Layout
+            size={{ x: 3, y: 3 }}
+            flat={false}
+            spacing={1.1}
+            origin={{ x: 0, y: 0 }}
           >
-            <text
-              x="0"
-              y="0"
-              textAnchor="middle"
-              alignmentBaseline="central"
-              fill="#fff"
-              fontSize="0.2"
-            >
-              {`${q},${r}`}
-            </text>
-          </Hexagon>
-        ))}
-      </Layout>
-    </HexGrid>
+            {normalizedHexes.map(({ q, r, rq, rr, cost,type }) => (
+              <Hexagon
+                key={`${q},${r}`}
+                q={q}
+                r={r}
+                s={-q - r}
+                className="custom-hex"
+              >
+                <text
+                  x="0"
+                  y="0"
+                  textAnchor="middle"
+                  alignmentBaseline="central"
+                  fill={getColorByType(type)}
+                  fontSize="0.1"
+                  dominantBaseline="middle"
+                >
+                  <tspan x="0" dy="-0.2">{`${rq};${rr}`}</tspan>
+                  <tspan x="0" dy="0.8">{`${cost}`}</tspan>
+                </text>
+              </Hexagon>
+            ))}
+          </Layout>
+        </HexGrid>
+      </svg>
+    </UncontrolledReactSVGPanZoom>
   );
 }
 
+// Функция для цветов гексов
+function getColorByType(type: number) {
+  const colors = {
+    "2": "#aaffaa", // зелёный
+    "3": "#ffaaaa", // красный
+    "4": "#aaaaff", // синий
+    "5": "#ffffaa", // жёлтый
+  } as any;
+  return colors[type.toString()] || "#dddddd";
+}
 export default App;
