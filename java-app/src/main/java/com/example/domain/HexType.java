@@ -38,12 +38,7 @@ public enum HexType {
      * @throws IllegalArgumentException если ID неизвестен.
      */
     public static HexType fromApiId(int apiId) {
-        HexType type = ID_TO_TYPE_MAP.get(apiId);
-        if (type == null) {
-            // Игнорируем неизвестные типы, чтобы не падать при возможных обновлениях API
-            throw new IllegalArgumentException("Неизвестный API ID для типа гекса: " + apiId);
-        }
-        return type;
+        return ID_TO_TYPE_MAP.get(apiId);
     }
 
     public int getApiId() {

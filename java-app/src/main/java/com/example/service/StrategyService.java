@@ -82,7 +82,7 @@ public class StrategyService {
         Hex antHex = new Hex(ant.q(), ant.r());
         Set<Hex> obstacles = getObstaclesFor(ant, state);
 
-        List<Hex> neighbors = new ArrayList<>(getNeighbors(antHex));
+        List<Hex> neighbors = new ArrayList<>(antHex.getNeighbors());
         Collections.shuffle(neighbors);
 
         return neighbors.stream()
@@ -175,13 +175,5 @@ public class StrategyService {
                 .map(food -> new Hex(food.q(), food.r()))
                 .filter(foodHex -> !assignedTargets.contains(foodHex))
                 .min(Comparator.comparingInt(from::distanceTo));
-    }
-
-    private List<Hex> getNeighbors(Hex hex) {
-        return List.of(
-                new Hex(hex.q() + 1, hex.r()), new Hex(hex.q() - 1, hex.r()),
-                new Hex(hex.q(), hex.r() + 1), new Hex(hex.q(), hex.r() - 1),
-                new Hex(hex.q() + 1, hex.r() - 1), new Hex(hex.q() - 1, hex.r() + 1)
-        );
     }
 }

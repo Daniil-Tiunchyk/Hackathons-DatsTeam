@@ -1,10 +1,7 @@
 package com.example.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Представляет гексагональную координату в аксиальной системе (q, r).
@@ -13,15 +10,10 @@ import java.util.stream.IntStream;
  */
 public record Hex(int q, int r) {
 
-    /**
-     * Внутренний record для представления кубических координат с плавающей точкой,
-     * необходимый для алгоритма линейной интерполяции.
-     */
-    private record CubeFloat(double q, double r, double s) {
-        public CubeFloat(double q, double r) {
-            this(q, r, -q - r);
-        }
-    }
+    private static final List<Hex> AXIAL_DIRECTIONS = List.of(
+            new Hex(1, 0), new Hex(1, -1), new Hex(0, -1),
+            new Hex(-1, 0), new Hex(-1, 1), new Hex(0, 1)
+    );
 
     /**
      * Третья кубическая координата 's' может быть вычислена из q и r.
@@ -31,6 +23,28 @@ public record Hex(int q, int r) {
      */
     public int s() {
         return -q - r;
+    }
+
+    /**
+     * Добавляет к текущему гексу другой гекс (вектор).
+     *
+     * @param other Гекс, который нужно прибавить.
+     * @return Новый гекс, являющийся результатом сложения.
+     */
+    public Hex add(Hex other) {
+        return new Hex(this.q + other.q, this.r + other.r);
+    }
+
+    /**
+     * Возвращает список всех 6 смежных гексов в фиксированном порядке.
+     * Возвращаемый список является неизменяемым.
+     *
+     * @return Неизменяемый список из 6 гексов-соседей.
+     */
+    public List<Hex> getNeighbors() {
+        return AXIAL_DIRECTIONS.stream()
+                .map(this::add)
+                .toList();
     }
 
     /**
@@ -44,78 +58,6 @@ public record Hex(int q, int r) {
         int dr = Math.abs(this.r - other.r);
         int ds = Math.abs(this.s() - other.s());
         return (dq + dr + ds) / 2;
-    }
-
-    /**
-     * Генерирует прямую линию гексов от текущего до целевого.
-     * Реализация алгоритма с redblobgames.com.
-     *
-     * @param destination Целевой гекс.
-     * @return Список гексов, формирующих путь.
-     */
-    public List<Hex> lineTo(Hex destination) {
-        int distance = this.distanceTo(destination);
-        if (distance == 0) {
-            return List.of(this);
-        }
-
-        CubeFloat startCube = new CubeFloat(this.q, this.r, this.s());
-        CubeFloat endCube = new CubeFloat(destination.q, destination.r, destination.s());
-
-        return IntStream.rangeClosed(0, distance)
-                .mapToObj(i -> {
-                    double t = 1.0 / distance * i;
-                    CubeFloat interpolated = cubeLerp(startCube, endCube, t);
-                    return roundCube(interpolated);
-                })
-                .distinct() // Устраняем дубликаты, которые могут возникнуть из-за округления
-                .collect(Collectors.toList());
-    }
-
-    private CubeFloat cubeLerp(CubeFloat a, CubeFloat b, double t) {
-        return new CubeFloat(
-                lerp(a.q, b.q, t),
-                lerp(a.r, b.r, t),
-                lerp(a.s, b.s, t)
-        );
-    }
-
-    private double lerp(double a, double b, double t) {
-        return a + (b - a) * t;
-    }
-
-    private Hex roundCube(CubeFloat cube) {
-        long rq = Math.round(cube.q);
-        long rr = Math.round(cube.r);
-        long rs = Math.round(cube.s);
-
-        double q_diff = Math.abs(rq - cube.q);
-        double r_diff = Math.abs(rr - cube.r);
-        double s_diff = Math.abs(rs - cube.s);
-
-        if (q_diff > r_diff && q_diff > s_diff) {
-            rq = -rr - rs;
-        } else if (r_diff > s_diff) {
-            rr = -rq - rs;
-        } else {
-            rs = -rq - rr;
-        }
-        return new Hex((int) rq, (int) rr);
-    }
-
-    /**
-     * Возвращает список всех 6 смежных гексов.
-     */
-    public List<Hex> getNeighbors() {
-        List<Hex> neighbors = new ArrayList<>();
-        // Аксиальные направления
-        int[][] directions = {
-                {1, 0}, {0, 1}, {-1, 1}, {-1, 0}, {0, -1}, {1, -1}
-        };
-        for (int[] dir : directions) {
-            neighbors.add(new Hex(q + dir[0], r + dir[1]));
-        }
-        return neighbors;
     }
 
     @Override

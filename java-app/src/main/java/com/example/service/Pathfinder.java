@@ -79,7 +79,7 @@ public class Pathfinder {
 
             closedSet.add(currentNode.hex());
 
-            for (Hex neighborHex : getNeighbors(currentNode.hex())) {
+            for (Hex neighborHex : currentNode.hex().getNeighbors()) {
                 if (closedSet.contains(neighborHex) || blockedHexes.contains(neighborHex)) {
                     continue;
                 }
@@ -109,14 +109,5 @@ public class Pathfinder {
         }
         Collections.reverse(path);
         return path;
-    }
-
-    private List<Hex> getNeighbors(Hex hex) {
-        // Оптимизация: создаем один раз и переиспользуем.
-        return List.of(
-                new Hex(hex.q() + 1, hex.r()), new Hex(hex.q() - 1, hex.r()),
-                new Hex(hex.q(), hex.r() + 1), new Hex(hex.q(), hex.r() - 1),
-                new Hex(hex.q() + 1, hex.r() - 1), new Hex(hex.q() - 1, hex.r() + 1)
-        );
     }
 }

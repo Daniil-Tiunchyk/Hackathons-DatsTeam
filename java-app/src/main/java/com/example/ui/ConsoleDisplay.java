@@ -8,7 +8,7 @@ import com.example.dto.RegistrationResponseDto;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -17,79 +17,114 @@ import java.util.stream.Collectors;
  */
 public class ConsoleDisplay {
 
-    private static final String BORDER = "=======================================================";
-    private static final String SEPARATOR = "-------------------------------------------------------";
+    /**
+     * Неизменяемый объект-хранилище для всей статистики, необходимой для отрисовки одного кадра.
+     */
+    private record TurnStatistics(
+            long workers, long fighters, long scouts, long totalAnts,
+            long enemies,
+            long returningHome, long movingToTarget, long idle,
+            long totalFoodCarried
+    ) {
+    }
 
     public void render(ArenaStateDto state, List<MoveCommandDto> plannedMoves) {
         clearConsole();
 
-        StringBuilder sb = new StringBuilder();
+        TurnStatistics stats = aggregateStatistics(state, plannedMoves);
 
-        sb.append(BORDER).append("\n");
-        sb.append(String.format("| Клиент DatsPulse | Ход: %-5d | Счет: %-7d |\n", state.turnNo(), state.score()));
-        sb.append(BORDER).append("\n");
-        sb.append(String.format("Время до следующего хода: %.2f сек.\n", state.nextTurnIn()));
-        sb.append(SEPARATOR).append("\n\n");
+        String output = """
+                =======================================================
+                | 🕹️ Клиент DatsPulse | Ход: %-5d | Счет: %-7d |
+                =======================================================
+                Время до следующего хода: %.2f сек.
+                -------------------------------------------------------
+                
+                --[ 📊 Силы на карте ]--
+                Наши юниты : 🐜 %-2d (Р:%-2d, Б:%-2d, Рз:%-2d)
+                Враги      : 💀 %-2d (в зоне видимости)
+                
+                --[ 🎯 Текущие задачи ]--
+                [🏠] Возвращаются с ресурсами: %-2d (несут %d ед.)
+                [🗺️] Движутся к цели        : %-2d
+                [💤] Ожидают приказа        : %-2d
+                
+                =======================================================
+                """.formatted(
+                state.turnNo(),
+                state.score(),
+                state.nextTurnIn(),
+                stats.totalAnts(),
+                stats.workers(), stats.fighters(), stats.scouts(),
+                stats.enemies(),
+                stats.returningHome(), stats.totalFoodCarried(),
+                stats.movingToTarget(),
+                stats.idle()
+        );
 
-        sb.append("ОБЩАЯ СВОДКА ЮНИТОВ\n");
+        System.out.println(output);
+    }
+
+    /**
+     * Агрегирует всю необходимую для отображения статистику из состояния игры.
+     */
+    private TurnStatistics aggregateStatistics(ArenaStateDto state, List<MoveCommandDto> plannedMoves) {
         Map<UnitType, Long> countsByType = state.ants().stream()
                 .collect(Collectors.groupingBy(ant -> UnitType.fromApiId(ant.type()), Collectors.counting()));
 
-        long workers = countsByType.getOrDefault(UnitType.WORKER, 0L);
-        long fighters = countsByType.getOrDefault(UnitType.FIGHTER, 0L);
-        long scouts = countsByType.getOrDefault(UnitType.SCOUT, 0L);
+        Set<String> antsWithMoves = plannedMoves.stream()
+                .map(MoveCommandDto::ant)
+                .collect(Collectors.toSet());
 
-        sb.append(String.format("Рабочие: %-2d | Бойцы: %-2d | Разведчики: %-2d | Всего: %d\n",
-                workers, fighters, scouts, state.ants().size()));
-        sb.append("\n");
-
-        sb.append("ЗАДАЧИ НА ТЕКУЩИЙ ХОД\n");
-
-        Map<String, ArenaStateDto.AntDto> antMap = state.ants().stream()
-                .collect(Collectors.toMap(ArenaStateDto.AntDto::id, Function.identity()));
-
-        long returningHomeCount = 0;
+        long returningHome = 0;
+        long movingToTarget = 0;
         long totalFoodCarried = 0;
-        long movingToTargetCount = 0;
 
-        for (MoveCommandDto move : plannedMoves) {
-            ArenaStateDto.AntDto ant = antMap.get(move.ant());
-            if (ant == null) continue;
-
-            if (ant.food() != null && ant.food().amount() > 0) {
-                returningHomeCount++;
-                totalFoodCarried += ant.food().amount();
-            } else {
-                movingToTargetCount++;
+        for (ArenaStateDto.AntDto ant : state.ants()) {
+            if (antsWithMoves.contains(ant.id())) {
+                if (ant.food() != null && ant.food().amount() > 0) {
+                    returningHome++;
+                    totalFoodCarried += ant.food().amount();
+                } else {
+                    movingToTarget++;
+                }
             }
         }
 
-        long idleCount = state.ants().size() - (returningHomeCount + movingToTargetCount);
+        long totalAnts = state.ants().size();
+        long idle = totalAnts - returningHome - movingToTarget;
 
-        sb.append(String.format("[⌂] Несут ресурсы: %-2d (Всего: %d ед.)\n", returningHomeCount, totalFoodCarried));
-        sb.append(String.format("[►] В движении:   %-2d\n", movingToTargetCount));
-        sb.append(String.format("[–] Ожидают:      %-2d\n", idleCount));
-
-        sb.append("\n").append(BORDER);
-
-        System.out.println(sb.toString());
+        return new TurnStatistics(
+                countsByType.getOrDefault(UnitType.WORKER, 0L),
+                countsByType.getOrDefault(UnitType.FIGHTER, 0L),
+                countsByType.getOrDefault(UnitType.SCOUT, 0L),
+                totalAnts,
+                state.enemies().size(),
+                returningHome,
+                movingToTarget,
+                idle,
+                totalFoodCarried
+        );
     }
 
     public void showRegistrationAttempt() {
         clearConsole();
-        System.out.println(BORDER);
-        System.out.println("| Состояние: Ожидание раунда                          |");
-        System.out.println(BORDER);
-        System.out.println("Не зарегистрированы в раунде. Попытка регистрации...");
+        String output = """
+                =======================================================
+                | ⌛ Состояние: Ожидание раунда                      |
+                =======================================================
+                Не зарегистрированы в раунде. Попытка регистрации...
+                """;
+        System.out.println(output);
     }
 
     public void showRegistrationResult(RegistrationResponseDto response) {
         if (response != null && response.message() != null) {
-            System.out.printf("Ответ сервера: [Код: %d] %s\n", response.code(), response.message());
+            System.out.printf("Ответ сервера: [Код: %d] %s%n", response.code(), response.message());
         } else {
             System.out.println("Не удалось получить внятный ответ от сервера регистрации.");
         }
-        System.out.println(SEPARATOR);
+        System.out.println("-------------------------------------------------------");
     }
 
     /**
@@ -98,26 +133,21 @@ public class ConsoleDisplay {
      */
     private void clearConsole() {
         try {
-            // *** КЛЮЧЕВОЕ ИЗМЕНЕНИЕ ***
-            // Если System.console() возвращает null, значит, мы работаем в среде без
-            // интерактивного терминала, например, в консоли вывода IDE.
             if (System.console() == null) {
-                // В этом случае симулируем очистку, печатая много пустых строк.
-                for (int i = 0; i < 50; ++i) {
-                    System.out.println();
-                }
+                // Если мы работаем в консоли вывода IDE (например, в IntelliJ),
+                // этот трюк добавит пустые строки для имитации очистки.
+                System.out.println("\n".repeat(5));
             } else {
-                // Иначе мы в настоящем терминале, где работают стандартные команды.
-                String os = System.getProperty("os.name");
-                if (os.contains("Windows")) {
+                // Если мы в настоящем терминале
+                if (System.getProperty("os.name").contains("Windows")) {
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                 } else {
                     System.out.print("\033[H\033[2J");
                     System.out.flush();
                 }
             }
-        } catch (IOException | InterruptedException ex) {
-            // В случае ошибки просто игнорируем, это не критично.
+        } catch (IOException | InterruptedException ignored) {
+            // Игнорируем ошибки, так как это некритичная для логики операция.
         }
     }
 }
