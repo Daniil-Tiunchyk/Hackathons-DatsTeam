@@ -30,11 +30,8 @@ public enum ResourceType {
     }
 
     public static ResourceType fromApiId(int apiId) {
-        ResourceType type = ID_TO_TYPE_MAP.get(apiId);
-        if (type == null) {
-            throw new IllegalArgumentException("Неизвестный API ID для типа ресурса: " + apiId);
-        }
-        return type;
+
+        return ID_TO_TYPE_MAP.get(apiId);
     }
 
     public int getApiId() {

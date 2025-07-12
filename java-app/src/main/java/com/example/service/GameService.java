@@ -49,9 +49,7 @@ public class GameService {
                     apiClient.sendMoves(moves);
                 }
 
-                // Сначала выводим основной дашборд...
                 consoleDisplay.render(worldState, moves);
-                // ...а затем детальную отладочную информацию.
                 consoleDisplay.renderDebugComparison(apiResponse, worldState);
 
 

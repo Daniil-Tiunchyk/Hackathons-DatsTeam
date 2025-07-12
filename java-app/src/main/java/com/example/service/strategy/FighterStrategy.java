@@ -2,7 +2,6 @@ package com.example.service.strategy;
 
 import com.example.domain.Hex;
 import com.example.domain.HexType;
-import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.service.Pathfinder;
@@ -66,7 +65,7 @@ public class FighterStrategy implements AntStrategy {
 
         List<ArenaStateDto.AntDto> currentDefenders = fighters.stream()
                 .filter(f -> defensivePerimeter.contains(new Hex(f.q(), f.r())))
-                .collect(Collectors.toList());
+                .toList();
 
         fighters.stream()
                 .filter(f -> !currentDefenders.contains(f))
@@ -84,11 +83,11 @@ public class FighterStrategy implements AntStrategy {
                 .collect(Collectors.toList());
 
         Iterator<ArenaStateDto.AntDto> iterator = nonDefenders.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             ArenaStateDto.AntDto fighter = iterator.next();
-            if(state.home().contains(new Hex(fighter.q(), fighter.r()))) {
-                if(!vacantPerimeterHexes.isEmpty()){
-                    Hex target = vacantPerimeterHexes.remove(0);
+            if (state.home().contains(new Hex(fighter.q(), fighter.r()))) {
+                if (!vacantPerimeterHexes.isEmpty()) {
+                    Hex target = vacantPerimeterHexes.removeFirst();
                     createAndClaimMove(fighter, target, state, commands, claimedHexesThisTurn, hexCosts, hexTypes);
                     iterator.remove(); // Этот боец получил задачу
                 }
@@ -130,7 +129,7 @@ public class FighterStrategy implements AntStrategy {
         // Приоритет 1: Локальная погоня для бойцов в зоне контроля
         List<ArenaStateDto.AntDto> hunters = availableFighters.stream()
                 .filter(f -> new Hex(f.q(), f.r()).distanceTo(state.spot()) <= LOCAL_PURSUIT_ZONE_RADIUS)
-                .collect(Collectors.toList());
+                .toList();
         availableFighters.removeAll(hunters);
         handleLocalPursuit(hunters, state, commands, claimedHexesThisTurn, hexCosts, hexTypes);
 
@@ -197,8 +196,6 @@ public class FighterStrategy implements AntStrategy {
                 .min(Comparator.comparingInt(hex -> hex.distanceTo(location)));
     }
 
-    // ... [Остальные методы, такие как assignGroupTasks, findNewPatrolTargetForGroup, calculateDefensivePerimeter и т.д., остаются без изменений из предыдущей версии] ...
-
     private void assignGroupTasks(List<ArenaStateDto.AntDto> group, Hex primaryTarget, ArenaStateDto state, List<MoveCommandDto> commands, Set<Hex> claimedHexesThisTurn, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes) {
         List<Hex> targetArea = new ArrayList<>();
         if (!claimedHexesThisTurn.contains(primaryTarget)) {
@@ -208,7 +205,7 @@ public class FighterStrategy implements AntStrategy {
 
         for (ArenaStateDto.AntDto member : group) {
             if (targetArea.isEmpty()) break;
-            Hex target = targetArea.remove(0);
+            Hex target = targetArea.removeFirst();
             createAndClaimMove(member, target, state, commands, claimedHexesThisTurn, hexCosts, hexTypes);
         }
     }
@@ -233,27 +230,27 @@ public class FighterStrategy implements AntStrategy {
         for (Hex homeHex : state.home()) {
             perimeterCandidates.addAll(homeHex.getNeighbors());
         }
-        perimeterCandidates.removeAll(state.home());
+        state.home().forEach(perimeterCandidates::remove);
         Set<Hex> impassableHexes = state.map().stream()
                 .filter(cell -> HexType.fromApiId(cell.type()).isImpassable())
                 .map(cell -> new Hex(cell.q(), cell.r()))
                 .collect(Collectors.toSet());
         return perimeterCandidates.stream()
                 .filter(hex -> !impassableHexes.contains(hex))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Hex findUnassignedPatrolZone(List<Hex> patrolZones) {
         Map<Hex, Long> assignmentsCount = patrolAssignments.values().stream().collect(Collectors.groupingBy(h -> h, Collectors.counting()));
         return patrolZones.stream()
                 .min(Comparator.comparingLong(zone -> assignmentsCount.getOrDefault(zone, 0L)))
-                .orElse(patrolZones.get(0));
+                .orElse(patrolZones.getFirst());
     }
 
     private List<Hex> generatePatrolZones(Hex center) {
         return Hex.DIRECTIONS.stream()
                 .map(direction -> center.add(direction.multiply(PATROL_ZONE_RADIUS)))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private void cleanUpDeadAntAssignments(ArenaStateDto state) {
@@ -281,6 +278,6 @@ public class FighterStrategy implements AntStrategy {
 
         return origin.getNeighbors().stream()
                 .filter(neighbor -> !obstacles.contains(neighbor) && !claimedHexes.contains(neighbor))
-                .collect(Collectors.toList());
+                .toList();
     }
 }

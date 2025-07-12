@@ -2,7 +2,6 @@ package com.example.service.strategy;
 
 import com.example.domain.Hex;
 import com.example.domain.HexType;
-import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.service.Pathfinder;
@@ -38,7 +37,7 @@ import java.util.stream.Collectors;
  */
 public class ScoutStrategy implements AntStrategy {
 
-    private static final int PATROL_RADIUS = 70;
+    private static final int PATROL_RADIUS = 50;
     private static final int CLEARANCE_RADIUS = 2;
     private static final int MAX_SEARCH_DEPTH_FOR_AVAILABLE_HEX = 5;
 
@@ -80,7 +79,7 @@ public class ScoutStrategy implements AntStrategy {
             if (clearanceZone.contains(currentPos)) {
                 createMoveAsideCommand(scout, state, assignedTargetsThisTurn).ifPresent(command -> {
                     commands.add(command);
-                    assignedTargetsThisTurn.add(command.path().get(command.path().size() - 1));
+                    assignedTargetsThisTurn.add(command.path().getLast());
                 });
                 continue;
             }
@@ -102,7 +101,7 @@ public class ScoutStrategy implements AntStrategy {
                 StrategyHelper.createPathCommand(scout, target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state))
                         .ifPresent(command -> {
                             commands.add(command);
-                            assignedTargetsThisTurn.add(command.path().get(command.path().size() - 1));
+                            assignedTargetsThisTurn.add(command.path().getLast());
                         });
             }
         }

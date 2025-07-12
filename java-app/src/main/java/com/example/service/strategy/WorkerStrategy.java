@@ -45,12 +45,10 @@ public class WorkerStrategy implements AntStrategy {
 
         for (ArenaStateDto.AntDto worker : workers) {
             // Рабочий, стоящий на базе или несущий еду, управляется глобальными правилами в StrategyService
-            // или своей логикой возврата, поэтому здесь мы его можем пропустить, если он подпадает под эти условия.
-            // Однако, чтобы не усложнять, оставляем полную логику, т.к. StrategyService ее переопределит.
             decideActionFor(worker, state, claimedFoodHexes, dangerZones).ifPresent(command -> {
                 commands.add(command);
                 if (command.path() != null && !command.path().isEmpty()) {
-                    Hex targetHex = command.path().get(command.path().size() - 1);
+                    Hex targetHex = command.path().getLast();
                     if (state.food().stream().anyMatch(f -> new Hex(f.q(), f.r()).equals(targetHex))) {
                         claimedFoodHexes.add(targetHex);
                     }
@@ -106,13 +104,9 @@ public class WorkerStrategy implements AntStrategy {
                 .flatMap(target -> StrategyHelper.createPathCommand(worker, target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state)));
     }
 
-    // --- Вспомогательные и существующие методы без изменений ---
     private Set<Hex> getEnemyAnthillDangerZones(ArenaStateDto state) {
         Set<Hex> dangerZones = new HashSet<>();
         if (state.enemies() == null) return dangerZones;
-
-        Map<Hex, HexType> mapTypes = state.map().stream()
-                .collect(Collectors.toMap(c -> new Hex(c.q(), c.r()), c -> HexType.fromApiId(c.type()), (a, b) -> a));
 
         for (ArenaStateDto.MapCellDto cell : state.map()) {
             if (HexType.fromApiId(cell.type()) == HexType.ANTHILL) {

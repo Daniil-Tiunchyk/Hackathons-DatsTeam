@@ -52,18 +52,17 @@ public class ConsoleDisplay {
         String line = "----------------------------------------------------------\n";
         String format = "| %-25s | %-12s | %-15s |%n";
 
-        StringBuilder sb = new StringBuilder("\n");
-        sb.append(header);
-        sb.append(line);
-        sb.append(String.format(format, "Параметр", "API (Raw)", "State (Enriched)"));
-        sb.append(line);
-        sb.append(String.format(format, "Наши юниты", raw.ants().size(), enriched.ants().size()));
-        sb.append(String.format(format, "Враги (видимые)", raw.enemies().size(), enriched.enemies().size()));
-        sb.append(String.format(format, "Еда (видимая)", raw.food().size(), enriched.food().size()));
-        sb.append(String.format(format, "Гексы карты (в ответе)", raw.map().size(), enriched.map().size()));
-        sb.append(String.format(format, "Известные границы", "N/A", enriched.knownBoundaries().size()));
-        sb.append(String.format(format, "Видимые гексы (сейчас)", "N/A", enriched.currentlyVisibleHexes().size()));
-        sb.append(line);
+        String sb = "\n" + header +
+                line +
+                String.format(format, "Параметр", "API (Raw)", "State (Enriched)") +
+                line +
+                String.format(format, "Наши юниты", raw.ants().size(), enriched.ants().size()) +
+                String.format(format, "Враги (видимые)", raw.enemies().size(), enriched.enemies().size()) +
+                String.format(format, "Еда (видимая)", raw.food().size(), enriched.food().size()) +
+                String.format(format, "Гексы карты (в ответе)", raw.map().size(), enriched.map().size()) +
+                String.format(format, "Известные границы", "N/A", enriched.knownBoundaries().size()) +
+                String.format(format, "Видимые гексы (сейчас)", "N/A", enriched.currentlyVisibleHexes().size()) +
+                line;
 
         System.out.print(sb);
     }
@@ -138,7 +137,7 @@ public class ConsoleDisplay {
                             workersToppingOff++;
                         }
                     } else if (hasMove) {
-                        Hex targetHex = movesById.get(ant.id()).path().get(movesById.get(ant.id()).path().size() - 1);
+                        Hex targetHex = movesById.get(ant.id()).path().getLast();
                         if (foodHexes.contains(targetHex)) {
                             workersCollecting++;
                         } else {

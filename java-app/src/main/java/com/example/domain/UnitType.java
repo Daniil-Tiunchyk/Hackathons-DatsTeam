@@ -45,11 +45,7 @@ public enum UnitType {
      * @throws IllegalArgumentException если ID неизвестен.
      */
     public static UnitType fromApiId(int apiId) {
-        UnitType type = ID_TO_TYPE_MAP.get(apiId);
-        if (type == null) {
-            throw new IllegalArgumentException("Неизвестный API ID для типа юнита: " + apiId);
-        }
-        return type;
+        return ID_TO_TYPE_MAP.get(apiId);
     }
 
     public int getApiId() {

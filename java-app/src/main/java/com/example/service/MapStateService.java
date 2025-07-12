@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.example.domain.Hex;
 import com.example.domain.UnitType;
@@ -9,7 +8,6 @@ import com.example.dto.ArenaStateDto;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -68,7 +66,7 @@ public class MapStateService {
         ArenaStateDto worldState = new ArenaStateDto(
                 apiResponse.ants(),
                 apiResponse.enemies(),
-                new ArrayList<>(knownFood.values()), // Передаем полный список известной еды
+                new ArrayList<>(knownFood.values()),
                 home,
                 new ArrayList<>(knownMap.values()),
                 knownBoundaries,
