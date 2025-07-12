@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * 1. Для всех юнитов создается "идеальный" план действий с помощью их ролевых стратегий.
  * 2. Затем этот план корректируется: высокоприоритетные задачи (возврат с едой,
  * освобождение улья) отменяют и заменяют "идеальные" команды.
- * Бойцы полностью игнорируют этот шаг.
+ * Разведчики из этого шага исключены и действуют полностью автономно.
  */
 public class StrategyService {
 
@@ -62,8 +62,11 @@ public class StrategyService {
         final Set<Hex> homeHexes = Set.copyOf(state.home());
 
         for (ArenaStateDto.AntDto ant : state.ants()) {
-            // ФИКС: Бойцы полностью игнорируют универсальные задачи.
-            if (ant.type() == UnitType.FIGHTER.getApiId()) {
+            if (UnitType.fromApiId(ant.type()) == UnitType.SCOUT) {
+                continue;
+            }
+
+            if (UnitType.fromApiId(ant.type()) == UnitType.FIGHTER) {
                 continue;
             }
 
@@ -72,7 +75,6 @@ public class StrategyService {
                 continue;
             }
 
-            // ФИКС: Проверяем все гексы улья, а не только spot.
             if (homeHexes.contains(new Hex(ant.q(), ant.r()))) {
                 createMoveAsideCommand(ant, state, homeHexes).ifPresent(cmd -> finalPlan.put(ant.id(), cmd));
             }
