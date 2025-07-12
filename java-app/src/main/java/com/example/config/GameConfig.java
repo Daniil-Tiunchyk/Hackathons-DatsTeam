@@ -11,6 +11,7 @@ public final class GameConfig {
 
     private final String apiBaseUrl;
     private final String apiToken;
+    private final boolean fighterUseWorkerLogic;
 
     public GameConfig() {
         Properties properties = new Properties();
@@ -25,6 +26,7 @@ public final class GameConfig {
         }
         this.apiBaseUrl = properties.getProperty("api.base.url");
         this.apiToken = properties.getProperty("api.token");
+        this.fighterUseWorkerLogic = Boolean.parseBoolean(properties.getProperty("strategy.fighter.use_worker_logic", "false"));
     }
 
     public String getApiBaseUrl() {
@@ -33,5 +35,9 @@ public final class GameConfig {
 
     public String getApiToken() {
         return apiToken;
+    }
+
+    public boolean isFighterUseWorkerLogic() {
+        return fighterUseWorkerLogic;
     }
 }

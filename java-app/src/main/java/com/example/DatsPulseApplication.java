@@ -18,7 +18,6 @@ public class DatsPulseApplication {
         try {
             System.out.println("Запуск клиента DatsPulse...");
 
-            // Создаем единый, настроенный экземпляр Gson для всего приложения.
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             GameConfig config = new GameConfig();
 
@@ -27,8 +26,8 @@ public class DatsPulseApplication {
             MapStateService mapStateService = new MapStateService(gson);
 
             Pathfinder pathfinder = new Pathfinder();
-            StrategyProvider strategyProvider = new StrategyProvider(pathfinder);
-            // Исправленный вызов конструктора с одним аргументом
+            // Передаем конфиг в StrategyProvider для выбора логики
+            StrategyProvider strategyProvider = new StrategyProvider(pathfinder, config);
             StrategyService strategyService = new StrategyService(strategyProvider);
 
             GameService gameService = new GameService(apiClient, consoleDisplay, strategyService, mapStateService);
