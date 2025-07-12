@@ -41,6 +41,6 @@ public class StrategyService {
                     AntStrategy strategy = strategyProvider.getStrategy(entry.getKey());
                     return strategy.decideMoves(entry.getValue(), state).stream();
                 })
-                .toList();
+                .collect(Collectors.toList());
     }
 }

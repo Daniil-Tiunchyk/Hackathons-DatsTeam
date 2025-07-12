@@ -91,8 +91,8 @@ public class Pathfinder {
     private boolean isDeadlyAcid(Hex hex, ArenaStateDto.AntDto ant, Map<Hex, HexType> hexTypes) {
         HexType type = hexTypes.get(hex);
         if (type == HexType.ACID) {
-//            return true;
-            return ant.health() <= 60;
+            return true;
+//            return ant.health() <= type.getDamage();
         }
         return false;
     }

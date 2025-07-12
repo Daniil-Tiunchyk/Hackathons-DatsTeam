@@ -2,6 +2,7 @@ package com.example.service.strategy;
 
 import com.example.domain.Hex;
 import com.example.domain.HexType;
+import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.service.Pathfinder;
@@ -18,6 +19,7 @@ public class FighterStrategy implements AntStrategy {
 
     private final Pathfinder pathfinder;
 
+    // --- Константы для настройки стратегии ---
     private static final int MIN_RAID_GROUP_SIZE = 4;
     private static final int THREAT_DETECTION_RADIUS = 3; // Радиус обнаружения угрозы у базы
     private static final int LOCAL_PURSUIT_ZONE_RADIUS = 10; // Радиус зоны контроля вокруг базы
@@ -64,7 +66,7 @@ public class FighterStrategy implements AntStrategy {
 
         List<ArenaStateDto.AntDto> currentDefenders = fighters.stream()
                 .filter(f -> defensivePerimeter.contains(new Hex(f.q(), f.r())))
-                .toList();
+                .collect(Collectors.toList());
 
         fighters.stream()
                 .filter(f -> !currentDefenders.contains(f))
@@ -79,14 +81,14 @@ public class FighterStrategy implements AntStrategy {
         List<Hex> vacantPerimeterHexes = defensivePerimeter.stream()
                 .filter(hex -> !claimedHexesThisTurn.contains(hex))
                 .sorted(Comparator.comparingInt(h -> h.distanceTo(state.spot())))
-                .toList();
+                .collect(Collectors.toList());
 
         Iterator<ArenaStateDto.AntDto> iterator = nonDefenders.iterator();
-        while (iterator.hasNext()) {
+        while(iterator.hasNext()){
             ArenaStateDto.AntDto fighter = iterator.next();
-            if (state.home().contains(new Hex(fighter.q(), fighter.r()))) {
-                if (!vacantPerimeterHexes.isEmpty()) {
-                    Hex target = vacantPerimeterHexes.removeFirst();
+            if(state.home().contains(new Hex(fighter.q(), fighter.r()))) {
+                if(!vacantPerimeterHexes.isEmpty()){
+                    Hex target = vacantPerimeterHexes.remove(0);
                     createAndClaimMove(fighter, target, state, commands, claimedHexesThisTurn, hexCosts, hexTypes);
                     iterator.remove(); // Этот боец получил задачу
                 }
