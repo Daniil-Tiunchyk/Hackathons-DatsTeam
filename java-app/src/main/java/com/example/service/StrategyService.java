@@ -74,6 +74,11 @@ public class StrategyService {
      * @return {@code true}, если для юнита была создана команда, иначе {@code false}.
      */
     private boolean handleUniversalTasks(ArenaStateDto.AntDto ant, ArenaStateDto state, List<MoveCommandDto> commands) {
+
+        if (ant.type() == UnitType.FIGHTER.getApiId()) {
+            return false; // Немедленно выходим, если это боец
+        }
+
         if (StrategyHelper.isCarryingFood(ant)) {
             Optional<MoveCommandDto> command = createReturnHomeCommand(ant, state);
             command.ifPresent(commands::add);
