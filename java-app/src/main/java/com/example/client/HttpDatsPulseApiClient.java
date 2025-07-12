@@ -2,6 +2,7 @@ package com.example.client;
 
 import com.google.gson.Gson;
 import com.example.config.GameConfig;
+import com.example.domain.Hex;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.dto.MoveRequestDto;
@@ -14,10 +15,14 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Реализация {@link DatsPulseApiClient}, использующая встроенный в Java HttpClient
  * для взаимодействия с игровым сервером по протоколу HTTP.
+ * <p>
+ * Этот класс является "Антикоррупционным слоем", отвечая за преобразование
+ * систем координат (odd-r <-> axial) на границе приложения.
  */
 public class HttpDatsPulseApiClient implements DatsPulseApiClient {
 
@@ -47,7 +52,8 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
             if (response.statusCode() != 200 || response.body() == null || response.body().isEmpty()) {
                 return null;
             }
-            return gson.fromJson(response.body(), ArenaStateDto.class);
+            ArenaStateDto rawState = gson.fromJson(response.body(), ArenaStateDto.class);
+            return convertArenaStateToAxial(rawState);
         } catch (IOException | InterruptedException e) {
             Thread.currentThread().interrupt();
             System.err.println("Ошибка при получении состояния арены: " + e.getMessage());
@@ -61,7 +67,8 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
             return;
         }
 
-        MoveRequestDto requestBody = new MoveRequestDto(moves);
+        List<MoveCommandDto> convertedMoves = convertMoveCommandsToOddr(moves);
+        MoveRequestDto requestBody = new MoveRequestDto(convertedMoves);
         String jsonPayload = gson.toJson(requestBody);
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -92,5 +99,51 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
             Thread.currentThread().interrupt();
             throw new RuntimeException("Не удалось отправить запрос на регистрацию", e);
         }
+    }
+
+    private ArenaStateDto convertArenaStateToAxial(ArenaStateDto rawState) {
+        if (rawState == null) {
+            return null;
+        }
+        return new ArenaStateDto(
+                rawState.ants().stream().map(this::convertAntToAxial).collect(Collectors.toList()),
+                rawState.enemies().stream().map(this::convertEnemyToAxial).collect(Collectors.toList()),
+                rawState.food().stream().map(this::convertFoodToAxial).collect(Collectors.toList()),
+                rawState.home().stream().map(CoordinateConverter::oddrToAxial).collect(Collectors.toList()),
+                rawState.map().stream().map(this::convertMapCellToAxial).collect(Collectors.toList()),
+                rawState.nextTurnIn(),
+                rawState.score(),
+                CoordinateConverter.oddrToAxial(rawState.spot()),
+                rawState.turnNo()
+        );
+    }
+
+    private ArenaStateDto.AntDto convertAntToAxial(ArenaStateDto.AntDto ant) {
+        Hex axialHex = CoordinateConverter.oddrToAxial(new Hex(ant.q(), ant.r()));
+        return new ArenaStateDto.AntDto(ant.id(), ant.type(), axialHex.q(), axialHex.r(), ant.health(), ant.food());
+    }
+
+    private ArenaStateDto.EnemyDto convertEnemyToAxial(ArenaStateDto.EnemyDto enemy) {
+        Hex axialHex = CoordinateConverter.oddrToAxial(new Hex(enemy.q(), enemy.r()));
+        return new ArenaStateDto.EnemyDto(enemy.type(), axialHex.q(), axialHex.r(), enemy.health(), enemy.food());
+    }
+
+    private ArenaStateDto.FoodDto convertFoodToAxial(ArenaStateDto.FoodDto food) {
+        Hex axialHex = CoordinateConverter.oddrToAxial(new Hex(food.q(), food.r()));
+        return new ArenaStateDto.FoodDto(axialHex.q(), axialHex.r(), food.type(), food.amount());
+    }
+
+    private ArenaStateDto.MapCellDto convertMapCellToAxial(ArenaStateDto.MapCellDto cell) {
+        Hex axialHex = CoordinateConverter.oddrToAxial(new Hex(cell.q(), cell.r()));
+        return new ArenaStateDto.MapCellDto(axialHex.q(), axialHex.r(), cell.type(), cell.cost());
+    }
+
+    private List<MoveCommandDto> convertMoveCommandsToOddr(List<MoveCommandDto> axialMoves) {
+        return axialMoves.stream()
+                .map(cmd -> new MoveCommandDto(
+                        cmd.ant(),
+                        cmd.path().stream().map(CoordinateConverter::axialToOddr).collect(Collectors.toList())
+                ))
+                .collect(Collectors.toList());
     }
 }
