@@ -8,134 +8,214 @@ import com.example.dto.MoveCommandDto;
 import com.example.service.Pathfinder;
 import com.example.service.StrategyHelper;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * Реализация {@link AntStrategy} для юнитов-разведчиков.
+ * Реализует {@link AntStrategy} для юнитов-разведчиков.
+ * Эта стратегия является stateful и полностью автономной.
  * <p>
- * Логика основана на строгой иерархии приоритетов:
- * 1. Выживание: При обнаружении угрозы разведчик отступает.
- * 2. Удержание позиции: Если текущая позиция оптимальна, разведчик остается на месте.
- * 3. Исследование: Поиск новой точки для обзора, максимизируя покрытие и минимизируя пересечение с другими разведчиками.
+ * <b>Архитектурная концепция:</b>
+ * Стратегия реализует интеллектуальное, адаптивное позиционирование для создания
+ * эффективного и равномерного разведывательного периметра. Она учитывает ландшафт,
+ * динамические препятствия и предотвращает внутренние конфликты между юнитами.
+ * <p>
+ * <b>Последовательность принятия решений для каждого юнита:</b>
+ * <ol>
+ *     <li><b>Очистка состояния:</b> В начале хода удаляются данные о погибших или застрявших юнитах.</li>
+ *     <li><b>Экстренный выход из улья:</b> Если юнит находится в зоне улья, ему отдается
+ *     наивысший приоритет на выход. Эта команда игнорирует других дружественных юнитов как препятствия,
+ *     чтобы гарантированно освободить спавн-поинт.</li>
+ *     <li><b>Назначение цели (Двухэтапный процесс):</b>
+ *         <ol>
+ *             <li>Вычисляется <i>идеальная</i>, математически равноудаленная точка на патрульном кольце.</li>
+ *             <li>С помощью поиска в ширину (BFS) находится <i>реальная</i>, ближайшая к идеальной,
+ *             физически доступная точка на карте.</li>
+ *         </ol>
+ *     </li>
+ *     <li><b>Движение к цели:</b> Строится путь к назначенной реальной цели с учетом всех штатных препятствий.</li>
+ * </ol>
  */
 public class ScoutStrategy implements AntStrategy {
 
-    private static final int THREAT_RADIUS_BUFFER = 2;
-    private static final int MIN_SCOUT_SEPARATION = 5;
-    private static final int MIN_EXPLORE_DISTANCE_FROM_HOME = 8;
-    private static final int TARGET_RING_RADIUS = 15;
+    private static final int PATROL_RADIUS = 7;
+    private static final int CLEARANCE_RADIUS = 2;
+    private static final int MAX_SEARCH_DEPTH_FOR_AVAILABLE_HEX = 5;
 
     private final Pathfinder pathfinder;
+    private final Map<String, Hex> scoutPatrolAssignments = new HashMap<>();
+    private final Map<String, Hex> previousScoutPositions = new HashMap<>();
+
 
     public ScoutStrategy(Pathfinder pathfinder) {
         this.pathfinder = pathfinder;
     }
 
     @Override
-    public List<MoveCommandDto> decideMoves(List<ArenaStateDto.AntDto> scouts, ArenaStateDto state) {
-        List<MoveCommandDto> commands = new ArrayList<>();
-        if (scouts.isEmpty()) {
-            return commands;
+    public List<MoveCommandDto> decideMoves(List<ArenaStateDto.AntDto> allScouts, ArenaStateDto state) {
+        if (allScouts.isEmpty() || state.spot() == null) {
+            return Collections.emptyList();
         }
 
-        Map<Hex, Integer> hexCosts = StrategyHelper.getHexCosts(state);
-        Map<Hex, HexType> hexTypes = StrategyHelper.getHexTypes(state);
-        List<ArenaStateDto.AntDto> allScouts = state.ants().stream()
-                .filter(a -> a.type() == UnitType.SCOUT.getApiId())
+        cleanUpState(allScouts);
+
+        List<ArenaStateDto.AntDto> sortedScouts = allScouts.stream()
+                .sorted(Comparator.comparing(ArenaStateDto.AntDto::id))
                 .toList();
 
-        for (ArenaStateDto.AntDto scout : scouts) {
-            Hex currentHex = new Hex(scout.q(), scout.r());
+        Set<Hex> clearanceZone = getClearanceZone(state.home());
+        List<Hex> idealPerimeter = generateRing(state.spot(), PATROL_RADIUS);
 
-            // Приоритет 1: Выживание
-            Optional<MoveCommandDto> fleeCommand = createFleeCommand(scout, state, hexCosts, hexTypes);
-            if (fleeCommand.isPresent()) {
-                commands.add(fleeCommand.get());
+        List<MoveCommandDto> commands = new ArrayList<>();
+        Set<Hex> assignedTargetsThisTurn = new HashSet<>();
+
+        for (int i = 0; i < sortedScouts.size(); i++) {
+            ArenaStateDto.AntDto scout = sortedScouts.get(i);
+            Hex currentPos = new Hex(scout.q(), scout.r());
+
+            if (isStuck(scout, currentPos)) {
+                scoutPatrolAssignments.remove(scout.id());
+            }
+
+            if (clearanceZone.contains(currentPos)) {
+                createMoveAsideCommand(scout, state, assignedTargetsThisTurn).ifPresent(command -> {
+                    commands.add(command);
+                    assignedTargetsThisTurn.add(command.path().get(command.path().size() - 1));
+                });
                 continue;
             }
 
-            // Приоритет 2: Удержание позиции
-            int distanceToHome = currentHex.distanceTo(state.spot());
-            int distanceToNearestScout = getDistanceToNearestScout(currentHex, scout.id(), allScouts);
+            if (!scoutPatrolAssignments.containsKey(scout.id())) {
+                Set<Hex> allCurrentObstacles = buildComprehensiveObstacleSet(state, assignedTargetsThisTurn);
+                int targetIndex = (i * idealPerimeter.size()) / sortedScouts.size();
+                Hex idealTarget = idealPerimeter.get(targetIndex);
 
-            if (distanceToHome > MIN_EXPLORE_DISTANCE_FROM_HOME && distanceToNearestScout > MIN_SCOUT_SEPARATION) {
-                continue;
+                findClosestAvailableHex(idealTarget, allCurrentObstacles)
+                        .ifPresent(realTarget -> scoutPatrolAssignments.put(scout.id(), realTarget));
             }
 
-            // Приоритет 3: Поиск новой точки обзора
-            Optional<MoveCommandDto> exploreCommand = createExploreCommand(scout, allScouts, state, hexCosts, hexTypes);
-            exploreCommand.ifPresent(commands::add);
+            Hex target = scoutPatrolAssignments.get(scout.id());
+            if (target != null && !target.equals(currentPos)) {
+                Set<Hex> pathfindingObstacles = buildComprehensiveObstacleSet(state, assignedTargetsThisTurn);
+                pathfindingObstacles.remove(target);
+
+                StrategyHelper.createPathCommand(scout, target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state))
+                        .ifPresent(command -> {
+                            commands.add(command);
+                            assignedTargetsThisTurn.add(command.path().get(command.path().size() - 1));
+                        });
+            }
         }
 
+        updatePreviousPositions(allScouts);
         return commands;
     }
 
-    private Optional<MoveCommandDto> createFleeCommand(ArenaStateDto.AntDto scout, ArenaStateDto state, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes) {
-        Hex currentHex = new Hex(scout.q(), scout.r());
-        return findClosestEnemy(currentHex, state.enemies())
-                .flatMap(closestEnemy -> {
-                    Hex enemyHex = new Hex(closestEnemy.q(), closestEnemy.r());
-                    UnitType enemyType = UnitType.fromApiId(closestEnemy.type());
-                    int threatDistance = enemyType.getSpeed() + THREAT_RADIUS_BUFFER;
+    private Optional<Hex> findClosestAvailableHex(Hex idealTarget, Set<Hex> obstacles) {
+        if (!obstacles.contains(idealTarget)) {
+            return Optional.of(idealTarget);
+        }
 
-                    if (currentHex.distanceTo(enemyHex) > threatDistance) {
-                        return Optional.empty();
+        Queue<Hex> queue = new LinkedList<>();
+        queue.add(idealTarget);
+        Set<Hex> visited = new HashSet<>();
+        visited.add(idealTarget);
+        int depth = 0;
+
+        while (!queue.isEmpty() && depth < MAX_SEARCH_DEPTH_FOR_AVAILABLE_HEX) {
+            int levelSize = queue.size();
+            for (int i = 0; i < levelSize; i++) {
+                Hex current = queue.poll();
+                for (Hex neighbor : current.getNeighbors()) {
+                    if (!visited.contains(neighbor)) {
+                        if (!obstacles.contains(neighbor)) {
+                            return Optional.of(neighbor);
+                        }
+                        visited.add(neighbor);
+                        queue.add(neighbor);
                     }
-
-                    Hex fleeVector = new Hex(currentHex.q() - enemyHex.q(), currentHex.r() - enemyHex.r());
-                    Hex target = currentHex.add(fleeVector);
-
-                    return StrategyHelper.createPathCommand(scout, target, state, pathfinder, hexCosts, hexTypes);
-                });
+                }
+            }
+            depth++;
+        }
+        return Optional.empty();
     }
 
-    private Optional<MoveCommandDto> createExploreCommand(ArenaStateDto.AntDto scout, List<ArenaStateDto.AntDto> allScouts, ArenaStateDto state, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes) {
-        Hex homeSpot = state.spot();
-        List<Hex> potentialTargets = generateRing(homeSpot, TARGET_RING_RADIUS);
-
-        return potentialTargets.stream()
-                .map(target -> new ScoredTarget(target, calculateScore(target, homeSpot, scout.id(), allScouts)))
-                .max(Comparator.comparingDouble(ScoredTarget::score))
-                .flatMap(bestTarget -> StrategyHelper.createPathCommand(scout, bestTarget.hex(), state, pathfinder, hexCosts, hexTypes));
+    private Set<Hex> buildComprehensiveObstacleSet(ArenaStateDto state, Set<Hex> dynamicTargets) {
+        Set<Hex> obstacles = new HashSet<>();
+        state.enemies().forEach(e -> obstacles.add(new Hex(e.q(), e.r())));
+        state.ants().forEach(a -> obstacles.add(new Hex(a.q(), a.r())));
+        state.map().stream()
+                .filter(cell -> HexType.fromApiId(cell.type()).isImpassable())
+                .forEach(cell -> obstacles.add(new Hex(cell.q(), cell.r())));
+        obstacles.addAll(dynamicTargets);
+        obstacles.addAll(state.home());
+        return obstacles;
     }
 
-    private double calculateScore(Hex target, Hex homeSpot, String currentScoutId, List<ArenaStateDto.AntDto> allScouts) {
-        int distanceToHome = target.distanceTo(homeSpot);
-        int distanceToNearestScout = getDistanceToNearestScout(target, currentScoutId, allScouts);
-        return distanceToHome + 2.0 * distanceToNearestScout;
+    /**
+     * Собирает специальный, "облегченный" набор препятствий для экстренного выхода из улья.
+     * Этот набор намеренно ИГНОРИРУЕТ других дружественных юнитов, чтобы гарантировать
+     * возможность хода, даже если все соседи заняты.
+     */
+    private Set<Hex> buildEscapeObstacleSet(ArenaStateDto state) {
+        Set<Hex> obstacles = new HashSet<>();
+        state.map().stream()
+                .filter(cell -> HexType.fromApiId(cell.type()).isImpassable())
+                .forEach(cell -> obstacles.add(new Hex(cell.q(), cell.r())));
+        obstacles.addAll(state.home());
+        return obstacles;
     }
 
-    private int getDistanceToNearestScout(Hex from, String selfId, List<ArenaStateDto.AntDto> allScouts) {
-        return allScouts.stream()
-                .filter(scout -> !scout.id().equals(selfId))
-                .mapToInt(scout -> from.distanceTo(new Hex(scout.q(), scout.r())))
-                .min()
-                .orElse(Integer.MAX_VALUE);
+    private Optional<MoveCommandDto> createMoveAsideCommand(ArenaStateDto.AntDto scout, ArenaStateDto state, Set<Hex> assignedTargets) {
+        Hex startPos = new Hex(scout.q(), scout.r());
+        // Используем специальный набор препятствий, который игнорирует других муравьев.
+        Set<Hex> obstacles = buildEscapeObstacleSet(state);
+        // Также нужно избегать клеток, куда уже направлены другие разведчики в этом ходу.
+        obstacles.addAll(assignedTargets);
+
+        return startPos.getNeighbors().stream()
+                .filter(n -> !obstacles.contains(n))
+                .min(Comparator.comparingInt(n -> n.distanceTo(startPos)))
+                .map(exitHex -> new MoveCommandDto(scout.id(), List.of(exitHex)));
     }
 
-    private Optional<ArenaStateDto.EnemyDto> findClosestEnemy(Hex from, List<ArenaStateDto.EnemyDto> enemies) {
-        return enemies.stream()
-                .min(Comparator.comparingInt(enemy -> from.distanceTo(new Hex(enemy.q(), enemy.r()))));
+    private boolean isStuck(ArenaStateDto.AntDto scout, Hex currentPos) {
+        return currentPos.equals(previousScoutPositions.get(scout.id()));
     }
 
     private List<Hex> generateRing(Hex center, int radius) {
+        List<Hex> results = new ArrayList<>();
         if (radius <= 0) {
-            return List.of(center);
+            if (center != null) results.add(center);
+            return results;
         }
-        Hex startHex = center.add(new Hex(radius, -radius));
-        return Stream.iterate(0, i -> i < 6, i -> i + 1)
-                .flatMap(i -> {
-                    Hex direction = new Hex(0, 0).getNeighbors().get(i);
-                    return Stream.iterate(startHex, h -> h.add(direction)).limit(radius);
-                })
-                .toList();
+        Hex hex = center.add(Hex.DIRECTIONS.get(4).multiply(radius));
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < radius; j++) {
+                results.add(hex);
+                hex = hex.getNeighbors().get(i);
+            }
+        }
+        return results;
     }
 
-    private record ScoredTarget(Hex hex, double score) {
+    private Set<Hex> getClearanceZone(List<Hex> home) {
+        Set<Hex> zone = new HashSet<>(home);
+        home.forEach(h -> zone.addAll(generateRing(h, CLEARANCE_RADIUS)));
+        return zone;
+    }
+
+    private void cleanUpState(List<ArenaStateDto.AntDto> aliveScouts) {
+        Set<String> aliveScoutIds = aliveScouts.stream()
+                .map(ArenaStateDto.AntDto::id)
+                .collect(Collectors.toSet());
+        scoutPatrolAssignments.keySet().removeIf(id -> !aliveScoutIds.contains(id));
+        previousScoutPositions.keySet().removeIf(id -> !aliveScoutIds.contains(id));
+    }
+
+    private void updatePreviousPositions(List<ArenaStateDto.AntDto> allScouts) {
+        previousScoutPositions.clear();
+        allScouts.forEach(scout -> previousScoutPositions.put(scout.id(), new Hex(scout.q(), scout.r())));
     }
 }

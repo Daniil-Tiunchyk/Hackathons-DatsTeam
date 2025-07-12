@@ -89,6 +89,7 @@ const MemoizedHexagon = ({
       {content.hasType3 && <AntDetectiveIcon className="triangle" size={3} />}
       {content.hasEnemies && <EnemyIcon className="triangle" size={3} />}
       {content.hasFood && <PizzaIcon className="triangle" size={3} />}
+
       <text
         x="0"
         y="0"
@@ -136,7 +137,7 @@ function App() {
             },
           }
         );
-        console.log(response.data)
+        console.log(response.data);
         setData(response.data);
       } catch (error) {
         console.error("Ошибка запроса:", error);
