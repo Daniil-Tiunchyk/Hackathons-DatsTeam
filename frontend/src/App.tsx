@@ -48,6 +48,15 @@ const MemoizedHexagon = ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (h: any) => h.q === originalQ && h.r === originalR
       );
+      /*  */
+      const hexBoundaries = data?.knownBoundaries.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (b: any) => b.q === originalQ && b.r === originalR
+      );
+      const hexVisibleHexes = data?.currentlyVisibleHexes.filter(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (v: any) => v.q === originalQ && v.r === originalR
+      );
       const antFood =
         hexAnts[0]?.food.amount === 0 ? "" : hexAnts[0]?.food.amount;
 
@@ -66,6 +75,8 @@ const MemoizedHexagon = ({
         hasType1: antTypes.type1 > 0,
         hasType2: antTypes.type2 > 0,
         hasType3: antTypes.type3 > 0,
+        hasBoundaries: hexBoundaries?.length > 0,
+        hasVisibleHex: hexVisibleHexes?.length > 0,
         antFood,
       };
     },
@@ -76,11 +87,17 @@ const MemoizedHexagon = ({
     const content = getHexContent(rq, rr);
     let baseColor = getColorByType(type);
 
-    const stroke = "#000000ff";
+    let stroke = "#000000ff";
     const strokeWidth = 0.1;
 
     if (content.hasHome) {
       baseColor = "#000000ff";
+    }
+    if (content.hasBoundaries) {
+      baseColor = "#670000ff";
+    }
+    if (content.hasVisibleHex) {
+      stroke = "#faee00ff";
     }
 
     return {
@@ -125,7 +142,7 @@ function App() {
     food: any[]; // eslint-disable-next-line @typescript-eslint/no-explicit-any
     home: any[];
   } | null>(request);
-  const renderFromApi = false; // false - из файла; true - с апи
+  const renderFromApi = true; // false - из файла; true - с апи
 
   const [timer, setTimer] = useState(0);
 
