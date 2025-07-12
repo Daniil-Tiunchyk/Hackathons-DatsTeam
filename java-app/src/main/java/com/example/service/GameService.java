@@ -24,7 +24,7 @@ public class GameService {
      * Установлен в 500мс для гарантии не более 2 запросов в секунду,
      * что соответствует требованиям rate-лимита API (3 RPS).
      */
-    private static final long MINIMUM_REQUEST_INTERVAL_MS = 250;
+    private static final long MINIMUM_REQUEST_INTERVAL_MS = 500;
 
 
     private final DatsPulseApiClient apiClient;
@@ -89,7 +89,8 @@ public class GameService {
         long apiWaitMillis = (long) (secondsToNextTurn * 1000);
         long processingTime = System.currentTimeMillis() - turnStartTime;
         long timeToWait = Math.max(0, apiWaitMillis - processingTime);
-        long sleepMillis = Math.max(MINIMUM_REQUEST_INTERVAL_MS, timeToWait);
+//        long sleepMillis = Math.max(MINIMUM_REQUEST_INTERVAL_MS, timeToWait);
+        long sleepMillis = MINIMUM_REQUEST_INTERVAL_MS;
 
         TimeUnit.MILLISECONDS.sleep(sleepMillis);
     }
