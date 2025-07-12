@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.example.domain.Hex;
 import com.example.domain.UnitType;
@@ -8,6 +9,7 @@ import com.example.dto.ArenaStateDto;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
@@ -16,13 +18,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Управляет персистентным состоянием карты.
+ * Управляет персистентным состоянием карты и ресурсов.
  * <p><b>Принцип работы:</b>
  * <ol>
- *     <li>При запуске "гидрирует" свое состояние из файла `main.json`, если он существует.</li>
- *     <li>Во время работы обновляет состояние в памяти, обеспечивая высокую производительность.</li>
- *     <li>После каждого обновления сохраняет актуальное состояние обратно в `main.json` для выживания после перезапусков.</li>
- *     <li>Автоматически сбрасывает состояние каждые 15 минут для синхронизации с игровыми раундами.</li>
+ *     <li>При запуске "гидрирует" свое состояние из файла `main.json`.</li>
+ *     <li>На каждом ходу сначала инвалидирует (удаляет) информацию о еде на тех клетках,
+ *     которые видят наши юниты, но где еды по факту нет.</li>
+ *     <li>Затем обогащает свою базу знаний новыми данными о карте и еде из свежего ответа API.</li>
+ *     <li>После каждого обновления сохраняет актуальное состояние обратно в `main.json`.</li>
  * </ol>
  */
 public class MapStateService {
@@ -31,6 +34,7 @@ public class MapStateService {
     private final Gson gson;
 
     private Map<Hex, ArenaStateDto.MapCellDto> knownMap = new HashMap<>();
+    private Map<Hex, ArenaStateDto.FoodDto> knownFood = new HashMap<>();
     private List<Hex> home = new ArrayList<>();
     private Hex spot = null;
 
@@ -44,7 +48,13 @@ public class MapStateService {
     public ArenaStateDto updateAndGet(ArenaStateDto apiResponse) {
         checkForReset();
 
+        // Шаг 1: Инвалидация старых данных о еде на основе текущей видимости
+        invalidateStaleFood(apiResponse);
+
+        // Шаг 2: Обогащение новыми данными
         apiResponse.map().forEach(cell -> knownMap.put(new Hex(cell.q(), cell.r()), cell));
+        apiResponse.food().forEach(food -> knownFood.put(new Hex(food.q(), food.r()), food));
+
         if (home.isEmpty() && !apiResponse.home().isEmpty()) {
             home = new ArrayList<>(apiResponse.home());
         }
@@ -58,7 +68,7 @@ public class MapStateService {
         ArenaStateDto worldState = new ArenaStateDto(
                 apiResponse.ants(),
                 apiResponse.enemies(),
-                apiResponse.food(),
+                new ArrayList<>(knownFood.values()), // Передаем полный список известной еды
                 home,
                 new ArrayList<>(knownMap.values()),
                 knownBoundaries,
@@ -73,19 +83,42 @@ public class MapStateService {
         return worldState;
     }
 
+    /**
+     * Удаляет из памяти информацию о еде, если наш юнит видит гекс,
+     * но API больше не сообщает о наличии еды на нем.
+     */
+    private void invalidateStaleFood(ArenaStateDto apiResponse) {
+        Set<Hex> visibleHexes = calculateCurrentlyVisibleHexes(apiResponse);
+        Set<Hex> foodHexesInResponse = apiResponse.food().stream()
+                .map(f -> new Hex(f.q(), f.r()))
+                .collect(Collectors.toSet());
+
+        // Находим гексы, которые мы видим, где мы помнили еду, но ее там больше нет
+        Set<Hex> hexesToClear = new HashSet<>();
+        for (Hex visibleHex : visibleHexes) {
+            if (knownFood.containsKey(visibleHex) && !foodHexesInResponse.contains(visibleHex)) {
+                hexesToClear.add(visibleHex);
+            }
+        }
+
+        hexesToClear.forEach(knownFood::remove);
+    }
+
     private void loadStateFromFile() {
         try {
             if (Files.exists(Paths.get(STATE_FILE_NAME))) {
-                System.out.println("Найден файл main.json. Загрузка сохраненного состояния карты...");
+                System.out.println("Найден файл main.json. Загрузка сохраненного состояния...");
                 JsonReader reader = new JsonReader(new FileReader(STATE_FILE_NAME));
                 ArenaStateDto loadedState = gson.fromJson(reader, ArenaStateDto.class);
 
                 if (loadedState != null) {
                     this.knownMap = loadedState.map().stream()
                             .collect(Collectors.toMap(c -> new Hex(c.q(), c.r()), c -> c));
+                    this.knownFood = loadedState.food().stream()
+                            .collect(Collectors.toMap(f -> new Hex(f.q(), f.r()), f -> f, (a, b) -> a));
                     this.home = new ArrayList<>(loadedState.home());
                     this.spot = loadedState.spot();
-                    System.out.println("Состояние карты успешно загружено. Известных гексов: " + this.knownMap.size());
+                    System.out.printf("Состояние успешно загружено. Гексов: %d, Еды: %d%n", this.knownMap.size(), this.knownFood.size());
                 }
             }
         } catch (Exception e) {
@@ -117,6 +150,7 @@ public class MapStateService {
 
     private void reset() {
         knownMap.clear();
+        knownFood.clear();
         home.clear();
         spot = null;
     }
