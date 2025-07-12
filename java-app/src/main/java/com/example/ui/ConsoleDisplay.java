@@ -1,5 +1,6 @@
 package com.example.ui;
 
+import com.example.domain.Hex;
 import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
@@ -17,29 +18,38 @@ import java.util.stream.Collectors;
  */
 public class ConsoleDisplay {
 
-    private record TurnStatistics(
-            long workers, long fighters, long scouts, long totalAnts,
-            long enemies,
-            long returningHome, long movingToTarget, long idle,
-            long totalFoodCarried
-    ) {}
+    private static final double WORKER_FULL_CAPACITY_THRESHOLD = 0.7;
 
     /**
-     * Выводит в консоль детальное сравнение "сырого" состояния от API
-     * и обогащенного состояния из MapStateService.
-     * Это ключевой инструмент для отладки логики накопления карты.
-     *
-     * @param raw      "Сырой" DTO, полученный напрямую от API.
-     * @param enriched Финальный DTO после обработки в MapStateService.
+     * Агрегирует всю статистику за ход для последующего отображения.
      */
+    private record TurnStatistics(
+            // Общие данные
+            int turnNo, int teamScore, double nextTurnIn,
+            // Сводка по юнитам
+            long totalAnts, long totalMoving, long totalIdle,
+            long totalWorkers, long totalFighters, long totalScouts,
+            // Сводка по врагам
+            long visibleEnemies,
+            // Сводка по экономике
+            long totalCarriedFoodAmount,
+            // Детализация по задачам рабочих
+            long workersReturningFull,
+            long workersToppingOff,
+            long workersCollecting,
+            long workersExploring,
+            long workersIdle
+    ) {
+    }
+
     public void renderDebugComparison(ArenaStateDto raw, ArenaStateDto enriched) {
         if (raw == null || enriched == null) {
             System.out.println("Невозможно отобразить сравнение: одно из состояний null.");
             return;
         }
 
-        String header = String.format("======= СРАВНЕНИЕ СОСТОЯНИЙ (ХОД %d) =======%n", enriched.turnNo());
-        String line =   "----------------------------------------------------------%n";
+        String header = String.format("======= СРАВНЕНИЕ СОСТОЯНИЙ (ХОД %d) =======\n", enriched.turnNo());
+        String line = "----------------------------------------------------------\n";
         String format = "| %-25s | %-12s | %-15s |%n";
 
         StringBuilder sb = new StringBuilder("\n");
@@ -64,73 +74,100 @@ public class ConsoleDisplay {
         TurnStatistics stats = aggregateStatistics(state, plannedMoves);
 
         String output = """
-                =======================================================
-                | 🕹️ Клиент DatsPulse | Ход: %-5d | Счет: %-7d |
-                =======================================================
+                ================================================================
+                | 🕹️ Клиент DatsPulse | Ход: %-5d | 🌟 Счет: %-8d |
+                ================================================================
                 Время до следующего хода: %.2f сек.
-                -------------------------------------------------------
                 
-                --[ 📊 Силы на карте ]--
-                Наши юниты : 🐜 %-2d (Р:%-2d, Б:%-2d, Рз:%-2d)
-                Враги      : 💀 %-2d (в зоне видимости)
+                --[ 🐜 Наши Юниты: %d | 🏃 Движутся: %d | 💤 Ожидают: %d ]--
+                - Рабочие (%d):
+                  [🏠] Несут домой (полные): %d
+                  [🧺] Добирают ресурсы:      %d
+                  [💰] Идут за едой:          %d
+                  [🗺️] Исследуют:             %d
+                - Бойцы (%d) / Разведчики (%d)
                 
-                --[ 🎯 Текущие задачи ]--
-                [🏠] Возвращаются с ресурсами: %-2d (несут %d ед.)
-                [🗺️] Движутся к цели        : %-2d
-                [💤] Ожидают приказа        : %-2d
-                
-                =======================================================
+                --[ 💰 Экономика и Разведка ]--
+                Ресурсов в пути: %d
+                Врагов в зоне видимости: %d
+                ----------------------------------------------------------------
                 """.formatted(
-                state.turnNo(),
-                state.score(),
-                state.nextTurnIn(),
-                stats.totalAnts(),
-                stats.workers(), stats.fighters(), stats.scouts(),
-                stats.enemies(),
-                stats.returningHome(), stats.totalFoodCarried(),
-                stats.movingToTarget(),
-                stats.idle()
+                stats.turnNo(), stats.teamScore(), stats.nextTurnIn(),
+                stats.totalAnts(), stats.totalMoving(), stats.totalIdle(),
+                stats.totalWorkers(),
+                stats.workersReturningFull(),
+                stats.workersToppingOff(),
+                stats.workersCollecting(),
+                stats.workersExploring(),
+                stats.totalFighters(), stats.totalScouts(),
+                stats.totalCarriedFoodAmount(),
+                stats.visibleEnemies()
         );
 
         System.out.println(output);
     }
 
     private TurnStatistics aggregateStatistics(ArenaStateDto state, List<MoveCommandDto> plannedMoves) {
-        Map<UnitType, Long> countsByType = state.ants().stream()
-                .collect(Collectors.groupingBy(ant -> UnitType.fromApiId(ant.type()), Collectors.counting()));
+        Map<String, MoveCommandDto> movesById = plannedMoves.stream()
+                .collect(Collectors.toMap(MoveCommandDto::ant, move -> move));
 
-        Set<String> antsWithMoves = plannedMoves.stream()
-                .map(MoveCommandDto::ant)
+        Set<Hex> foodHexes = state.food().stream()
+                .map(f -> new Hex(f.q(), f.r()))
                 .collect(Collectors.toSet());
 
-        long returningHome = 0;
-        long movingToTarget = 0;
-        long totalFoodCarried = 0;
+        long totalWorkers = 0, totalFighters = 0, totalScouts = 0;
+        long workersReturningFull = 0, workersToppingOff = 0, workersCollecting = 0, workersExploring = 0, workersIdle = 0;
+        long totalCarriedFoodAmount = 0;
 
         for (ArenaStateDto.AntDto ant : state.ants()) {
-            if (antsWithMoves.contains(ant.id())) {
-                if (isCarryingFood(ant)) {
-                    returningHome++;
-                    totalFoodCarried += ant.food().amount();
-                } else {
-                    movingToTarget++;
+            UnitType type = UnitType.fromApiId(ant.type());
+            boolean hasMove = movesById.containsKey(ant.id());
+
+            if (isCarryingFood(ant)) {
+                totalCarriedFoodAmount += ant.food().amount();
+            }
+
+            switch (type) {
+                case WORKER -> {
+                    totalWorkers++;
+                    if (isCarryingFood(ant)) {
+                        double capacity = type.getCapacity();
+                        if (ant.food().amount() / capacity >= WORKER_FULL_CAPACITY_THRESHOLD) {
+                            workersReturningFull++;
+                        } else {
+                            workersToppingOff++;
+                        }
+                    } else if (hasMove) {
+                        Hex targetHex = movesById.get(ant.id()).path().get(movesById.get(ant.id()).path().size() - 1);
+                        if (foodHexes.contains(targetHex)) {
+                            workersCollecting++;
+                        } else {
+                            workersExploring++;
+                        }
+                    } else {
+                        workersIdle++;
+                    }
                 }
+                case FIGHTER -> totalFighters++;
+                case SCOUT -> totalScouts++;
             }
         }
 
         long totalAnts = state.ants().size();
-        long idle = totalAnts - returningHome - movingToTarget;
+        long totalMoving = movesById.size();
+        long totalIdle = totalAnts - totalMoving;
 
         return new TurnStatistics(
-                countsByType.getOrDefault(UnitType.WORKER, 0L),
-                countsByType.getOrDefault(UnitType.FIGHTER, 0L),
-                countsByType.getOrDefault(UnitType.SCOUT, 0L),
-                totalAnts,
+                state.turnNo(), state.score(), state.nextTurnIn(),
+                totalAnts, totalMoving, totalIdle,
+                totalWorkers, totalFighters, totalScouts,
                 state.enemies().size(),
-                returningHome,
-                movingToTarget,
-                idle,
-                totalFoodCarried
+                totalCarriedFoodAmount,
+                workersReturningFull,
+                workersToppingOff,
+                workersCollecting,
+                workersExploring,
+                workersIdle
         );
     }
 
@@ -151,7 +188,7 @@ public class ConsoleDisplay {
 
     public void showRegistrationResult(RegistrationResponseDto response) {
         if (response != null && response.message() != null) {
-            System.out.printf("Ответ сервера: [Код: %d] %s%n", response.code(), response.message());
+            System.out.printf("Ответ сервера: [Код: %d] %s\n", response.code(), response.message());
         } else {
             System.out.println("Не удалось получить внятный ответ от сервера регистрации.");
         }
@@ -161,7 +198,6 @@ public class ConsoleDisplay {
     private void clearConsole() {
         try {
             if (System.console() == null) {
-                // В средах без консоли (например, в IDE) просто добавляем отступы
                 System.out.println("\n".repeat(20));
             } else {
                 if (System.getProperty("os.name").contains("Windows")) {
