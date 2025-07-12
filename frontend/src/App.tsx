@@ -49,11 +49,11 @@ const MemoizedHexagon = ({
         (h: any) => h.q === originalQ && h.r === originalR
       );
       /*  */
-      const hexBoundaries = data?.knownBoundaries.filter(
+      const hexBoundaries = data?.knownBoundaries?.filter(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (b: any) => b.q === originalQ && b.r === originalR
       );
-      const hexVisibleHexes = data?.currentlyVisibleHexes.filter(
+      const hexVisibleHexes = data?.currentlyVisibleHexes?.filter(
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (v: any) => v.q === originalQ && v.r === originalR
       );
@@ -121,11 +121,10 @@ const MemoizedHexagon = ({
         y="0"
         textAnchor="middle"
         alignmentBaseline="central"
-        fill={"#000"}
-        fontSize="0.1"
+        fill={"#0a2df0ff"}
         dominantBaseline="middle"
       >
-        {content.antFood && <tspan x="0" dy="1">{`${content.antFood}`}</tspan>}
+        {content.antFood && <tspan x="0" dy="0">{`${content.antFood}`}</tspan>}
       </text>
     </Hexagon>
   );
