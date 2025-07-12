@@ -89,6 +89,7 @@ const MemoizedHexagon = ({
       {content.hasType3 && <AntDetectiveIcon className="triangle" size={3} />}
       {content.hasEnemies && <EnemyIcon className="triangle" size={3} />}
       {content.hasFood && <PizzaIcon className="triangle" size={3} />}
+
       <text
         x="0"
         y="0"
@@ -97,7 +98,9 @@ const MemoizedHexagon = ({
         fill={"#000"}
         fontSize="0.1"
         dominantBaseline="middle"
-      ></text>
+      >
+      <tspan x="0" dy="-0.2">{`${rq};${rr}`}</tspan>
+      </text>
     </Hexagon>
   );
 };
