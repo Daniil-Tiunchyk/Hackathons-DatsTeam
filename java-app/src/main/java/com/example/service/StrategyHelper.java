@@ -131,16 +131,6 @@ public final class StrategyHelper {
     }
 
     /**
-     * Находит ближайший к юниту доступный ресурс.
-     */
-    public static Optional<Hex> findClosestAvailableFood(Hex from, List<ArenaStateDto.FoodDto> foods, Set<Hex> assignedTargets) {
-        return foods.stream()
-                .map(food -> new Hex(food.q(), food.r()))
-                .filter(foodHex -> !assignedTargets.contains(foodHex))
-                .min(Comparator.comparingInt(from::distanceTo));
-    }
-
-    /**
      * Извлекает из состояния арены карту стоимостей передвижения по гексам.
      */
     public static Map<Hex, Integer> getHexCosts(ArenaStateDto state) {
