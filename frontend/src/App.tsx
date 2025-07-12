@@ -1,19 +1,127 @@
 import { HexGrid, Layout, Hexagon } from "react-hexgrid";
 import "./App.css";
-import { request } from "./arenarequest";
 import { UncontrolledReactSVGPanZoom } from "react-svg-pan-zoom";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { EnemyIcon } from "./assets/EnemyIcon";
 import { AntWorkerIcon } from "./assets/AntWorkerIcon";
 import { AntFighterIcon } from "./assets/AntFighterIcon";
 import { AntDetectiveIcon } from "./assets/AntDetectiveIcon";
 import { PizzaIcon } from "./assets/PizzaIcon";
+import axios from "axios";
+
+// Мемоизированный компонент Hexagon для предотвращения лишних рендеров
+const MemoizedHexagon = ({
+  q,
+  r,
+  type,
+  rq,
+  rr,
+  data,
+}: {
+  q: number;
+  r: number;
+  type: number;
+  rq: number;
+  rr: number;
+  data: any;
+}) => {
+  const getHexContent = useCallback(
+    (q: number, r: number) => {
+      const originalQ = q;
+      const originalR = r;
+
+      const hexAnts = data.ants.filter(
+        (a: any) => a.q === originalQ && a.r === originalR
+      );
+      const hexEnemies = data.enemies.filter(
+        (e: any) => e.q === originalQ && e.r === originalR
+      );
+      const hexFood = data.food.filter(
+        (f: any) => f.q === originalQ && f.r === originalR
+      );
+      const hexHome = data.home.filter(
+        (h: any) => h.q === originalQ && h.r === originalR
+      );
+
+      const antTypes = {
+        type1: hexAnts.filter((a: any) => a.type === 0).length,
+        type2: hexAnts.filter((a: any) => a.type === 1).length,
+        type3: hexAnts.filter((a: any) => a.type === 2).length,
+      };
+
+      return {
+        hasAnts: hexAnts.length > 0,
+        hasEnemies: hexEnemies.length > 0,
+        hasFood: hexFood.length > 0,
+        hasHome: hexHome.length > 0,
+        hasType1: antTypes.type1 > 0,
+        hasType2: antTypes.type2 > 0,
+        hasType3: antTypes.type3 > 0,
+      };
+    },
+    [data]
+  );
+
+  const hexStyle = useMemo(() => {
+    const content = getHexContent(rq, rr);
+    let baseColor = getColorByType(type);
+
+    const stroke = "#000000ff";
+    const strokeWidth = 0.1;
+
+    if (content.hasHome) {
+      baseColor = "#000000ff";
+    }
+
+    return {
+      fill: baseColor,
+      stroke,
+      strokeWidth,
+    };
+  }, [type, rq, rr, getHexContent]);
+
+  const content = useMemo(() => getHexContent(rq, rr), [rq, rr, getHexContent]);
+
+  return (
+    <Hexagon q={q} r={r} s={-q - r} className="custom-hex" style={hexStyle}>
+      {content.hasType1 && <AntWorkerIcon className="triangle" size={3} />}
+      {content.hasType2 && <AntFighterIcon className="triangle" size={3} />}
+      {content.hasType3 && <AntDetectiveIcon className="triangle" size={3} />}
+      {content.hasEnemies && <EnemyIcon className="triangle" size={3} />}
+      {content.hasFood && <PizzaIcon className="triangle" size={3} />}
+      <text
+        x="0"
+        y="0"
+        textAnchor="middle"
+        alignmentBaseline="central"
+        fill={"#000"}
+        fontSize="0.1"
+        dominantBaseline="middle"
+      ></text>
+    </Hexagon>
+  );
+};
 
 function App() {
-  const { ants, enemies, map, food, home } = request;
+  const API_KEY = `e9d0504b-f145-4d78-8219-c688ca06550f`;
+  const [data, setData] = useState<{
+    ants: any[];
+    enemies: any[];
+    map: any[];
+    food: any[];
+    home: any[];
+  } | null>(null);
 
-  // const API_KEY = `e9d0504b-f145-4d78-8219-c688ca06550f`;
-  /*  const [data, setData] = useState();
+  const [timer, setTimer] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prev) => prev + 1);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     const fetchMapData = async () => {
       try {
@@ -26,167 +134,60 @@ function App() {
             },
           }
         );
-
-        const respData = response.data;
-        console.log(respData);
-        setData(respData); // предполагается, что setData доступен в области видимости
-        return respData;
+        console.log(response.data)
+        setData(response.data);
       } catch (error) {
         console.error("Ошибка запроса:", error);
-        return [];
+        setData({
+          ants: [],
+          enemies: [],
+          map: [],
+          food: [],
+          home: [],
+        });
       }
     };
+    fetchMapData();
+  }, [timer]);
 
-  }, []); */
+  const normalizedHexes = useMemo(() => {
+    if (!data?.map?.length) return [];
 
-  const minQ = Math.min(...map.map((hex) => hex.q));
-  const minR = Math.min(...map.map((hex) => hex.r));
+    const minQ = Math.min(...data.map.map((hex: any) => hex.q));
+    const minR = Math.min(...data.map.map((hex: any) => hex.r));
 
-  // 2. Нормализуем координаты (сдвигаем к (0,0))
-  const normalizedHexes = useMemo(
-    () =>
-      map.map((hex) => ({
-        ...hex,
-        q: hex.q - minQ, // Сдвигаем q
-        r: hex.r - minR, // Сдвигаем r
-        rq: hex.q,
-        rr: hex.r,
-      })),
-    [minQ, minR]
-  );
-  /*  */
+    return data.map.map((hex: any) => ({
+      ...hex,
+      q: hex.q - minQ,
+      r: hex.r - minR,
+      rq: hex.q,
+      rr: hex.r,
+    }));
+  }, [data]);
 
-  const getHexContent = (q: number, r: number) => {
-    const originalQ = q;
-    const originalR = r;
-
-    const hexAnts = ants.filter((a) => a.q === originalQ && a.r === originalR);
-    const hexEnemies = enemies.filter(
-      (e) => e.q === originalQ && e.r === originalR
-    );
-    const hexFood = food.filter((f) => f.q === originalQ && f.r === originalR);
-    const hexHome = home.filter((h) => {
-      return h.q === originalQ && h.r === originalR;
-    });
-
-    const antTypes = {
-      type1: hexAnts.filter((a) => a.type === 0).length,
-      type2: hexAnts.filter((a) => a.type === 1).length,
-      type3: hexAnts.filter((a) => a.type === 2).length,
-    };
-
-    return {
-      hasAnts: hexAnts.length > 0,
-      antsCount: hexAnts.length,
-      hasEnemies: hexEnemies.length > 0,
-      enemiesCount: hexEnemies.length,
-      hasFood: hexFood.length > 0,
-      foodCount: hexFood.length,
-      hasHome: hexHome.length > 0,
-      homeCount: hexHome.length,
-      hasType1: antTypes.type1 > 0,
-      hasType2: antTypes.type2 > 0,
-      hasType3: antTypes.type3 > 0,
-      antTypes,
-      totalCount:
-        hexAnts.length + hexEnemies.length + hexFood.length + hexHome.length,
-    };
-  };
-
-  const getHexStyle = (type: number, q: number, r: number) => {
-    const content = getHexContent(q, r);
-    let baseColor = getColorByType(type);
-
-    const stroke = "#000000ff";
-    const strokeWidth = 0.1;
-
-    if (content.hasHome) {
-      baseColor = "#000000ff"; // синий - база
-    }
-
-    return {
-      fill: baseColor,
-      stroke,
-      strokeWidth,
-    };
-  };
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <UncontrolledReactSVGPanZoom
       width={window.innerWidth}
       height={window.innerHeight}
     >
-      <svg
-        width={window.innerWidth}
-        height={window.innerHeight}
-      >
+      <svg width={window.innerWidth} height={window.innerHeight}>
         <HexGrid width={window.innerWidth / 2} height={window.innerHeight / 2}>
-          <Layout
-            size={{ x: 3, y: 3 }}
-            flat={false}
-            origin={{ x: 0, y: 0 }}
-          >
-            {normalizedHexes.map(({ q, r, rq, rr, type }) => {
-              const hexStyle = getHexStyle(type, rq, rr);
-               const content = getHexContent(rq, rr); // если нужно что то достать
-
-              return (
-                <Hexagon
-                  key={`${q},${r}`}
-                  q={q}
-                  r={r}
-                  s={-q - r}
-                  className="custom-hex"
-                  style={hexStyle}
-                >
-                  {content.hasType1 && (
-                    <AntWorkerIcon
-                      className="triangle"
-                      size={3} // Размер иконки
-                    />
-                  )}
-                  {content.hasType2 && (
-                    <AntFighterIcon
-                      className="triangle"
-                      size={3} // Размер иконки
-                    />
-                  )}
-                  {content.hasType3 && (
-                    <AntDetectiveIcon
-                      className="triangle"
-                      size={3} // Размер иконки
-                    />
-                  )}
-                  {content.hasEnemies && (
-                    <EnemyIcon
-                      className="triangle"
-                      size={3} // Размер иконки
-                    />
-                  )}
-                  {content.hasFood && (
-                    <PizzaIcon
-                      className="triangle"
-                      size={3} // Размер иконки
-                    />
-                  )}
-                  {content.hasEnemies && (
-                    <EnemyIcon
-                      className="triangle"
-                      size={3} // Размер иконки
-                    />
-                  )}
-                  <text
-                    x="0"
-                    y="0"
-                    textAnchor="middle"
-                    alignmentBaseline="central"
-                    fill={"#000"}
-                    fontSize="0.1"
-                    dominantBaseline="middle"
-                  ></text>
-                </Hexagon>
-              );
-            })}
+          <Layout size={{ x: 3, y: 3 }} flat={false} origin={{ x: 0, y: 0 }}>
+            {normalizedHexes.map(({ q, r, rq, rr, type }) => (
+              <MemoizedHexagon
+                key={`${q}-${r}-${type}`}
+                q={q}
+                r={r}
+                type={type}
+                rq={rq}
+                rr={rr}
+                data={data}
+              />
+            ))}
           </Layout>
         </HexGrid>
       </svg>
@@ -196,12 +197,13 @@ function App() {
 
 function getColorByType(type: number) {
   const colors: Record<string, string> = {
-    "1": "#8204a9ff", // муравейник
-    "2": "#ffffffff", // пустой
-    "3": "#e1c79bff", // грязь
-    "4": "#a5f5f1ff", // кислота
-    "5": "#cdcdcdff", // камни
+    "1": "#8204a9ff",
+    "2": "#ffffffff",
+    "3": "#e1c79bff",
+    "4": "#a5f5f1ff",
+    "5": "#cdcdcdff",
   };
   return colors[type.toString()] || "#dddddd";
 }
+
 export default App;
