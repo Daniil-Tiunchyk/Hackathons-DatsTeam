@@ -15,9 +15,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class GameService {
 
-    private static final int REGISTRATION_RETRY_DELAY_SECONDS = 5;
-    private static final int ERROR_RETRY_DELAY_SECONDS = 2;
-    private static final long MINIMUM_REQUEST_INTERVAL_MS = 350;
+    private static final int REGISTRATION_RETRY_DELAY_SECONDS = 1;
+    private static final int ERROR_RETRY_DELAY_SECONDS = 1;
+    private static final long MINIMUM_REQUEST_INTERVAL_MS = 500;
 
     private final DatsPulseApiClient apiClient;
     private final ConsoleDisplay consoleDisplay;
@@ -88,7 +88,7 @@ public class GameService {
         long apiWaitMillis = (long) (secondsToNextTurn * 1000);
         long processingTime = System.currentTimeMillis() - turnStartTime;
         long timeToWait = Math.max(0, apiWaitMillis - processingTime);
-        long sleepMillis = MINIMUM_REQUEST_INTERVAL_MS;
+        long sleepMillis = Math.max(MINIMUM_REQUEST_INTERVAL_MS, timeToWait);
 
         TimeUnit.MILLISECONDS.sleep(sleepMillis);
     }

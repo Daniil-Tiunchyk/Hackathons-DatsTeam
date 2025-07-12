@@ -7,7 +7,6 @@ import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,7 @@ public final class StrategyHelper {
         List<Hex> truncatedPath = truncatePathByMovementPoints(path, movementLimit, hexCosts);
         if (truncatedPath.isEmpty()) return Optional.empty();
 
-        Hex finalDestination = truncatedPath.get(truncatedPath.size() - 1);
+        Hex finalDestination = truncatedPath.getLast();
         if (isUnsafeFinalDestination(finalDestination, ant, hexTypes)) {
             return Optional.empty();
         }
@@ -49,13 +48,17 @@ public final class StrategyHelper {
     }
 
     /**
-     * Собирает полный набор препятствий для заданного юнита.
-     * Препятствием считается любой другой дружественный юнит, враг или непроходимый гекс.
-     *
-     * @param ant   Юнит, для которого определяются препятствия.
-     * @param state Текущее состояние арены.
-     * @return Множество всех непроходимых гексов.
+     * Создает команду на один шаг в сторону от текущей позиции, чтобы освободить место.
+     * Целью выбирается ближайший свободный гекс, не являющийся частью улья.
      */
+    public static Optional<MoveCommandDto> createMoveAsideCommand(ArenaStateDto.AntDto ant, ArenaStateDto state, Set<Hex> homeHexes) {
+        Set<Hex> obstacles = getObstaclesFor(ant, state);
+        return new Hex(ant.q(), ant.r()).getNeighbors().stream()
+                .filter(neighbor -> !obstacles.contains(neighbor) && !homeHexes.contains(neighbor))
+                .findAny()
+                .map(target -> new MoveCommandDto(ant.id(), List.of(target)));
+    }
+
     public static Set<Hex> getObstaclesFor(ArenaStateDto.AntDto ant, ArenaStateDto state) {
         Set<Hex> obstacles = new HashSet<>();
         state.enemies().forEach(e -> obstacles.add(new Hex(e.q(), e.r())));
@@ -98,10 +101,6 @@ public final class StrategyHelper {
 
     public static boolean isCarryingFood(ArenaStateDto.AntDto ant) {
         return ant.food() != null && ant.food().amount() > 0;
-    }
-
-    public static Optional<Hex> findClosestHomeHex(Hex from, List<Hex> homeHexes) {
-        return homeHexes.stream().min(Comparator.comparingInt(from::distanceTo));
     }
 
     public static Map<Hex, Integer> getHexCosts(ArenaStateDto state) {

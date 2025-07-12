@@ -16,10 +16,9 @@ import java.util.stream.Collectors;
  * Реализует {@link AntStrategy} для юнитов-рабочих.
  * <p>
  * Применяет интеллектуальную, иерархическую логику для каждого рабочего.
+ * Глобальные правила (как освобождение улья) применяются в StrategyService.
  * <ol>
- *     <li><b>Оценка Рисков:</b> Определяются "запретные зоны" вокруг вражеских ульев.</li>
- *     <li><b>Управление Грузом:</b> Если несет >70% груза, возвращается. Если <70%, ищет еще ресурсы ТОГО ЖЕ ТИПА, избегая опасных зон.</li>
- *     <li><b>Освобождение Улья:</b> Отходит от базы, если стоит на ней без дела.</li>
+ *     <li><b>Управление Грузом:</b> Если несет >70% груза, возвращается. Если <70%, ищет еще ресурсы ТОГО ЖЕ ТИПА.</li>
  *     <li><b>Приоритетный Сбор:</b> Ищет наиболее "ценный" ресурс вне опасных зон и направляется к нему.</li>
  *     <li><b>Исследование:</b> Если задач нет, отправляется в "сумеречную зону" для поиска новых ресурсов.</li>
  * </ol>
@@ -45,6 +44,9 @@ public class WorkerStrategy implements AntStrategy {
         Set<Hex> dangerZones = getEnemyAnthillDangerZones(state);
 
         for (ArenaStateDto.AntDto worker : workers) {
+            // Рабочий, стоящий на базе или несущий еду, управляется глобальными правилами в StrategyService
+            // или своей логикой возврата, поэтому здесь мы его можем пропустить, если он подпадает под эти условия.
+            // Однако, чтобы не усложнять, оставляем полную логику, т.к. StrategyService ее переопределит.
             decideActionFor(worker, state, claimedFoodHexes, dangerZones).ifPresent(command -> {
                 commands.add(command);
                 if (command.path() != null && !command.path().isEmpty()) {
@@ -59,7 +61,7 @@ public class WorkerStrategy implements AntStrategy {
     }
 
     private Optional<MoveCommandDto> decideActionFor(ArenaStateDto.AntDto worker, ArenaStateDto state, Set<Hex> claimedFood, Set<Hex> dangerZones) {
-        if (isCarryingFood(worker)) {
+        if (StrategyHelper.isCarryingFood(worker)) {
             UnitType type = UnitType.fromApiId(worker.type());
             if ((double) worker.food().amount() / type.getCapacity() >= RETURN_HOME_CAPACITY_THRESHOLD) {
                 return createReturnHomeCommand(worker, state);
@@ -68,10 +70,7 @@ public class WorkerStrategy implements AntStrategy {
             }
         }
 
-        if (Set.copyOf(state.home()).contains(new Hex(worker.q(), worker.r()))) {
-            return createMoveAsideCommand(worker, state, Set.copyOf(state.home()));
-        }
-
+        // Логика освобождения улья теперь глобальная, но поиск еды и исследование остаются
         return findAndGoToBestFood(worker, state, claimedFood, dangerZones)
                 .or(() -> createExploreCommand(worker, state));
     }
@@ -113,29 +112,21 @@ public class WorkerStrategy implements AntStrategy {
         if (state.enemies() == null) return dangerZones;
 
         Map<Hex, HexType> mapTypes = state.map().stream()
-                .collect(Collectors.toMap(c -> new Hex(c.q(), c.r()), c -> HexType.fromApiId(c.type())));
+                .collect(Collectors.toMap(c -> new Hex(c.q(), c.r()), c -> HexType.fromApiId(c.type()), (a, b) -> a));
 
-        for (ArenaStateDto.EnemyDto enemy : state.enemies()) {
-            Hex enemyHex = new Hex(enemy.q(), enemy.r());
-            if (mapTypes.get(enemyHex) == HexType.ANTHILL) {
-                dangerZones.addAll(getHexesInRange(enemyHex, ENEMY_ANTHILL_DANGER_RADIUS));
+        for (ArenaStateDto.MapCellDto cell : state.map()) {
+            if (HexType.fromApiId(cell.type()) == HexType.ANTHILL) {
+                if (state.enemies().stream().anyMatch(e -> e.q() == cell.q() && e.r() == cell.r())) {
+                    dangerZones.addAll(getHexesInRange(new Hex(cell.q(), cell.r()), ENEMY_ANTHILL_DANGER_RADIUS));
+                }
             }
         }
         return dangerZones;
     }
 
-
     private Optional<MoveCommandDto> createReturnHomeCommand(ArenaStateDto.AntDto worker, ArenaStateDto state) {
         return findClosestHomeHex(new Hex(worker.q(), worker.r()), state.home())
                 .flatMap(target -> StrategyHelper.createPathCommand(worker, target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state)));
-    }
-
-    private Optional<MoveCommandDto> createMoveAsideCommand(ArenaStateDto.AntDto worker, ArenaStateDto state, Set<Hex> homeHexes) {
-        Set<Hex> obstacles = StrategyHelper.getObstaclesFor(worker, state);
-        return new Hex(worker.q(), worker.r()).getNeighbors().stream()
-                .filter(neighbor -> !obstacles.contains(neighbor) && !homeHexes.contains(neighbor))
-                .findAny()
-                .map(target -> new MoveCommandDto(worker.id(), List.of(target)));
     }
 
     private Optional<MoveCommandDto> createExploreCommand(ArenaStateDto.AntDto worker, ArenaStateDto state) {
@@ -179,10 +170,6 @@ public class WorkerStrategy implements AntStrategy {
             }
         }
         return results;
-    }
-
-    private boolean isCarryingFood(ArenaStateDto.AntDto ant) {
-        return ant.food() != null && ant.food().amount() > 0;
     }
 
     private Optional<Hex> findClosestHomeHex(Hex from, List<Hex> homeHexes) {
