@@ -36,10 +36,17 @@ public class StrategyService {
         Map<Hex, Integer> hexCosts = state.map().stream()
                 .collect(Collectors.toMap(cell -> new Hex(cell.q(), cell.r()), ArenaStateDto.MapCellDto::cost));
 
+        Map<Hex, HexType> hexTypes = state.map().stream()
+                .collect(Collectors.toMap(
+                        cell -> new Hex(cell.q(), cell.r()),
+                        cell -> HexType.fromApiId(cell.type()),
+                        (existing, replacement) -> existing // В случае дубликатов
+                ));
+
         // 1. Приоритет: муравьи с едой должны вернуться домой
         for (ArenaStateDto.AntDto ant : state.ants()) {
             if (isCarryingFood(ant)) {
-                tryToReturnHome(ant, state, hexCosts).ifPresent(command -> {
+                tryToReturnHome(ant, state, hexCosts, hexTypes).ifPresent(command -> {
                     commands.add(command);
                     assignedAnts.add(ant.id());
                 });
@@ -50,7 +57,7 @@ public class StrategyService {
         for (ArenaStateDto.AntDto ant : state.ants()) {
             if (assignedAnts.contains(ant.id())) continue;
 
-            tryToCollectFood(ant, state, hexCosts, assignedFoodTargets).ifPresent(command -> {
+            tryToCollectFood(ant, state, hexCosts, hexTypes, assignedFoodTargets).ifPresent(command -> {
                 commands.add(command);
                 assignedAnts.add(ant.id());
                 // Резервируем цель, чтобы другие муравьи за ней не пошли
@@ -74,16 +81,16 @@ public class StrategyService {
         return commands;
     }
 
-    private Optional<MoveCommandDto> tryToReturnHome(ArenaStateDto.AntDto ant, ArenaStateDto state, Map<Hex, Integer> hexCosts) {
+    private Optional<MoveCommandDto> tryToReturnHome(ArenaStateDto.AntDto ant, ArenaStateDto state, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes) {
         Hex antHex = new Hex(ant.q(), ant.r());
         return findClosestHomeHex(antHex, state.home())
-                .flatMap(target -> createPathCommand(ant, target, state, hexCosts));
+                .flatMap(target -> createPathCommand(ant, target, state, hexCosts, hexTypes));
     }
 
-    private Optional<MoveCommandDto> tryToCollectFood(ArenaStateDto.AntDto ant, ArenaStateDto state, Map<Hex, Integer> hexCosts, Set<Hex> assignedTargets) {
+    private Optional<MoveCommandDto> tryToCollectFood(ArenaStateDto.AntDto ant, ArenaStateDto state, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes, Set<Hex> assignedTargets) {
         Hex antHex = new Hex(ant.q(), ant.r());
         return findClosestAvailableFood(antHex, state.food(), assignedTargets)
-                .flatMap(target -> createPathCommand(ant, target, state, hexCosts));
+                .flatMap(target -> createPathCommand(ant, target, state, hexCosts, hexTypes));
     }
 
     private Optional<MoveCommandDto> tryToMoveAside(ArenaStateDto.AntDto ant, ArenaStateDto state, Map<Hex, Integer> hexCosts) {
@@ -106,20 +113,30 @@ public class StrategyService {
                 });
     }
 
-    private Optional<MoveCommandDto> createPathCommand(ArenaStateDto.AntDto ant, Hex target, ArenaStateDto state, Map<Hex, Integer> hexCosts) {
+    private Optional<MoveCommandDto> createPathCommand(ArenaStateDto.AntDto ant, Hex target, ArenaStateDto state, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes) {
         Hex start = new Hex(ant.q(), ant.r());
         Set<Hex> obstacles = getObstaclesFor(ant, state);
 
         List<Hex> path = pathfinder.findPath(start, target, hexCosts, obstacles);
 
-        if (!path.isEmpty()) {
-            UnitType unitType = UnitType.fromApiId(ant.type());
-            List<Hex> truncatedPath = truncatePathByMovementPoints(path, unitType.getSpeed(), hexCosts);
-            if (!truncatedPath.isEmpty()) {
-                return Optional.of(new MoveCommandDto(ant.id(), truncatedPath));
-            }
+        if (path.isEmpty()) {
+            return Optional.empty();
         }
-        return Optional.empty();
+
+        UnitType unitType = UnitType.fromApiId(ant.type());
+        List<Hex> truncatedPath = truncatePathByMovementPoints(path, unitType.getSpeed(), hexCosts);
+
+        if (truncatedPath.isEmpty()) {
+            return Optional.empty();
+        }
+
+        // Валидация конечной точки пути.
+        Hex finalDestination = truncatedPath.getLast();
+        if (isUnsafeFinalDestination(finalDestination, ant, hexTypes)) {
+            return Optional.empty(); // Путь ведет в опасное место, отменяем команду.
+        }
+
+        return Optional.of(new MoveCommandDto(ant.id(), truncatedPath));
     }
 
     private Set<Hex> getObstaclesFor(ArenaStateDto.AntDto ant, ArenaStateDto state) {
@@ -130,27 +147,23 @@ public class StrategyService {
         state.ants().stream()
                 .filter(other -> other.type() == ant.type() && !other.id().equals(ant.id()))
                 .forEach(other -> obstacles.add(new Hex(other.q(), other.r())));
+        // Непроходимые гексы (камни)
+        state.map().stream()
+                .filter(cell -> HexType.fromApiId(cell.type()).isImpassable())
+                .forEach(cell -> obstacles.add(new Hex(cell.q(), cell.r())));
 
-        // Непроходимые и опасные гексы
-        for (ArenaStateDto.MapCellDto cell : state.map()) {
-            try {
-                HexType hexType = HexType.fromApiId(cell.type());
-                Hex cellHex = new Hex(cell.q(), cell.r());
-
-                // Правило 1: Камни - непроходимы для всех
-                if (hexType.isImpassable()) {
-                    obstacles.add(cellHex);
-                }
-
-                // Правило 2: Кислота - смертельна для раненых муравьев
-                // Считаем кислоту препятствием, если она убьет юнита
-                if (hexType == HexType.ACID && ant.health() <= hexType.getDamage()) {
-                    obstacles.add(cellHex);
-                }
-            } catch (IllegalArgumentException ignored) {
-            }
-        }
         return obstacles;
+    }
+
+    private boolean isUnsafeFinalDestination(Hex destination, ArenaStateDto.AntDto ant, Map<Hex, HexType> hexTypes) {
+        HexType destinationType = hexTypes.get(destination);
+
+        // Считаем кислоту препятствием, если она убьет юнита
+        if (destinationType == HexType.ACID) {
+            return ant.health() <= destinationType.getDamage();
+        }
+
+        return false;
     }
 
     private List<Hex> truncatePathByMovementPoints(List<Hex> path, int maxPoints, Map<Hex, Integer> hexCosts) {
