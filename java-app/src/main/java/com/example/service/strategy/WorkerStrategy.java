@@ -14,12 +14,14 @@ import java.util.stream.Collectors;
 /**
  * Реализует {@link AntStrategy} для юнитов-рабочих.
  * <p>
- * Применяет интеллектуальную, двухуровневую логику:
+ * Этот класс полностью инкапсулирует всю логику поведения рабочих,
+ * следуя строгой иерархии приоритетов.
  * <ol>
- *     <li><b>Сбор ресурсов:</b> Назначает свободных рабочих на сбор ближайшей видимой еды.</li>
- *     <li><b>Активное исследование:</b> Рабочие, не занятые сбором, отправляются в
- *     "сумеречную зону" - известные, но невидимые в данный момент участки карты.
- *     Это позволяет целенаправленно расширять обзор для поиска новых ресурсов.</li>
+ *     <li><b>Возврат Ресурсов:</b> Рабочий с едой всегда движется к ближайшему гексу улья.</li>
+ *     <li><b>Освобождение Улья:</b> Рабочий без еды на гексе улья немедленно отходит в сторону.</li>
+ *     <li><b>Сбор Ресурсов:</b> Свободный рабочий ищет и направляется к ближайшей видимой еде.</li>
+ *     <li><b>Активное Исследование:</b> Если задач выше нет, рабочий отправляется в "сумеречную зону"
+ *     (известные, но невидимые участки карты) для поиска новых ресурсов.</li>
  * </ol>
  */
 public class WorkerStrategy implements AntStrategy {
@@ -35,27 +37,40 @@ public class WorkerStrategy implements AntStrategy {
 
     @Override
     public List<MoveCommandDto> decideMoves(List<ArenaStateDto.AntDto> workers, ArenaStateDto state) {
-        List<MoveCommandDto> commands = new ArrayList<>();
         if (workers.isEmpty()) {
-            return commands;
+            return Collections.emptyList();
         }
 
+        List<MoveCommandDto> commands = new ArrayList<>();
+        Set<String> assignedWorkerIds = new HashSet<>();
+
+        // Приоритет 1 и 2: Возврат с едой и освобождение улья.
+        for (ArenaStateDto.AntDto worker : workers) {
+            handleHighPriorityTasks(worker, state).ifPresent(command -> {
+                commands.add(command);
+                assignedWorkerIds.add(worker.id());
+            });
+        }
+
+        List<ArenaStateDto.AntDto> availableWorkers = workers.stream()
+                .filter(w -> !assignedWorkerIds.contains(w.id()))
+                .collect(Collectors.toList());
+
+        // Приоритет 3: Сбор видимой еды.
         Set<Hex> homeHexes = Set.copyOf(state.home());
         List<ArenaStateDto.FoodDto> collectibleFood = state.food().stream()
                 .filter(food -> !homeHexes.contains(new Hex(food.q(), food.r())))
                 .toList();
 
-        List<FoodAssignment> assignments = createOptimalAssignments(workers, collectibleFood);
-        Set<String> assignedWorkerIds = assignments.stream()
-                .map(assignment -> assignment.worker().id())
-                .collect(Collectors.toSet());
-
-        for (FoodAssignment assignment : assignments) {
+        List<FoodAssignment> foodAssignments = createOptimalAssignments(availableWorkers, collectibleFood);
+        for (FoodAssignment assignment : foodAssignments) {
             Hex target = new Hex(assignment.food().q(), assignment.food().r());
             StrategyHelper.createPathCommand(assignment.worker(), target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state))
                     .ifPresent(commands::add);
+            assignedWorkerIds.add(assignment.worker().id());
         }
 
+        // Приоритет 4: Исследование.
         workers.stream()
                 .filter(worker -> !assignedWorkerIds.contains(worker.id()))
                 .forEach(idleWorker -> createExploreCommand(idleWorker, state).ifPresent(commands::add));
@@ -63,14 +78,29 @@ public class WorkerStrategy implements AntStrategy {
         return commands;
     }
 
-    /**
-     * Создает команду для бездействующего рабочего на исследование "сумеречной зоны".
-     * Целью выбирается ближайший к рабочему безопасный гекс, который известен, но не виден в данный момент.
-     *
-     * @param worker Бездействующий рабочий.
-     * @param state  Полное состояние мира.
-     * @return {@link Optional} с командой на исследование или пустой, если исследовать нечего.
-     */
+    private Optional<MoveCommandDto> handleHighPriorityTasks(ArenaStateDto.AntDto worker, ArenaStateDto state) {
+        Set<Hex> homeHexes = Set.copyOf(state.home());
+
+        if (isCarryingFood(worker)) {
+            return findClosestHomeHex(new Hex(worker.q(), worker.r()), new ArrayList<>(homeHexes))
+                    .flatMap(target -> StrategyHelper.createPathCommand(worker, target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state)));
+        }
+
+        if (homeHexes.contains(new Hex(worker.q(), worker.r()))) {
+            return createMoveAsideCommand(worker, state, homeHexes);
+        }
+
+        return Optional.empty();
+    }
+
+    private Optional<MoveCommandDto> createMoveAsideCommand(ArenaStateDto.AntDto worker, ArenaStateDto state, Set<Hex> homeHexes) {
+        Set<Hex> obstacles = StrategyHelper.getObstaclesFor(worker, state);
+        return new Hex(worker.q(), worker.r()).getNeighbors().stream()
+                .filter(neighbor -> !obstacles.contains(neighbor) && !homeHexes.contains(neighbor))
+                .findAny()
+                .map(target -> new MoveCommandDto(worker.id(), List.of(target)));
+    }
+
     private Optional<MoveCommandDto> createExploreCommand(ArenaStateDto.AntDto worker, ArenaStateDto state) {
         Set<Hex> visibleHexes = calculateCurrentlyVisibleHexes(state);
         Set<Hex> knownHexes = state.map().stream()
@@ -97,9 +127,6 @@ public class WorkerStrategy implements AntStrategy {
                 .flatMap(target -> StrategyHelper.createPathCommand(worker, target, state, pathfinder, StrategyHelper.getHexCosts(state), hexTypes));
     }
 
-    /**
-     * Рассчитывает полное множество всех гексов, видимых нашими юнитами в данный момент.
-     */
     private Set<Hex> calculateCurrentlyVisibleHexes(ArenaStateDto state) {
         Set<Hex> visibleHexes = new HashSet<>();
         for (ArenaStateDto.AntDto ant : state.ants()) {
@@ -107,14 +134,11 @@ public class WorkerStrategy implements AntStrategy {
             visibleHexes.addAll(getHexesInRange(new Hex(ant.q(), ant.r()), type.getVision()));
         }
         if (state.spot() != null) {
-            visibleHexes.addAll(getHexesInRange(state.spot(), 2)); // Обзор основного гекса улья
+            visibleHexes.addAll(getHexesInRange(state.spot(), 2));
         }
         return visibleHexes;
     }
 
-    /**
-     * Возвращает все гексы в заданном радиусе от центра, включая сам центр.
-     */
     private Set<Hex> getHexesInRange(Hex center, int radius) {
         Set<Hex> results = new HashSet<>();
         for (int q = -radius; q <= radius; q++) {
@@ -145,5 +169,13 @@ public class WorkerStrategy implements AntStrategy {
                     });
         }
         return assignments;
+    }
+
+    private boolean isCarryingFood(ArenaStateDto.AntDto ant) {
+        return ant.food() != null && ant.food().amount() > 0;
+    }
+
+    private Optional<Hex> findClosestHomeHex(Hex from, List<Hex> homeHexes) {
+        return homeHexes.stream().min(Comparator.comparingInt(from::distanceTo));
     }
 }
