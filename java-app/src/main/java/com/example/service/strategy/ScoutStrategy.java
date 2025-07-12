@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  */
 public class ScoutStrategy implements AntStrategy {
 
-    private static final int PATROL_RADIUS = 7;
+    private static final int PATROL_RADIUS = 20;
     private static final int CLEARANCE_RADIUS = 2;
     private static final int MAX_SEARCH_DEPTH_FOR_AVAILABLE_HEX = 5;
 

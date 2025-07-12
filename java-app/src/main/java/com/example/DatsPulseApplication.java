@@ -1,12 +1,11 @@
 package com.example;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.example.client.DatsPulseApiClient;
 import com.example.client.HttpDatsPulseApiClient;
 import com.example.config.GameConfig;
-import com.example.service.GameService;
-import com.example.service.Pathfinder;
-import com.example.service.StrategyProvider;
-import com.example.service.StrategyService;
+import com.example.service.*;
 import com.example.ui.ConsoleDisplay;
 
 /**
@@ -19,19 +18,20 @@ public class DatsPulseApplication {
         try {
             System.out.println("Запуск клиента DatsPulse...");
 
-            // --- Уровень Конфигурации и Инфраструктуры ---
+            // Создаем единый, настроенный экземпляр Gson для всего приложения.
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
             GameConfig config = new GameConfig();
-            DatsPulseApiClient apiClient = new HttpDatsPulseApiClient(config);
-
-            // --- Уровень Представления (UI) ---
+            // Передаем Gson в API клиент.
+            DatsPulseApiClient apiClient = new HttpDatsPulseApiClient(config, gson);
             ConsoleDisplay consoleDisplay = new ConsoleDisplay();
+            MapStateService mapStateService = new MapStateService();
 
-            // --- Уровень Бизнес-логики ---
             Pathfinder pathfinder = new Pathfinder();
-            // --- Сборка и Запуск ---
             StrategyProvider strategyProvider = new StrategyProvider(pathfinder);
             StrategyService strategyService = new StrategyService(strategyProvider, pathfinder);
-            GameService gameService = new GameService(apiClient, consoleDisplay, strategyService);
+            // Передаем все зависимости, включая Gson, в GameService.
+            GameService gameService = new GameService(apiClient, consoleDisplay, strategyService, mapStateService, gson);
 
             System.out.println("Клиент запущен. Вступаем в игру...");
             gameService.run();

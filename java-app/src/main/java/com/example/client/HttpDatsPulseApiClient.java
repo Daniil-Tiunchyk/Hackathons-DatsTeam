@@ -31,13 +31,13 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
     private final HttpClient httpClient;
     private final Gson gson;
 
-    public HttpDatsPulseApiClient(GameConfig config) {
+    public HttpDatsPulseApiClient(GameConfig config, Gson gson) { // Принимаем Gson извне
         this.config = config;
         this.httpClient = HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
                 .connectTimeout(Duration.ofSeconds(10))
                 .build();
-        this.gson = new Gson();
+        this.gson = gson; // Используем предоставленный экземпляр
     }
 
     @Override
@@ -111,6 +111,7 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
                 rawState.food().stream().map(this::convertFoodToAxial).collect(Collectors.toList()),
                 rawState.home().stream().map(CoordinateConverter::oddrToAxial).collect(Collectors.toList()),
                 rawState.map().stream().map(this::convertMapCellToAxial).collect(Collectors.toList()),
+                null,
                 rawState.nextTurnIn(),
                 rawState.score(),
                 CoordinateConverter.oddrToAxial(rawState.spot()),
