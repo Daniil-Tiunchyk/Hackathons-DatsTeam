@@ -97,7 +97,9 @@ const MemoizedHexagon = ({
         fill={"#000"}
         fontSize="0.1"
         dominantBaseline="middle"
-      ></text>
+      >
+        <tspan x="0" dy="-0.2">{`${rq};${rr}`}</tspan>
+      </text>
     </Hexagon>
   );
 };
