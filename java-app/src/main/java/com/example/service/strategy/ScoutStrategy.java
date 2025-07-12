@@ -13,22 +13,24 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * Реализация {@link AntStrategy} для юнитов-разведчиков.
  * <p>
+ * Стратегия детерминированно распределяет всех разведчиков по равномерному
+ * гексагональному кольцу вокруг центра базы. Это обеспечивает стабильный
+ * и максимально эффективный периметр обзора.
+ * <p>
  * Логика основана на строгой иерархии приоритетов:
- * 1. Выживание: При обнаружении угрозы разведчик отступает.
- * 2. Удержание позиции: Если текущая позиция оптимальна, разведчик остается на месте.
- * 3. Исследование: Поиск новой точки для обзора, максимизируя покрытие и минимизируя пересечение с другими разведчиками.
+ * 1. Выживание: При угрозе разведчик отступает.
+ * 2. Движение к посту и удержание: Каждый разведчик движется к своей, персонально
+ * назначенной точке на периметре и удерживает ее.
  */
 public class ScoutStrategy implements AntStrategy {
 
     private static final int THREAT_RADIUS_BUFFER = 2;
-    private static final int MIN_SCOUT_SEPARATION = 5;
-    private static final int MIN_EXPLORE_DISTANCE_FROM_HOME = 8;
-    private static final int TARGET_RING_RADIUS = 15;
+    private static final int TARGET_RADIUS = 5;
+    private static final int HOLD_POSITION_THRESHOLD = 2;
 
     private final Pathfinder pathfinder;
 
@@ -37,42 +39,84 @@ public class ScoutStrategy implements AntStrategy {
     }
 
     @Override
-    public List<MoveCommandDto> decideMoves(List<ArenaStateDto.AntDto> scouts, ArenaStateDto state) {
+    public List<MoveCommandDto> decideMoves(List<ArenaStateDto.AntDto> allScouts, ArenaStateDto state) {
         List<MoveCommandDto> commands = new ArrayList<>();
-        if (scouts.isEmpty()) {
+        if (allScouts.isEmpty()) {
             return commands;
         }
 
         Map<Hex, Integer> hexCosts = StrategyHelper.getHexCosts(state);
         Map<Hex, HexType> hexTypes = StrategyHelper.getHexTypes(state);
-        List<ArenaStateDto.AntDto> allScouts = state.ants().stream()
-                .filter(a -> a.type() == UnitType.SCOUT.getApiId())
+
+        List<ArenaStateDto.AntDto> sortedScouts = allScouts.stream()
+                .sorted(Comparator.comparing(ArenaStateDto.AntDto::id))
                 .toList();
 
-        for (ArenaStateDto.AntDto scout : scouts) {
+        Hex baseCenter = calculateCenterOfHome(state.home());
+        List<Hex> perimeterPoints = generateRing(baseCenter, TARGET_RADIUS);
+        if (perimeterPoints.isEmpty()) {
+            return commands;
+        }
+
+        for (ArenaStateDto.AntDto scout : sortedScouts) {
             Hex currentHex = new Hex(scout.q(), scout.r());
 
-            // Приоритет 1: Выживание
             Optional<MoveCommandDto> fleeCommand = createFleeCommand(scout, state, hexCosts, hexTypes);
             if (fleeCommand.isPresent()) {
                 commands.add(fleeCommand.get());
                 continue;
             }
 
-            // Приоритет 2: Удержание позиции
-            int distanceToHome = currentHex.distanceTo(state.spot());
-            int distanceToNearestScout = getDistanceToNearestScout(currentHex, scout.id(), allScouts);
+            int scoutIndex = findScoutIndex(scout, sortedScouts);
+            if (scoutIndex == -1) continue;
 
-            if (distanceToHome > MIN_EXPLORE_DISTANCE_FROM_HOME && distanceToNearestScout > MIN_SCOUT_SEPARATION) {
+            int targetPointIndex = (scoutIndex * perimeterPoints.size()) / sortedScouts.size();
+            Hex idealTarget = perimeterPoints.get(targetPointIndex);
+
+            if (currentHex.distanceTo(idealTarget) <= HOLD_POSITION_THRESHOLD) {
                 continue;
             }
 
-            // Приоритет 3: Поиск новой точки обзора
-            Optional<MoveCommandDto> exploreCommand = createExploreCommand(scout, allScouts, state, hexCosts, hexTypes);
-            exploreCommand.ifPresent(commands::add);
+            StrategyHelper.createPathCommand(scout, idealTarget, state, pathfinder, hexCosts, hexTypes)
+                    .ifPresent(commands::add);
         }
-
         return commands;
+    }
+
+    private int findScoutIndex(ArenaStateDto.AntDto scout, List<ArenaStateDto.AntDto> sortedScouts) {
+        for (int i = 0; i < sortedScouts.size(); i++) {
+            if (sortedScouts.get(i).id().equals(scout.id())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private Hex calculateCenterOfHome(List<Hex> homeHexes) {
+        if (homeHexes == null || homeHexes.isEmpty()) {
+            return new Hex(0, 0);
+        }
+        double qSum = homeHexes.stream().mapToDouble(Hex::q).sum();
+        double rSum = homeHexes.stream().mapToDouble(Hex::r).sum();
+        return roundToHex(qSum / homeHexes.size(), rSum / homeHexes.size());
+    }
+
+    private Hex roundToHex(double q, double r) {
+        double s = -q - r;
+        long roundQ = Math.round(q);
+        long roundR = Math.round(r);
+        long roundS = Math.round(s);
+
+        double qDiff = Math.abs(roundQ - q);
+        double rDiff = Math.abs(roundR - r);
+        double sDiff = Math.abs(roundS - s);
+
+        if (qDiff > rDiff && qDiff > sDiff) {
+            roundQ = -roundR - roundS;
+        } else if (rDiff > sDiff) {
+            roundR = -roundQ - roundS;
+        }
+        return new Hex((int) roundQ, (int) roundR);
     }
 
     private Optional<MoveCommandDto> createFleeCommand(ArenaStateDto.AntDto scout, ArenaStateDto state, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes) {
@@ -88,34 +132,10 @@ public class ScoutStrategy implements AntStrategy {
                     }
 
                     Hex fleeVector = new Hex(currentHex.q() - enemyHex.q(), currentHex.r() - enemyHex.r());
-                    Hex target = currentHex.add(fleeVector);
+                    Hex fleeTarget = currentHex.add(new Hex(fleeVector.q() * threatDistance, fleeVector.r() * threatDistance));
 
-                    return StrategyHelper.createPathCommand(scout, target, state, pathfinder, hexCosts, hexTypes);
+                    return StrategyHelper.createPathCommand(scout, fleeTarget, state, pathfinder, hexCosts, hexTypes);
                 });
-    }
-
-    private Optional<MoveCommandDto> createExploreCommand(ArenaStateDto.AntDto scout, List<ArenaStateDto.AntDto> allScouts, ArenaStateDto state, Map<Hex, Integer> hexCosts, Map<Hex, HexType> hexTypes) {
-        Hex homeSpot = state.spot();
-        List<Hex> potentialTargets = generateRing(homeSpot, TARGET_RING_RADIUS);
-
-        return potentialTargets.stream()
-                .map(target -> new ScoredTarget(target, calculateScore(target, homeSpot, scout.id(), allScouts)))
-                .max(Comparator.comparingDouble(ScoredTarget::score))
-                .flatMap(bestTarget -> StrategyHelper.createPathCommand(scout, bestTarget.hex(), state, pathfinder, hexCosts, hexTypes));
-    }
-
-    private double calculateScore(Hex target, Hex homeSpot, String currentScoutId, List<ArenaStateDto.AntDto> allScouts) {
-        int distanceToHome = target.distanceTo(homeSpot);
-        int distanceToNearestScout = getDistanceToNearestScout(target, currentScoutId, allScouts);
-        return distanceToHome + 2.0 * distanceToNearestScout;
-    }
-
-    private int getDistanceToNearestScout(Hex from, String selfId, List<ArenaStateDto.AntDto> allScouts) {
-        return allScouts.stream()
-                .filter(scout -> !scout.id().equals(selfId))
-                .mapToInt(scout -> from.distanceTo(new Hex(scout.q(), scout.r())))
-                .min()
-                .orElse(Integer.MAX_VALUE);
     }
 
     private Optional<ArenaStateDto.EnemyDto> findClosestEnemy(Hex from, List<ArenaStateDto.EnemyDto> enemies) {
@@ -127,15 +147,15 @@ public class ScoutStrategy implements AntStrategy {
         if (radius <= 0) {
             return List.of(center);
         }
-        Hex startHex = center.add(new Hex(radius, -radius));
-        return Stream.iterate(0, i -> i < 6, i -> i + 1)
-                .flatMap(i -> {
-                    Hex direction = new Hex(0, 0).getNeighbors().get(i);
-                    return Stream.iterate(startHex, h -> h.add(direction)).limit(radius);
-                })
-                .toList();
-    }
+        List<Hex> results = new ArrayList<>();
+        Hex current = center.add(new Hex(0, -radius));
 
-    private record ScoredTarget(Hex hex, double score) {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < radius; j++) {
+                results.add(current);
+                current = current.getNeighbors().get((i + 2) % 6);
+            }
+        }
+        return results;
     }
 }
