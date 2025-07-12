@@ -5,6 +5,7 @@ import com.example.client.HttpDatsPulseApiClient;
 import com.example.config.GameConfig;
 import com.example.service.GameService;
 import com.example.service.Pathfinder;
+import com.example.service.StrategyProvider;
 import com.example.service.StrategyService;
 import com.example.ui.ConsoleDisplay;
 
@@ -27,9 +28,9 @@ public class DatsPulseApplication {
 
             // --- Уровень Бизнес-логики ---
             Pathfinder pathfinder = new Pathfinder();
-            StrategyService strategyService = new StrategyService(pathfinder);
-
             // --- Сборка и Запуск ---
+            StrategyProvider strategyProvider = new StrategyProvider(pathfinder);
+            StrategyService strategyService = new StrategyService(strategyProvider, pathfinder);
             GameService gameService = new GameService(apiClient, consoleDisplay, strategyService);
 
             System.out.println("Клиент запущен. Вступаем в игру...");
@@ -37,6 +38,7 @@ public class DatsPulseApplication {
 
         } catch (Exception e) {
             System.err.println("Критическая ошибка при запуске приложения: " + e.getMessage());
+            e.printStackTrace(System.err);
         }
     }
 }
