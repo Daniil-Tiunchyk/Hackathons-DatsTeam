@@ -88,7 +88,7 @@ public class GameService {
         long apiWaitMillis = (long) (secondsToNextTurn * 1000);
         long processingTime = System.currentTimeMillis() - turnStartTime;
         long timeToWait = Math.max(0, apiWaitMillis - processingTime);
-        long sleepMillis = Math.max(MINIMUM_REQUEST_INTERVAL_MS, timeToWait);
+        long sleepMillis = MINIMUM_REQUEST_INTERVAL_MS;
 
         TimeUnit.MILLISECONDS.sleep(sleepMillis);
     }
