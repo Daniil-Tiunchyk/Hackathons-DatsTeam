@@ -1,0 +1,710 @@
+[
+  {
+    "message": "turn 0: new ant spawned Scout",
+    "time": "2025-07-12T07:25:00.092398437Z"
+  },
+  {
+    "message": "turn 0: spawn point at {-30 -20}",
+    "time": "2025-07-12T07:25:00.092399787Z"
+  },
+  {
+    "message": "turn 1: new ant spawned Worker",
+    "time": "2025-07-12T07:25:00.095452836Z"
+  },
+  {
+    "message": "turn 2: ant 8c9cc722-4de7-45a9-ae6b-45420e3c55c1 moved from {-30 -20} to {-30 -21}",
+    "time": "2025-07-12T07:25:02.122470319Z"
+  },
+  {
+    "message": "turn 2: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 moved from {-30 -20} to {-30 -21}",
+    "time": "2025-07-12T07:25:02.122474126Z"
+  },
+  {
+    "message": "turn 2: new ant spawned Worker",
+    "time": "2025-07-12T07:25:02.122480872Z"
+  },
+  {
+    "message": "turn 3: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 moved from {-30 -21} to {-31 -22}",
+    "time": "2025-07-12T07:25:04.123105833Z"
+  },
+  {
+    "message": "turn 3: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 collected 6 Apple at {-31 -22}",
+    "time": "2025-07-12T07:25:04.123113323Z"
+  },
+  {
+    "message": "turn 5: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 moved from {-31 -22} to {-31 -21}",
+    "time": "2025-07-12T07:25:08.128938294Z"
+  },
+  {
+    "message": "turn 5: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 stocked up 6 Apple (60 cal)",
+    "time": "2025-07-12T07:25:08.128943251Z"
+  },
+  {
+    "message": "turn 5: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:25:08.128965747Z"
+  },
+  {
+    "message": "turn 5: new ant spawned Soldier",
+    "time": "2025-07-12T07:25:08.128998221Z"
+  },
+  {
+    "message": "turn 6: new ant spawned Worker",
+    "time": "2025-07-12T07:25:10.126640675Z"
+  },
+  {
+    "message": "turn 7: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-30 -20} to {-29 -20}",
+    "time": "2025-07-12T07:25:12.12595964Z"
+  },
+  {
+    "message": "turn 7: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 moved from {-31 -21} to {-28 -22}",
+    "time": "2025-07-12T07:25:12.1259872Z"
+  },
+  {
+    "message": "turn 7: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 collected 5 Apple at {-28 -22}",
+    "time": "2025-07-12T07:25:12.12599573Z"
+  },
+  {
+    "message": "turn 7: ant a3671534-212b-4ba0-ab04-dfd69f97d6a5 moved from {-30 -20} to {-31 -20}",
+    "time": "2025-07-12T07:25:12.126009467Z"
+  },
+  {
+    "message": "turn 7: new ant spawned Soldier",
+    "time": "2025-07-12T07:25:12.126027617Z"
+  },
+  {
+    "message": "turn 8: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-29 -20} to {-30 -21}",
+    "time": "2025-07-12T07:25:14.124821211Z"
+  },
+  {
+    "message": "turn 8: ant a3671534-212b-4ba0-ab04-dfd69f97d6a5 moved from {-31 -20} to {-31 -19}",
+    "time": "2025-07-12T07:25:14.124844985Z"
+  },
+  {
+    "message": "turn 9: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-30 -21} to {-28 -21}",
+    "time": "2025-07-12T07:25:16.130596579Z"
+  },
+  {
+    "message": "turn 9: ant 19ffd704-a927-43af-b5c6-320e45256d3d collected 8 Bread at {-28 -21}",
+    "time": "2025-07-12T07:25:16.130605866Z"
+  },
+  {
+    "message": "turn 9: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-30 -19} to {-28 -18}",
+    "time": "2025-07-12T07:25:16.130626279Z"
+  },
+  {
+    "message": "turn 9: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c collected 5 Apple at {-28 -18}",
+    "time": "2025-07-12T07:25:16.130634616Z"
+  },
+  {
+    "message": "turn 9: ant 08f2434c-3dbe-4dfd-b6fc-f3c6e9f6e72f moved from {-30 -20} to {-31 -20}",
+    "time": "2025-07-12T07:25:16.13064811Z"
+  },
+  {
+    "message": "turn 9: new ant spawned Worker",
+    "time": "2025-07-12T07:25:16.13066541Z"
+  },
+  {
+    "message": "turn 10: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-28 -21} to {-31 -21}",
+    "time": "2025-07-12T07:25:18.125577777Z"
+  },
+  {
+    "message": "turn 10: ant 19ffd704-a927-43af-b5c6-320e45256d3d stocked up 8 Bread (160 cal)",
+    "time": "2025-07-12T07:25:18.125580672Z"
+  },
+  {
+    "message": "turn 10: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 moved from {-28 -22} to {-30 -25} (dirt on path: 2)",
+    "time": "2025-07-12T07:25:18.125609777Z"
+  },
+  {
+    "message": "turn 10: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 collected 3 Apple at {-30 -25}",
+    "time": "2025-07-12T07:25:18.125616959Z"
+  },
+  {
+    "message": "turn 10: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-30 -20} to {-30 -21}",
+    "time": "2025-07-12T07:25:18.125625839Z"
+  },
+  {
+    "message": "turn 10: new ant spawned Worker",
+    "time": "2025-07-12T07:25:18.125635987Z"
+  },
+  {
+    "message": "turn 11: new ant spawned Soldier",
+    "time": "2025-07-12T07:25:20.128017112Z"
+  },
+  {
+    "message": "turn 12: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:25:22.129372475Z"
+  },
+  {
+    "message": "turn 12: ant e7f1d220-4b03-488b-a132-25b764c8c436 moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:25:22.129386255Z"
+  },
+  {
+    "message": "turn 12: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-28 -18} to {-29 -22}",
+    "time": "2025-07-12T07:25:22.129423272Z"
+  },
+  {
+    "message": "turn 12: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-30 -21} to {-28 -21}",
+    "time": "2025-07-12T07:25:22.129446182Z"
+  },
+  {
+    "message": "turn 12: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae collected 4 Bread at {-28 -21}",
+    "time": "2025-07-12T07:25:22.129453952Z"
+  },
+  {
+    "message": "turn 12: new ant spawned Worker",
+    "time": "2025-07-12T07:25:22.129470958Z"
+  },
+  {
+    "message": "turn 13: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 moved from {-30 -19} to {-32 -22}",
+    "time": "2025-07-12T07:25:24.125981542Z"
+  },
+  {
+    "message": "turn 13: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-30 -20} to {-30 -21}",
+    "time": "2025-07-12T07:25:24.1260015Z"
+  },
+  {
+    "message": "turn 13: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c cannot move to {-30 -21}, your own ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a with same type is there",
+    "time": "2025-07-12T07:25:24.126008367Z"
+  },
+  {
+    "message": "turn 13: new ant spawned Worker",
+    "time": "2025-07-12T07:25:24.126022227Z"
+  },
+  {
+    "message": "turn 14: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 moved from {-32 -22} to {-33 -23}",
+    "time": "2025-07-12T07:25:26.127020175Z"
+  },
+  {
+    "message": "turn 14: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 collected 8 Apple at {-33 -23}",
+    "time": "2025-07-12T07:25:26.127030728Z"
+  },
+  {
+    "message": "turn 14: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-30 -21} to {-29 -21}",
+    "time": "2025-07-12T07:25:26.127048568Z"
+  },
+  {
+    "message": "turn 14: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-29 -22} to {-30 -21}",
+    "time": "2025-07-12T07:25:26.127064478Z"
+  },
+  {
+    "message": "turn 14: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c stocked up 5 Apple (50 cal)",
+    "time": "2025-07-12T07:25:26.127066752Z"
+  },
+  {
+    "message": "turn 14: ant 27690b6c-172b-4b85-951a-0acbc76aae8c moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:25:26.127079232Z"
+  },
+  {
+    "message": "turn 14: new ant spawned Soldier",
+    "time": "2025-07-12T07:25:26.127109345Z"
+  },
+  {
+    "message": "turn 15: ant 27690b6c-172b-4b85-951a-0acbc76aae8c moved from {-30 -19} to {-29 -20}",
+    "time": "2025-07-12T07:25:28.126237339Z"
+  },
+  {
+    "message": "turn 15: new ant spawned Worker",
+    "time": "2025-07-12T07:25:28.126248297Z"
+  },
+  {
+    "message": "turn 16: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:25:30.131326056Z"
+  },
+  {
+    "message": "turn 16: new ant spawned Worker",
+    "time": "2025-07-12T07:25:30.131353689Z"
+  },
+  {
+    "message": "turn 18: ant 7c0aad23-80c3-4a3c-b81c-db78b669577f moved from {-30 -20} to {-31 -20}",
+    "time": "2025-07-12T07:25:34.130280742Z"
+  },
+  {
+    "message": "turn 18: new ant spawned Worker",
+    "time": "2025-07-12T07:25:34.130300419Z"
+  },
+  {
+    "message": "turn 19: ant 17bf072a-1d25-4de0-812a-135b6e95a097 moved from {-30 -20} to {-30 -21}",
+    "time": "2025-07-12T07:25:36.134607881Z"
+  },
+  {
+    "message": "turn 19: new ant spawned Soldier",
+    "time": "2025-07-12T07:25:36.134651471Z"
+  },
+  {
+    "message": "turn 20: ant f601176d-b8c9-447f-b7e2-02aae6cdbc20 moved from {-30 -20} to {-31 -19}",
+    "time": "2025-07-12T07:25:38.128280031Z"
+  },
+  {
+    "message": "turn 21: ant 88941702-3862-4690-98bb-11fa17d15f0c moved from {-30 -20} to {-29 -20}",
+    "time": "2025-07-12T07:25:40.127209531Z"
+  },
+  {
+    "message": "turn 21: new ant spawned Soldier",
+    "time": "2025-07-12T07:25:40.127231211Z"
+  },
+  {
+    "message": "turn 22: ant 88941702-3862-4690-98bb-11fa17d15f0c moved from {-29 -20} to {-29 -21}",
+    "time": "2025-07-12T07:25:42.131386342Z"
+  },
+  {
+    "message": "turn 23: new ant spawned Worker",
+    "time": "2025-07-12T07:25:44.129352694Z"
+  },
+  {
+    "message": "turn 24: ant ed3d8943-2d82-4116-be59-644d7f4d82cb moved from {-30 -20} to {-29 -20}",
+    "time": "2025-07-12T07:25:46.133047163Z"
+  },
+  {
+    "message": "turn 26: new ant spawned Soldier",
+    "time": "2025-07-12T07:25:50.12698591Z"
+  },
+  {
+    "message": "turn 27: new ant spawned Scout",
+    "time": "2025-07-12T07:25:52.135636554Z"
+  },
+  {
+    "message": "turn 29: ant cfb79384-64e8-42c7-80aa-840731d8297d moved from {-30 -20} to {-31 -19}",
+    "time": "2025-07-12T07:25:56.124723021Z"
+  },
+  {
+    "message": "turn 32: new ant spawned Scout",
+    "time": "2025-07-12T07:26:02.129365156Z"
+  },
+  {
+    "message": "turn 33: ant 14744d45-7aa2-4413-92fb-1544e90cc9e6 moved from {-30 -20} to {-29 -20}",
+    "time": "2025-07-12T07:26:04.135000864Z"
+  },
+  {
+    "message": "turn 33: new ant spawned Scout",
+    "time": "2025-07-12T07:26:04.135019064Z"
+  },
+  {
+    "message": "turn 35: ant 08a5e4bd-9b78-47b3-9cf4-0095a90536a0 moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:26:08.127614302Z"
+  },
+  {
+    "message": "turn 41: new ant spawned Scout",
+    "time": "2025-07-12T07:26:20.141251935Z"
+  },
+  {
+    "message": "turn 44: ant 218d1d15-7c71-4e12-a0c7-06b4c4e8132f moved from {-30 -20} to {-31 -20}",
+    "time": "2025-07-12T07:26:26.131723404Z"
+  },
+  {
+    "message": "turn 60: new ant spawned Scout",
+    "time": "2025-07-12T07:26:58.14056582Z"
+  },
+  {
+    "message": "turn 94: ant 08a5e4bd-9b78-47b3-9cf4-0095a90536a0 moved from {-30 -19} to {-26 -20}",
+    "time": "2025-07-12T07:28:06.13531146Z"
+  },
+  {
+    "message": "turn 94: ant 218d1d15-7c71-4e12-a0c7-06b4c4e8132f moved from {-31 -20} to {-28 -22}",
+    "time": "2025-07-12T07:28:06.135338747Z"
+  },
+  {
+    "message": "turn 95: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 damaged by acid, health now 110",
+    "time": "2025-07-12T07:28:08.136361282Z"
+  },
+  {
+    "message": "turn 95: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-30 -19} to {-25 -19}",
+    "time": "2025-07-12T07:28:08.13636998Z"
+  },
+  {
+    "message": "turn 95: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 collected 5 Bread at {-25 -19}",
+    "time": "2025-07-12T07:28:08.136377318Z"
+  },
+  {
+    "message": "turn 95: ant 3da086da-cc2d-4ed8-a7d6-b4f21d842b28 moved from {-30 -20} to {-31 -20}",
+    "time": "2025-07-12T07:28:08.13638591Z"
+  },
+  {
+    "message": "turn 95: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-28 -21} to {-25 -22}",
+    "time": "2025-07-12T07:28:08.136406714Z"
+  },
+  {
+    "message": "turn 97: ant 08a5e4bd-9b78-47b3-9cf4-0095a90536a0 moved from {-26 -20} to {-19 -20}",
+    "time": "2025-07-12T07:28:12.146592691Z"
+  },
+  {
+    "message": "turn 97: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:28:12.146610987Z"
+  },
+  {
+    "message": "turn 97: ant cfb79384-64e8-42c7-80aa-840731d8297d moved from {-31 -19} to {-27 -18}",
+    "time": "2025-07-12T07:28:12.146669688Z"
+  },
+  {
+    "message": "turn 97: ant 8c9cc722-4de7-45a9-ae6b-45420e3c55c1 moved from {-30 -21} to {-25 -22}",
+    "time": "2025-07-12T07:28:12.146713851Z"
+  },
+  {
+    "message": "turn 97: ant 8c9cc722-4de7-45a9-ae6b-45420e3c55c1 collected 2 Apple at {-25 -22}",
+    "time": "2025-07-12T07:28:12.146731791Z"
+  },
+  {
+    "message": "turn 97: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 moved from {-30 -25} to {-27 -25} (dirt on path: 2)",
+    "time": "2025-07-12T07:28:12.146758751Z"
+  },
+  {
+    "message": "turn 97: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-25 -19} to {-25 -21}",
+    "time": "2025-07-12T07:28:12.146781361Z"
+  },
+  {
+    "message": "turn 97: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 collected 3 Bread at {-25 -21}",
+    "time": "2025-07-12T07:28:12.146788448Z"
+  },
+  {
+    "message": "turn 97: new ant spawned Worker",
+    "time": "2025-07-12T07:28:12.146833762Z"
+  },
+  {
+    "message": "turn 98: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae cannot move to {-25 -21}, your own ant 007eab9c-e028-41d0-bdac-e7c4846fee61 with same type is there",
+    "time": "2025-07-12T07:28:14.140386964Z"
+  },
+  {
+    "message": "turn 99: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-31 -21} to {-30 -25} (dirt on path: 1)",
+    "time": "2025-07-12T07:28:16.140154377Z"
+  },
+  {
+    "message": "turn 99: ant 19ffd704-a927-43af-b5c6-320e45256d3d collected 1 Apple at {-30 -25}",
+    "time": "2025-07-12T07:28:16.14016417Z"
+  },
+  {
+    "message": "turn 99: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-29 -21} to {-25 -20}",
+    "time": "2025-07-12T07:28:16.140200253Z"
+  },
+  {
+    "message": "turn 100: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 moved from {-33 -23} to {-31 -21}",
+    "time": "2025-07-12T07:28:18.131586535Z"
+  },
+  {
+    "message": "turn 100: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 stocked up 8 Apple (80 cal)",
+    "time": "2025-07-12T07:28:18.131588581Z"
+  },
+  {
+    "message": "turn 100: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 damaged by acid, health now 110",
+    "time": "2025-07-12T07:28:18.131606733Z"
+  },
+  {
+    "message": "turn 100: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 damaged by acid, health now 90",
+    "time": "2025-07-12T07:28:18.13161078Z"
+  },
+  {
+    "message": "turn 100: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-30 -19} to {-26 -18}",
+    "time": "2025-07-12T07:28:18.131616172Z"
+  },
+  {
+    "message": "turn 100: ant cfb79384-64e8-42c7-80aa-840731d8297d damaged by acid, health now 60",
+    "time": "2025-07-12T07:28:18.131627222Z"
+  },
+  {
+    "message": "turn 100: ant cfb79384-64e8-42c7-80aa-840731d8297d damaged by acid, health now 40",
+    "time": "2025-07-12T07:28:18.131630752Z"
+  },
+  {
+    "message": "turn 100: ant cfb79384-64e8-42c7-80aa-840731d8297d damaged by acid, health now 20",
+    "time": "2025-07-12T07:28:18.131634457Z"
+  },
+  {
+    "message": "turn 100: ant cfb79384-64e8-42c7-80aa-840731d8297d moved from {-27 -18} to {-21 -17}",
+    "time": "2025-07-12T07:28:18.131651578Z"
+  },
+  {
+    "message": "turn 100: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-25 -21} to {-24 -24}",
+    "time": "2025-07-12T07:28:18.131671215Z"
+  },
+  {
+    "message": "turn 100: ant 7c0aad23-80c3-4a3c-b81c-db78b669577f cannot move to {-31 -21}, your own ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 with same type is there",
+    "time": "2025-07-12T07:28:18.131678884Z"
+  },
+  {
+    "message": "turn 100: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-30 -21} to {-26 -20}",
+    "time": "2025-07-12T07:28:18.131701592Z"
+  },
+  {
+    "message": "turn 100: ant 14744d45-7aa2-4413-92fb-1544e90cc9e6 moved from {-29 -20} to {-25 -20}",
+    "time": "2025-07-12T07:28:18.131719812Z"
+  },
+  {
+    "message": "turn 101: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 damaged by acid, health now 70",
+    "time": "2025-07-12T07:28:20.138104686Z"
+  },
+  {
+    "message": "turn 101: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-26 -18} to {-23 -16}",
+    "time": "2025-07-12T07:28:20.138220904Z"
+  },
+  {
+    "message": "turn 101: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-25 -20} to {-20 -20}",
+    "time": "2025-07-12T07:28:20.138286997Z"
+  },
+  {
+    "message": "turn 101: ant f601176d-b8c9-447f-b7e2-02aae6cdbc20 moved from {-31 -19} to {-28 -17}",
+    "time": "2025-07-12T07:28:20.13838025Z"
+  },
+  {
+    "message": "turn 101: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-25 -22} to {-23 -19}",
+    "time": "2025-07-12T07:28:20.138451715Z"
+  },
+  {
+    "message": "turn 102: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 moved from {-31 -21} to {-33 -23}",
+    "time": "2025-07-12T07:28:22.135846642Z"
+  },
+  {
+    "message": "turn 102: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 collected 7 Apple at {-33 -23}",
+    "time": "2025-07-12T07:28:22.135856012Z"
+  },
+  {
+    "message": "turn 102: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-23 -16} to {-22 -15}",
+    "time": "2025-07-12T07:28:22.135880545Z"
+  },
+  {
+    "message": "turn 102: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 collected 8 Bread at {-22 -15}",
+    "time": "2025-07-12T07:28:22.135891934Z"
+  },
+  {
+    "message": "turn 102: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-30 -25} to {-30 -21}",
+    "time": "2025-07-12T07:28:22.135917397Z"
+  },
+  {
+    "message": "turn 102: ant 19ffd704-a927-43af-b5c6-320e45256d3d stocked up 1 Apple (10 cal)",
+    "time": "2025-07-12T07:28:22.135919137Z"
+  },
+  {
+    "message": "turn 102: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-23 -19} to {-18 -19}",
+    "time": "2025-07-12T07:28:22.135967525Z"
+  },
+  {
+    "message": "turn 102: ant 20497169-7576-4f41-92ac-752e0f3e1800 moved from {-30 -20} to {-31 -19}",
+    "time": "2025-07-12T07:28:22.135979447Z"
+  },
+  {
+    "message": "turn 102: new ant spawned Worker",
+    "time": "2025-07-12T07:28:22.135998375Z"
+  },
+  {
+    "message": "turn 103: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 moved from {-33 -23} to {-31 -21}",
+    "time": "2025-07-12T07:28:24.142686344Z"
+  },
+  {
+    "message": "turn 103: ant ef4c3416-3a13-4e4c-a46b-66b6e9157725 stocked up 7 Apple (70 cal)",
+    "time": "2025-07-12T07:28:24.142691064Z"
+  },
+  {
+    "message": "turn 103: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-22 -15} to {-20 -13}",
+    "time": "2025-07-12T07:28:24.142723629Z"
+  },
+  {
+    "message": "turn 103: ant fd92925e-eace-416a-a8e6-386b47221719 moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:28:24.142745956Z"
+  },
+  {
+    "message": "turn 103: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-20 -20} to {-18 -17}",
+    "time": "2025-07-12T07:28:24.142790299Z"
+  },
+  {
+    "message": "turn 103: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a collected 2 Bread at {-18 -17}",
+    "time": "2025-07-12T07:28:24.142799317Z"
+  },
+  {
+    "message": "turn 103: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-24 -24} to {-22 -23}",
+    "time": "2025-07-12T07:28:24.142826029Z"
+  },
+  {
+    "message": "turn 103: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-18 -19} to {-16 -19}",
+    "time": "2025-07-12T07:28:24.142856629Z"
+  },
+  {
+    "message": "turn 103: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae collected 4 Bread at {-16 -19}",
+    "time": "2025-07-12T07:28:24.142864697Z"
+  },
+  {
+    "message": "turn 105: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-20 -13} to {-21 -17}",
+    "time": "2025-07-12T07:28:28.14614136Z"
+  },
+  {
+    "message": "turn 105: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-30 -21} to {-25 -22}",
+    "time": "2025-07-12T07:28:28.14618433Z"
+  },
+  {
+    "message": "turn 105: ant 19ffd704-a927-43af-b5c6-320e45256d3d collected 8 Apple at {-25 -22}",
+    "time": "2025-07-12T07:28:28.14619394Z"
+  },
+  {
+    "message": "turn 105: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-18 -17} to {-22 -18}",
+    "time": "2025-07-12T07:28:28.146224458Z"
+  },
+  {
+    "message": "turn 105: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-26 -20} to {-21 -20}",
+    "time": "2025-07-12T07:28:28.146270218Z"
+  },
+  {
+    "message": "turn 105: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-16 -19} to {-21 -19}",
+    "time": "2025-07-12T07:28:28.146321268Z"
+  },
+  {
+    "message": "turn 105: new ant spawned Worker",
+    "time": "2025-07-12T07:28:28.146377245Z"
+  },
+  {
+    "message": "turn 106: ant fd92925e-eace-416a-a8e6-386b47221719 moved from {-30 -19} to {-28 -16}",
+    "time": "2025-07-12T07:28:30.145242805Z"
+  },
+  {
+    "message": "turn 106: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-22 -18} to {-23 -17}",
+    "time": "2025-07-12T07:28:30.145280839Z"
+  },
+  {
+    "message": "turn 106: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a collected 2 Bread at {-23 -17}",
+    "time": "2025-07-12T07:28:30.145297375Z"
+  },
+  {
+    "message": "turn 106: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-21 -19} to {-20 -15}",
+    "time": "2025-07-12T07:28:30.145363589Z"
+  },
+  {
+    "message": "turn 107: ant fd92925e-eace-416a-a8e6-386b47221719 damaged by acid, health now 110",
+    "time": "2025-07-12T07:28:32.132125629Z"
+  },
+  {
+    "message": "turn 107: ant fd92925e-eace-416a-a8e6-386b47221719 moved from {-28 -16} to {-23 -16} (dirt on path: 1)",
+    "time": "2025-07-12T07:28:32.13213715Z"
+  },
+  {
+    "message": "turn 107: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a moved from {-23 -17} to {-22 -15}",
+    "time": "2025-07-12T07:28:32.132157631Z"
+  },
+  {
+    "message": "turn 107: ant 0f1fd645-2a34-4c48-87dd-5efcb5a7124a collected 4 Bread at {-22 -15}",
+    "time": "2025-07-12T07:28:32.132163991Z"
+  },
+  {
+    "message": "turn 107: ant eaab9888-8685-49fb-aaa1-70833c06fc81 moved from {-30 -20} to {-30 -21}",
+    "time": "2025-07-12T07:28:32.132173913Z"
+  },
+  {
+    "message": "turn 107: ant 911b6887-c351-433b-8ab6-9ca8ea28bdae moved from {-20 -15} to {-20 -13}",
+    "time": "2025-07-12T07:28:32.132189356Z"
+  },
+  {
+    "message": "turn 107: ant 20497169-7576-4f41-92ac-752e0f3e1800 moved from {-31 -19} to {-29 -21}",
+    "time": "2025-07-12T07:28:32.132215067Z"
+  },
+  {
+    "message": "turn 107: new ant spawned Worker",
+    "time": "2025-07-12T07:28:32.132230058Z"
+  },
+  {
+    "message": "turn 108: ant 0b2541c1-72e7-478d-99ac-3b97955f530a moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:28:34.144013813Z"
+  },
+  {
+    "message": "turn 108: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-22 -23} to {-23 -26}",
+    "time": "2025-07-12T07:28:34.14405407Z"
+  },
+  {
+    "message": "turn 108: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-21 -20} to {-17 -20}",
+    "time": "2025-07-12T07:28:34.144093921Z"
+  },
+  {
+    "message": "turn 108: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c collected 5 Apple at {-17 -20}",
+    "time": "2025-07-12T07:28:34.144103144Z"
+  },
+  {
+    "message": "turn 108: new ant spawned Worker",
+    "time": "2025-07-12T07:28:34.144124624Z"
+  },
+  {
+    "message": "turn 110: ant 1ac119fb-bfa9-406e-a52c-51843b98f4d6 moved from {-30 -20} to {-31 -19}",
+    "time": "2025-07-12T07:28:38.139274325Z"
+  },
+  {
+    "message": "turn 110: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-23 -26} to {-23 -27}",
+    "time": "2025-07-12T07:28:38.139316358Z"
+  },
+  {
+    "message": "turn 110: ant 7c0aad23-80c3-4a3c-b81c-db78b669577f cannot move to {-31 -19}, your own ant 1ac119fb-bfa9-406e-a52c-51843b98f4d6 with same type is there",
+    "time": "2025-07-12T07:28:38.139327532Z"
+  },
+  {
+    "message": "turn 110: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-17 -20} to {-16 -19}",
+    "time": "2025-07-12T07:28:38.139349005Z"
+  },
+  {
+    "message": "turn 110: new ant spawned Worker",
+    "time": "2025-07-12T07:28:38.139377025Z"
+  },
+  {
+    "message": "turn 111: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-23 -27} to {-23 -26}",
+    "time": "2025-07-12T07:28:40.151108534Z"
+  },
+  {
+    "message": "turn 111: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-16 -19} to {-16 -21}",
+    "time": "2025-07-12T07:28:40.15113475Z"
+  },
+  {
+    "message": "turn 112: ant 8c9cc722-4de7-45a9-ae6b-45420e3c55c1 moved from {-25 -22} to {-30 -21}",
+    "time": "2025-07-12T07:28:42.145230881Z"
+  },
+  {
+    "message": "turn 112: ant 8c9cc722-4de7-45a9-ae6b-45420e3c55c1 stocked up 2 Apple (20 cal)",
+    "time": "2025-07-12T07:28:42.145234996Z"
+  },
+  {
+    "message": "turn 112: ant bf99836e-072f-4b6c-833d-f60ad0d6c4c8 moved from {-27 -25} to {-23 -25}",
+    "time": "2025-07-12T07:28:42.14526673Z"
+  },
+  {
+    "message": "turn 112: ant 007eab9c-e028-41d0-bdac-e7c4846fee61 moved from {-23 -26} to {-23 -27}",
+    "time": "2025-07-12T07:28:42.145288252Z"
+  },
+  {
+    "message": "turn 112: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-16 -21} to {-16 -19}",
+    "time": "2025-07-12T07:28:42.145315198Z"
+  },
+  {
+    "message": "turn 112: new ant spawned Scout",
+    "time": "2025-07-12T07:28:42.145353959Z"
+  },
+  {
+    "message": "turn 113: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-21 -17} to {-22 -21}",
+    "time": "2025-07-12T07:28:44.135580737Z"
+  },
+  {
+    "message": "turn 113: ant 5fc7d68f-35a3-4c71-acb6-cf1dceba3b05 moved from {-30 -20} to {-30 -19}",
+    "time": "2025-07-12T07:28:44.135607444Z"
+  },
+  {
+    "message": "turn 113: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-16 -19} to {-16 -21}",
+    "time": "2025-07-12T07:28:44.135642834Z"
+  },
+  {
+    "message": "turn 115: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-22 -21} to {-22 -23}",
+    "time": "2025-07-12T07:28:48.146212551Z"
+  },
+  {
+    "message": "turn 116: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-22 -23} to {-23 -26}",
+    "time": "2025-07-12T07:28:50.146843083Z"
+  },
+  {
+    "message": "turn 116: ant 4ef0e7c4-5b89-4dc5-b464-87cc9c8fc26c moved from {-16 -21} to {-16 -19}",
+    "time": "2025-07-12T07:28:50.146885623Z"
+  },
+  {
+    "message": "turn 117: new ant spawned Scout",
+    "time": "2025-07-12T07:28:52.13365312Z"
+  },
+  {
+    "message": "turn 118: ant 4b76c508-a572-4645-8ee9-b7d2bee15c04 moved from {-23 -26} to {-24 -24}",
+    "time": "2025-07-12T07:28:54.128993393Z"
+  },
+  {
+    "message": "turn 118: ant 50914f67-1ed1-43db-9dae-399927514827 moved from {-30 -20} to {-29 -20}",
+    "time": "2025-07-12T07:28:54.129033477Z"
+  },
+  {
+    "message": "turn 119: ant 19ffd704-a927-43af-b5c6-320e45256d3d moved from {-25 -22} to {-25 -21}",
+    "time": "2025-07-12T07:28:56.135954673Z"
+  }
+]
