@@ -125,7 +125,6 @@ const MemoizedHexagon = ({
         fontSize="0.1"
         dominantBaseline="middle"
       >
-        <tspan x="0" dy="-0.2">{`${rq};${rr}`}</tspan>
         {content.antFood && <tspan x="0" dy="1">{`${content.antFood}`}</tspan>}
       </text>
     </Hexagon>
@@ -161,7 +160,7 @@ function App() {
       const fetchMapData = async () => {
         try {
           const response = await axios.get(
-            "https://games-test.datsteam.dev/api/arena",
+            "https://games.datsteam.dev/api/arena",
             {
               headers: {
                 "Content-Type": "application/json",
