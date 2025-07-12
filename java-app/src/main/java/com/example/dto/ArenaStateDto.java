@@ -18,7 +18,8 @@ public record ArenaStateDto(
         List<FoodDto> food,
         List<Hex> home,
         List<MapCellDto> map,
-        Set<Hex> knownBoundaries, // Новое поле для хранения границ
+        Set<Hex> knownBoundaries,
+        Set<Hex> currentlyVisibleHexes,
         double nextTurnIn,
         int score,
         Hex spot,
@@ -31,6 +32,7 @@ public record ArenaStateDto(
         home = Optional.ofNullable(home).orElse(Collections.emptyList());
         map = Optional.ofNullable(map).orElse(Collections.emptyList());
         knownBoundaries = Optional.ofNullable(knownBoundaries).orElse(Collections.emptySet());
+        currentlyVisibleHexes = Optional.ofNullable(currentlyVisibleHexes).orElse(Collections.emptySet());
     }
 
     public record AntDto(String id, int type, int q, int r, int health, FoodData food) {

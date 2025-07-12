@@ -22,7 +22,7 @@ public class StrategyService {
 
     private final StrategyProvider strategyProvider;
 
-    public StrategyService(StrategyProvider strategyProvider, Pathfinder pathfinder) {
+    public StrategyService(StrategyProvider strategyProvider) {
         this.strategyProvider = strategyProvider;
     }
 

@@ -20,18 +20,18 @@ public class DatsPulseApplication {
 
             // Создаем единый, настроенный экземпляр Gson для всего приложения.
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
             GameConfig config = new GameConfig();
-            // Передаем Gson в API клиент.
+
             DatsPulseApiClient apiClient = new HttpDatsPulseApiClient(config, gson);
             ConsoleDisplay consoleDisplay = new ConsoleDisplay();
-            MapStateService mapStateService = new MapStateService();
+            MapStateService mapStateService = new MapStateService(gson);
 
             Pathfinder pathfinder = new Pathfinder();
             StrategyProvider strategyProvider = new StrategyProvider(pathfinder);
-            StrategyService strategyService = new StrategyService(strategyProvider, pathfinder);
-            // Передаем все зависимости, включая Gson, в GameService.
-            GameService gameService = new GameService(apiClient, consoleDisplay, strategyService, mapStateService, gson);
+            // Исправленный вызов конструктора с одним аргументом
+            StrategyService strategyService = new StrategyService(strategyProvider);
+
+            GameService gameService = new GameService(apiClient, consoleDisplay, strategyService, mapStateService);
 
             System.out.println("Клиент запущен. Вступаем в игру...");
             gameService.run();

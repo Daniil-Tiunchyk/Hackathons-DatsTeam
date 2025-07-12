@@ -111,7 +111,8 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
                 rawState.food().stream().map(this::convertFoodToAxial).collect(Collectors.toList()),
                 rawState.home().stream().map(CoordinateConverter::oddrToAxial).collect(Collectors.toList()),
                 rawState.map().stream().map(this::convertMapCellToAxial).collect(Collectors.toList()),
-                null,
+                null, // knownBoundaries. Этот DTO - сырой, границы здесь неизвестны.
+                null, // currentlyVisibleHexes. Этот DTO - сырой, видимость здесь неизвестна.
                 rawState.nextTurnIn(),
                 rawState.score(),
                 CoordinateConverter.oddrToAxial(rawState.spot()),

@@ -18,9 +18,6 @@ import java.util.stream.Collectors;
 /**
  * Утилитный класс, содержащий общие статические методы, используемые
  * различными стратегиями и сервисами.
- * <p>
- * Вынесение этих функций в отдельный класс позволяет избежать дублирования
- * кода и упрощает логику в основных классах, следуя принципу DRY (Don't Repeat Yourself).
  */
 public final class StrategyHelper {
 
@@ -51,12 +48,22 @@ public final class StrategyHelper {
         return Optional.of(new MoveCommandDto(ant.id(), truncatedPath));
     }
 
+    /**
+     * Собирает полный набор препятствий для заданного юнита.
+     * Препятствием считается любой другой дружественный юнит, враг или непроходимый гекс.
+     *
+     * @param ant   Юнит, для которого определяются препятствия.
+     * @param state Текущее состояние арены.
+     * @return Множество всех непроходимых гексов.
+     */
     public static Set<Hex> getObstaclesFor(ArenaStateDto.AntDto ant, ArenaStateDto state) {
         Set<Hex> obstacles = new HashSet<>();
         state.enemies().forEach(e -> obstacles.add(new Hex(e.q(), e.r())));
+
         state.ants().stream()
                 .filter(other -> other.type() == ant.type() && !other.id().equals(ant.id()))
                 .forEach(other -> obstacles.add(new Hex(other.q(), other.r())));
+
         state.map().stream()
                 .filter(cell -> HexType.fromApiId(cell.type()).isImpassable())
                 .forEach(cell -> obstacles.add(new Hex(cell.q(), cell.r())));

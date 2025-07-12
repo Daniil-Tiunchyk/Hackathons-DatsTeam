@@ -13,19 +13,49 @@ import java.util.stream.Collectors;
 
 /**
  * Отвечает за отрисовку агрегированной и лаконичной сводки о состоянии игры
- * в консоли в виде информационного дашборда.
+ * в консоли, включая основной дашборд и диагностические таблицы.
  */
 public class ConsoleDisplay {
 
-    /**
-     * Неизменяемый объект-хранилище для всей статистики, необходимой для отрисовки одного кадра.
-     */
     private record TurnStatistics(
             long workers, long fighters, long scouts, long totalAnts,
             long enemies,
             long returningHome, long movingToTarget, long idle,
             long totalFoodCarried
-    ) {
+    ) {}
+
+    /**
+     * Выводит в консоль детальное сравнение "сырого" состояния от API
+     * и обогащенного состояния из MapStateService.
+     * Это ключевой инструмент для отладки логики накопления карты.
+     *
+     * @param raw      "Сырой" DTO, полученный напрямую от API.
+     * @param enriched Финальный DTO после обработки в MapStateService.
+     */
+    public void renderDebugComparison(ArenaStateDto raw, ArenaStateDto enriched) {
+        if (raw == null || enriched == null) {
+            System.out.println("Невозможно отобразить сравнение: одно из состояний null.");
+            return;
+        }
+
+        String header = String.format("======= СРАВНЕНИЕ СОСТОЯНИЙ (ХОД %d) =======%n", enriched.turnNo());
+        String line =   "----------------------------------------------------------%n";
+        String format = "| %-25s | %-12s | %-15s |%n";
+
+        StringBuilder sb = new StringBuilder("\n");
+        sb.append(header);
+        sb.append(line);
+        sb.append(String.format(format, "Параметр", "API (Raw)", "State (Enriched)"));
+        sb.append(line);
+        sb.append(String.format(format, "Наши юниты", raw.ants().size(), enriched.ants().size()));
+        sb.append(String.format(format, "Враги (видимые)", raw.enemies().size(), enriched.enemies().size()));
+        sb.append(String.format(format, "Еда (видимая)", raw.food().size(), enriched.food().size()));
+        sb.append(String.format(format, "Гексы карты (в ответе)", raw.map().size(), enriched.map().size()));
+        sb.append(String.format(format, "Известные границы", "N/A", enriched.knownBoundaries().size()));
+        sb.append(String.format(format, "Видимые гексы (сейчас)", "N/A", enriched.currentlyVisibleHexes().size()));
+        sb.append(line);
+
+        System.out.print(sb);
     }
 
     public void render(ArenaStateDto state, List<MoveCommandDto> plannedMoves) {
@@ -65,9 +95,6 @@ public class ConsoleDisplay {
         System.out.println(output);
     }
 
-    /**
-     * Агрегирует всю необходимую для отображения статистику из состояния игры.
-     */
     private TurnStatistics aggregateStatistics(ArenaStateDto state, List<MoveCommandDto> plannedMoves) {
         Map<UnitType, Long> countsByType = state.ants().stream()
                 .collect(Collectors.groupingBy(ant -> UnitType.fromApiId(ant.type()), Collectors.counting()));
@@ -82,7 +109,7 @@ public class ConsoleDisplay {
 
         for (ArenaStateDto.AntDto ant : state.ants()) {
             if (antsWithMoves.contains(ant.id())) {
-                if (ant.food() != null && ant.food().amount() > 0) {
+                if (isCarryingFood(ant)) {
                     returningHome++;
                     totalFoodCarried += ant.food().amount();
                 } else {
@@ -107,6 +134,10 @@ public class ConsoleDisplay {
         );
     }
 
+    private boolean isCarryingFood(ArenaStateDto.AntDto ant) {
+        return ant.food() != null && ant.food().amount() > 0;
+    }
+
     public void showRegistrationAttempt() {
         clearConsole();
         String output = """
@@ -127,18 +158,12 @@ public class ConsoleDisplay {
         System.out.println("-------------------------------------------------------");
     }
 
-    /**
-     * Очищает экран консоли. Использует разные подходы для реального терминала
-     * и для эмулированной консоли в IDE.
-     */
     private void clearConsole() {
         try {
             if (System.console() == null) {
-                // Если мы работаем в консоли вывода IDE (например, в IntelliJ),
-                // этот трюк добавит пустые строки для имитации очистки.
-                System.out.println("\n".repeat(5));
+                // В средах без консоли (например, в IDE) просто добавляем отступы
+                System.out.println("\n".repeat(20));
             } else {
-                // Если мы в настоящем терминале
                 if (System.getProperty("os.name").contains("Windows")) {
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                 } else {
@@ -147,7 +172,7 @@ public class ConsoleDisplay {
                 }
             }
         } catch (IOException | InterruptedException ignored) {
-            // Игнорируем ошибки, так как это некритичная для логики операция.
+            Thread.currentThread().interrupt();
         }
     }
 }
