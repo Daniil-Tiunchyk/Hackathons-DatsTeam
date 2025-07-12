@@ -2,30 +2,28 @@ package com.example.service.strategy;
 
 import com.example.domain.Hex;
 import com.example.domain.HexType;
+import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.service.Pathfinder;
 import com.example.service.StrategyHelper;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Реализация {@link AntStrategy} для юнитов-рабочих.
+ * Реализует {@link AntStrategy} для юнитов-рабочих.
  * <p>
- * Применяет двухуровневую логику:
- * 1. Назначает рабочих на сбор ближайших ресурсов, ИСКЛЮЧАЯ уже сданные в улей.
- * 2. Оставшимся без дела рабочим дает команду отойти от базы на заданное
- * расстояние для перепозиционирования и предотвращения "пробок".
+ * Применяет интеллектуальную, двухуровневую логику:
+ * <ol>
+ *     <li><b>Сбор ресурсов:</b> Назначает свободных рабочих на сбор ближайшей видимой еды.</li>
+ *     <li><b>Активное исследование:</b> Рабочие, не занятые сбором, отправляются в
+ *     "сумеречную зону" - известные, но невидимые в данный момент участки карты.
+ *     Это позволяет целенаправленно расширять обзор для поиска новых ресурсов.</li>
+ * </ol>
  */
 public class WorkerStrategy implements AntStrategy {
 
-    private static final int REPOSITION_DISTANCE = 6;
     private final Pathfinder pathfinder;
 
     public WorkerStrategy(Pathfinder pathfinder) {
@@ -42,13 +40,11 @@ public class WorkerStrategy implements AntStrategy {
             return commands;
         }
 
-        // ФИКС: Исключаем еду, находящуюся на гексах нашего улья.
         Set<Hex> homeHexes = Set.copyOf(state.home());
         List<ArenaStateDto.FoodDto> collectibleFood = state.food().stream()
                 .filter(food -> !homeHexes.contains(new Hex(food.q(), food.r())))
                 .toList();
 
-        // 1. Назначаем рабочих на сбор еды
         List<FoodAssignment> assignments = createOptimalAssignments(workers, collectibleFood);
         Set<String> assignedWorkerIds = assignments.stream()
                 .map(assignment -> assignment.worker().id())
@@ -60,23 +56,73 @@ public class WorkerStrategy implements AntStrategy {
                     .ifPresent(commands::add);
         }
 
-        // 2. Оставшимся без дела даем команду на перепозиционирование
         workers.stream()
                 .filter(worker -> !assignedWorkerIds.contains(worker.id()))
-                .forEach(idleWorker -> createRepositionCommand(idleWorker, state).ifPresent(commands::add));
+                .forEach(idleWorker -> createExploreCommand(idleWorker, state).ifPresent(commands::add));
 
         return commands;
     }
 
-    private Optional<MoveCommandDto> createRepositionCommand(ArenaStateDto.AntDto worker, ArenaStateDto state) {
-        Map<Hex, Integer> hexCosts = StrategyHelper.getHexCosts(state);
+    /**
+     * Создает команду для бездействующего рабочего на исследование "сумеречной зоны".
+     * Целью выбирается ближайший к рабочему безопасный гекс, который известен, но не виден в данный момент.
+     *
+     * @param worker Бездействующий рабочий.
+     * @param state  Полное состояние мира.
+     * @return {@link Optional} с командой на исследование или пустой, если исследовать нечего.
+     */
+    private Optional<MoveCommandDto> createExploreCommand(ArenaStateDto.AntDto worker, ArenaStateDto state) {
+        Set<Hex> visibleHexes = calculateCurrentlyVisibleHexes(state);
+        Set<Hex> knownHexes = state.map().stream()
+                .map(cell -> new Hex(cell.q(), cell.r()))
+                .collect(Collectors.toSet());
+
+        Set<Hex> potentialTargets = new HashSet<>(knownHexes);
+        potentialTargets.removeAll(visibleHexes);
+
         Map<Hex, HexType> hexTypes = StrategyHelper.getHexTypes(state);
+        potentialTargets.removeIf(hex -> {
+            HexType type = hexTypes.get(hex);
+            return type != null && type.isImpassable();
+        });
+
+        if (potentialTargets.isEmpty()) {
+            return Optional.empty();
+        }
+
         Hex currentHex = new Hex(worker.q(), worker.r());
 
-        // Находим ближайшую к рабочему точку на кольце перепозиционирования
-        return generateRing(state.spot(), REPOSITION_DISTANCE).stream()
+        return potentialTargets.stream()
                 .min(Comparator.comparingInt(currentHex::distanceTo))
-                .flatMap(target -> StrategyHelper.createPathCommand(worker, target, state, pathfinder, hexCosts, hexTypes));
+                .flatMap(target -> StrategyHelper.createPathCommand(worker, target, state, pathfinder, StrategyHelper.getHexCosts(state), hexTypes));
+    }
+
+    /**
+     * Рассчитывает полное множество всех гексов, видимых нашими юнитами в данный момент.
+     */
+    private Set<Hex> calculateCurrentlyVisibleHexes(ArenaStateDto state) {
+        Set<Hex> visibleHexes = new HashSet<>();
+        for (ArenaStateDto.AntDto ant : state.ants()) {
+            UnitType type = UnitType.fromApiId(ant.type());
+            visibleHexes.addAll(getHexesInRange(new Hex(ant.q(), ant.r()), type.getVision()));
+        }
+        if (state.spot() != null) {
+            visibleHexes.addAll(getHexesInRange(state.spot(), 2)); // Обзор основного гекса улья
+        }
+        return visibleHexes;
+    }
+
+    /**
+     * Возвращает все гексы в заданном радиусе от центра, включая сам центр.
+     */
+    private Set<Hex> getHexesInRange(Hex center, int radius) {
+        Set<Hex> results = new HashSet<>();
+        for (int q = -radius; q <= radius; q++) {
+            for (int r = Math.max(-radius, -q - radius); r <= Math.min(radius, -q + radius); r++) {
+                results.add(center.add(new Hex(q, r)));
+            }
+        }
+        return results;
     }
 
     private List<FoodAssignment> createOptimalAssignments(List<ArenaStateDto.AntDto> availableWorkers, List<ArenaStateDto.FoodDto> availableFood) {
@@ -99,21 +145,5 @@ public class WorkerStrategy implements AntStrategy {
                     });
         }
         return assignments;
-    }
-
-    private List<Hex> generateRing(Hex center, int radius) {
-        if (radius <= 0) {
-            return List.of(center);
-        }
-        List<Hex> results = new ArrayList<>();
-        Hex current = center.add(new Hex(0, -radius));
-
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < radius; j++) {
-                results.add(current);
-                current = current.getNeighbors().get((i + 2) % 6);
-            }
-        }
-        return results;
     }
 }
