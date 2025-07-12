@@ -15,7 +15,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Реализация {@link DatsPulseApiClient}, использующая встроенный в Java HttpClient
@@ -106,13 +105,13 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
             return null;
         }
         return new ArenaStateDto(
-                rawState.ants().stream().map(this::convertAntToAxial).collect(Collectors.toList()),
-                rawState.enemies().stream().map(this::convertEnemyToAxial).collect(Collectors.toList()),
-                rawState.food().stream().map(this::convertFoodToAxial).collect(Collectors.toList()),
-                rawState.home().stream().map(CoordinateConverter::oddrToAxial).collect(Collectors.toList()),
-                rawState.map().stream().map(this::convertMapCellToAxial).collect(Collectors.toList()),
-                null, // knownBoundaries. Этот DTO - сырой, границы здесь неизвестны.
-                null, // currentlyVisibleHexes. Этот DTO - сырой, видимость здесь неизвестна.
+                rawState.ants().stream().map(this::convertAntToAxial).toList(),
+                rawState.enemies().stream().map(this::convertEnemyToAxial).toList(),
+                rawState.food().stream().map(this::convertFoodToAxial).toList(),
+                rawState.home().stream().map(CoordinateConverter::oddrToAxial).toList(),
+                rawState.map().stream().map(this::convertMapCellToAxial).toList(),
+                null,
+                null,
                 rawState.nextTurnIn(),
                 rawState.score(),
                 CoordinateConverter.oddrToAxial(rawState.spot()),
@@ -144,8 +143,8 @@ public class HttpDatsPulseApiClient implements DatsPulseApiClient {
         return axialMoves.stream()
                 .map(cmd -> new MoveCommandDto(
                         cmd.ant(),
-                        cmd.path().stream().map(CoordinateConverter::axialToOddr).collect(Collectors.toList())
+                        cmd.path().stream().map(CoordinateConverter::axialToOddr).toList()
                 ))
-                .collect(Collectors.toList());
+                .toList();
     }
 }

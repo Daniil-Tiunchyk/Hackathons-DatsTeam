@@ -40,7 +40,7 @@ public final class StrategyHelper {
         List<Hex> truncatedPath = truncatePathByMovementPoints(path, movementLimit, hexCosts);
         if (truncatedPath.isEmpty()) return Optional.empty();
 
-        Hex finalDestination = truncatedPath.get(truncatedPath.size() - 1);
+        Hex finalDestination = truncatedPath.getLast();
         if (isUnsafeFinalDestination(finalDestination, ant, hexTypes)) {
             return Optional.empty();
         }

@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
  * таким как скорость, здоровье и т.д., избавляя от "магических чисел".
  */
 public enum UnitType {
-    WORKER(0, 130, 30, 8, 1, 5, "Рабочий"),
-    FIGHTER(1, 180, 70, 2, 1, 4, "Боец"),
-    SCOUT(2, 80, 20, 2, 4, 7, "Разведчик");
+    WORKER(0, 130, 30, 8, 1, 5),
+    FIGHTER(1, 180, 70, 2, 1, 4),
+    SCOUT(2, 80, 20, 2, 4, 7);
 
     private final int apiId;
     private final int health;
@@ -21,20 +21,18 @@ public enum UnitType {
     private final int capacity;
     private final int vision;
     private final int speed;
-    private final String name;
 
     private static final Map<Integer, UnitType> ID_TO_TYPE_MAP =
             Arrays.stream(values())
                     .collect(Collectors.toUnmodifiableMap(UnitType::getApiId, Function.identity()));
 
-    UnitType(int apiId, int health, int attack, int capacity, int vision, int speed, String name) {
+    UnitType(int apiId, int health, int attack, int capacity, int vision, int speed) {
         this.apiId = apiId;
         this.health = health;
         this.attack = attack;
         this.capacity = capacity;
         this.vision = vision;
         this.speed = speed;
-        this.name = name;
     }
 
     /**
@@ -74,9 +72,5 @@ public enum UnitType {
 
     public int getSpeed() {
         return speed;
-    }
-
-    public String getName() {
-        return name;
     }
 }

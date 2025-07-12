@@ -5,13 +5,14 @@ import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.dto.RegistrationResponseDto;
 import com.example.ui.ConsoleDisplay;
+import com.example.util.Stopwatch;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Оркестрирует основной игровой цикл, координируя взаимодействие между
- * API-клиентом, сервисом состояния, сервисом стратегии и UI.
+ * сервисами и измеряя производительность каждого этапа.
  */
 public class GameService {
 
@@ -23,39 +24,50 @@ public class GameService {
     private final ConsoleDisplay consoleDisplay;
     private final StrategyService strategyService;
     private final MapStateService mapStateService;
+    private final Stopwatch turnTimer;
 
-    public GameService(DatsPulseApiClient apiClient, ConsoleDisplay consoleDisplay, StrategyService strategyService, MapStateService mapStateService) {
+    public GameService(DatsPulseApiClient apiClient, ConsoleDisplay consoleDisplay, StrategyService strategyService, MapStateService mapStateService, Stopwatch stopwatch) {
         this.apiClient = apiClient;
         this.consoleDisplay = consoleDisplay;
         this.strategyService = strategyService;
         this.mapStateService = mapStateService;
+        this.turnTimer = stopwatch;
     }
 
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                long turnStartTime = System.currentTimeMillis();
+                turnTimer.reset(); // Начинаем замер хода
+
+                // --- Этап 1: API Call ---
                 ArenaStateDto apiResponse = apiClient.getArenaState();
+                long apiCallTime = turnTimer.getElapsedTimeMillis();
 
                 if (weAreNotInGame(apiResponse)) {
                     handleRegistration();
                     continue;
                 }
 
+                // --- Этап 2: Обновление состояния карты ---
+                turnTimer.reset();
                 ArenaStateDto worldState = mapStateService.updateAndGet(apiResponse);
+                long mapUpdateTime = turnTimer.getElapsedTimeMillis();
 
+                // --- Этап 3: Расчет стратегии ---
+                turnTimer.reset();
                 List<MoveCommandDto> moves = strategyService.createMoveCommands(worldState);
+                long strategyTime = turnTimer.getElapsedTimeMillis();
+
                 if (!moves.isEmpty()) {
                     apiClient.sendMoves(moves);
                 }
 
-                // Сначала выводим основной дашборд...
-                consoleDisplay.render(worldState, moves);
-                // ...а затем детальную отладочную информацию.
+                // --- Отображение ---
+                ConsoleDisplay.PerformanceMetrics metrics = new ConsoleDisplay.PerformanceMetrics(apiCallTime, mapUpdateTime, strategyTime);
+                consoleDisplay.render(worldState, moves, metrics);
                 consoleDisplay.renderDebugComparison(apiResponse, worldState);
 
-
-                waitForNextTurn(worldState.nextTurnIn(), turnStartTime);
+                waitForNextTurn(worldState.nextTurnIn(), apiCallTime + mapUpdateTime + strategyTime);
 
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -84,16 +96,15 @@ public class GameService {
         waitFor(REGISTRATION_RETRY_DELAY_SECONDS);
     }
 
-    private void waitForNextTurn(double secondsToNextTurn, long turnStartTime) throws InterruptedException {
+    private void waitForNextTurn(double secondsToNextTurn, long totalProcessingTime) throws InterruptedException {
         long apiWaitMillis = (long) (secondsToNextTurn * 1000);
-        long processingTime = System.currentTimeMillis() - turnStartTime;
-        long timeToWait = Math.max(0, apiWaitMillis - processingTime);
+        long timeToWait = Math.max(0, apiWaitMillis - totalProcessingTime);
         long sleepMillis = MINIMUM_REQUEST_INTERVAL_MS;
 
         TimeUnit.MILLISECONDS.sleep(sleepMillis);
     }
 
     private void waitFor(int seconds) throws InterruptedException {
-        TimeUnit.SECONDS.sleep(seconds);
+        TimeUnit.MILLISECONDS.sleep(seconds);
     }
 }

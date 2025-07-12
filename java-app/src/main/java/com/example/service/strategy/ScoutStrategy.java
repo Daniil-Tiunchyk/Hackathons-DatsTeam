@@ -2,7 +2,6 @@ package com.example.service.strategy;
 
 import com.example.domain.Hex;
 import com.example.domain.HexType;
-import com.example.domain.UnitType;
 import com.example.dto.ArenaStateDto;
 import com.example.dto.MoveCommandDto;
 import com.example.service.Pathfinder;
@@ -16,36 +15,25 @@ import java.util.stream.Collectors;
  * Эта стратегия является stateful и полностью автономной.
  * <p>
  * <b>Архитектурная концепция:</b>
- * Стратегия реализует интеллектуальное, адаптивное позиционирование для создания
- * эффективного и равномерного разведывательного периметра. Она учитывает ландшафт,
- * динамические препятствия и предотвращает внутренние конфликты между юнитами.
- * <p>
- * <b>Последовательность принятия решений для каждого юнита:</b>
+ * Стратегия разделяет разведчиков на две роли:
  * <ol>
- *     <li><b>Очистка состояния:</b> В начале хода удаляются данные о погибших или застрявших юнитах.</li>
- *     <li><b>Экстренный выход из улья:</b> Если юнит находится в зоне улья, ему отдается
- *     наивысший приоритет на выход. Эта команда игнорирует других дружественных юнитов как препятствия,
- *     чтобы гарантированно освободить спавн-поинт.</li>
- *     <li><b>Назначение цели (Двухэтапный процесс):</b>
- *         <ol>
- *             <li>Вычисляется <i>идеальная</i>, математически равноудаленная точка на патрульном кольце.</li>
- *             <li>С помощью поиска в ширину (BFS) находится <i>реальная</i>, ближайшая к идеальной,
- *             физически доступная точка на карте.</li>
- *         </ol>
- *     </li>
- *     <li><b>Движение к цели:</b> Строится путь к назначенной реальной цели с учетом всех штатных препятствий.</li>
+ *     <li><b>Страж Базы (1 юнит):</b> Ближайший к базе разведчик назначается на постоянное
+ *     патрулирование малого радиуса вокруг улья для обеспечения раннего предупреждения.</li>
+ *     <li><b>Исследователи Фронтира (остальные):</b> Динамически распределяются по границам
+ *     известной карты для ее расширения, используя "черные списки" для избегания тупиков.</li>
  * </ol>
  */
 public class ScoutStrategy implements AntStrategy {
 
-    private static final int PATROL_RADIUS = 70;
+    private static final int HOME_PATROL_RADIUS = 5;      // Для стража
     private static final int CLEARANCE_RADIUS = 2;
     private static final int MAX_SEARCH_DEPTH_FOR_AVAILABLE_HEX = 5;
 
     private final Pathfinder pathfinder;
     private final Map<String, Hex> scoutPatrolAssignments = new HashMap<>();
     private final Map<String, Hex> previousScoutPositions = new HashMap<>();
-
+    private final Map<String, Set<Hex>> scoutInvalidTargets = new HashMap<>();
+    private String homeGuardScoutId = null;
 
     public ScoutStrategy(Pathfinder pathfinder) {
         this.pathfinder = pathfinder;
@@ -58,85 +46,127 @@ public class ScoutStrategy implements AntStrategy {
         }
 
         cleanUpState(allScouts);
-
-        List<ArenaStateDto.AntDto> sortedScouts = allScouts.stream()
-                .sorted(Comparator.comparing(ArenaStateDto.AntDto::id))
-                .toList();
-
-        Set<Hex> clearanceZone = getClearanceZone(state.home());
-        List<Hex> idealPerimeter = generateRing(state.spot(), PATROL_RADIUS);
+        assignHomeGuard(allScouts, state);
 
         List<MoveCommandDto> commands = new ArrayList<>();
         Set<Hex> assignedTargetsThisTurn = new HashSet<>();
 
-        for (int i = 0; i < sortedScouts.size(); i++) {
-            ArenaStateDto.AntDto scout = sortedScouts.get(i);
-            Hex currentPos = new Hex(scout.q(), scout.r());
+        // Разделяем на стража и исследователей
+        Optional<ArenaStateDto.AntDto> guardOpt = allScouts.stream().filter(s -> s.id().equals(homeGuardScoutId)).findFirst();
+        List<ArenaStateDto.AntDto> explorers = allScouts.stream().filter(s -> !s.id().equals(homeGuardScoutId)).toList();
 
-            if (isStuck(scout, currentPos)) {
-                scoutPatrolAssignments.remove(scout.id());
-            }
+        // 1. Логика для Стража
+        guardOpt.flatMap(guard -> handleScoutLogic(guard, state, assignedTargetsThisTurn, true)).ifPresent(commands::add);
 
-            if (clearanceZone.contains(currentPos)) {
-                createMoveAsideCommand(scout, state, assignedTargetsThisTurn).ifPresent(command -> {
-                    commands.add(command);
-                    assignedTargetsThisTurn.add(command.path().get(command.path().size() - 1));
-                });
-                continue;
-            }
-
-            if (!scoutPatrolAssignments.containsKey(scout.id())) {
-                Set<Hex> allCurrentObstacles = buildComprehensiveObstacleSet(state, assignedTargetsThisTurn);
-                int targetIndex = (i * idealPerimeter.size()) / sortedScouts.size();
-                Hex idealTarget = idealPerimeter.get(targetIndex);
-
-                findClosestAvailableHex(idealTarget, allCurrentObstacles)
-                        .ifPresent(realTarget -> scoutPatrolAssignments.put(scout.id(), realTarget));
-            }
-
-            Hex target = scoutPatrolAssignments.get(scout.id());
-            if (target != null && !target.equals(currentPos)) {
-                Set<Hex> pathfindingObstacles = buildComprehensiveObstacleSet(state, assignedTargetsThisTurn);
-                pathfindingObstacles.remove(target);
-
-                StrategyHelper.createPathCommand(scout, target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state))
-                        .ifPresent(command -> {
-                            commands.add(command);
-                            assignedTargetsThisTurn.add(command.path().get(command.path().size() - 1));
-                        });
-            }
+        // 2. Логика для Исследователей
+        for (ArenaStateDto.AntDto explorer : explorers) {
+            handleScoutLogic(explorer, state, assignedTargetsThisTurn, false).ifPresent(commands::add);
         }
 
         updatePreviousPositions(allScouts);
         return commands;
     }
 
-    private Optional<Hex> findClosestAvailableHex(Hex idealTarget, Set<Hex> obstacles) {
-        if (!obstacles.contains(idealTarget)) {
-            return Optional.of(idealTarget);
+    /**
+     * Центральный обработчик логики для одного разведчика.
+     *
+     * @param scout       Разведчик для обработки.
+     * @param isHomeGuard true, если это страж базы, false - если исследователь.
+     * @return Optional с командой на движение.
+     */
+    private Optional<MoveCommandDto> handleScoutLogic(ArenaStateDto.AntDto scout, ArenaStateDto state, Set<Hex> assignedTargets, boolean isHomeGuard) {
+        Hex currentPos = new Hex(scout.q(), scout.r());
+
+        if (isStuck(scout, currentPos)) {
+            Hex failedTarget = scoutPatrolAssignments.get(scout.id());
+            if (failedTarget != null) {
+                scoutInvalidTargets.computeIfAbsent(scout.id(), k -> new HashSet<>()).add(failedTarget);
+            }
+            scoutPatrolAssignments.remove(scout.id());
         }
 
-        Queue<Hex> queue = new LinkedList<>();
-        queue.add(idealTarget);
-        Set<Hex> visited = new HashSet<>();
-        visited.add(idealTarget);
-        int depth = 0;
+        if (getClearanceZone(state.home()).contains(currentPos)) {
+            return createMoveAsideCommand(scout, state, assignedTargets).map(cmd -> {
+                assignedTargets.add(cmd.path().getLast());
+                return cmd;
+            });
+        }
 
-        while (!queue.isEmpty() && depth < MAX_SEARCH_DEPTH_FOR_AVAILABLE_HEX) {
+        if (!scoutPatrolAssignments.containsKey(scout.id())) {
+            findNewTarget(scout, state, assignedTargets, isHomeGuard).ifPresent(target -> scoutPatrolAssignments.put(scout.id(), target));
+        }
+
+        Hex target = scoutPatrolAssignments.get(scout.id());
+        if (target != null && !target.equals(currentPos)) {
+            Set<Hex> obstacles = buildComprehensiveObstacleSet(state, assignedTargets);
+            obstacles.remove(target);
+            return StrategyHelper.createPathCommand(scout, target, state, pathfinder, StrategyHelper.getHexCosts(state), StrategyHelper.getHexTypes(state))
+                    .map(cmd -> {
+                        assignedTargets.add(cmd.path().getLast());
+                        return cmd;
+                    });
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Hex> findNewTarget(ArenaStateDto.AntDto scout, ArenaStateDto state, Set<Hex> assignedTargets, boolean isHomeGuard) {
+        if (isHomeGuard) {
+            List<Hex> patrolRing = generateRing(state.spot(), HOME_PATROL_RADIUS);
+            return patrolRing.stream()
+                    .filter(h -> !assignedTargets.contains(h))
+                    .min(Comparator.comparingInt(h -> new Hex(scout.q(), scout.r()).distanceTo(h)));
+        } else {
+            return findNewExplorationTarget(scout, state, assignedTargets);
+        }
+    }
+
+    private void assignHomeGuard(List<ArenaStateDto.AntDto> allScouts, ArenaStateDto state) {
+        boolean guardIsAlive = homeGuardScoutId != null && allScouts.stream().anyMatch(s -> s.id().equals(homeGuardScoutId));
+        if (guardIsAlive) {
+            return;
+        }
+
+        allScouts.stream()
+                .min(Comparator.comparingInt(s -> new Hex(s.q(), s.r()).distanceTo(state.spot())))
+                .ifPresent(closestScout -> homeGuardScoutId = closestScout.id());
+    }
+
+    // --- Методы ниже были рефакторены или остались без изменений ---
+
+    private Optional<Hex> findNewExplorationTarget(ArenaStateDto.AntDto scout, ArenaStateDto state, Set<Hex> assignedTargets) {
+        Set<Hex> personalInvalidTargets = scoutInvalidTargets.getOrDefault(scout.id(), Collections.emptySet());
+
+        List<Hex> frontier = state.knownBoundaries().stream()
+                .filter(hex -> !personalInvalidTargets.contains(hex) && !scoutPatrolAssignments.containsValue(hex))
+                .sorted(Comparator.comparingInt(h -> h.distanceTo(state.spot())))
+                .toList();
+
+        if (frontier.isEmpty()) return Optional.empty();
+
+        return frontier.stream()
+                .max(Comparator.comparingInt(h -> findMinDistanceToTargets(h, assignedTargets)))
+                .flatMap(idealTarget -> findClosestAvailableHex(idealTarget, buildComprehensiveObstacleSet(state, assignedTargets)));
+    }
+
+    private int findMinDistanceToTargets(Hex hex, Set<Hex> targets) {
+        if (targets.isEmpty()) return Integer.MAX_VALUE;
+        return targets.stream().mapToInt(hex::distanceTo).min().orElse(Integer.MAX_VALUE);
+    }
+
+    private Optional<Hex> findClosestAvailableHex(Hex idealTarget, Set<Hex> obstacles) {
+        if (!obstacles.contains(idealTarget)) return Optional.of(idealTarget);
+        Queue<Hex> queue = new LinkedList<>(List.of(idealTarget));
+        Set<Hex> visited = new HashSet<>(List.of(idealTarget));
+        for (int depth = 0; depth < MAX_SEARCH_DEPTH_FOR_AVAILABLE_HEX && !queue.isEmpty(); depth++) {
             int levelSize = queue.size();
             for (int i = 0; i < levelSize; i++) {
-                Hex current = queue.poll();
-                for (Hex neighbor : current.getNeighbors()) {
-                    if (!visited.contains(neighbor)) {
-                        if (!obstacles.contains(neighbor)) {
-                            return Optional.of(neighbor);
-                        }
-                        visited.add(neighbor);
+                for (Hex neighbor : Objects.requireNonNull(queue.poll()).getNeighbors()) {
+                    if (visited.add(neighbor)) {
+                        if (!obstacles.contains(neighbor)) return Optional.of(neighbor);
                         queue.add(neighbor);
                     }
                 }
             }
-            depth++;
         }
         return Optional.empty();
     }
@@ -153,11 +183,6 @@ public class ScoutStrategy implements AntStrategy {
         return obstacles;
     }
 
-    /**
-     * Собирает специальный, "облегченный" набор препятствий для экстренного выхода из улья.
-     * Этот набор намеренно ИГНОРИРУЕТ других дружественных юнитов, чтобы гарантировать
-     * возможность хода, даже если все соседи заняты.
-     */
     private Set<Hex> buildEscapeObstacleSet(ArenaStateDto state) {
         Set<Hex> obstacles = new HashSet<>();
         state.map().stream()
@@ -169,9 +194,7 @@ public class ScoutStrategy implements AntStrategy {
 
     private Optional<MoveCommandDto> createMoveAsideCommand(ArenaStateDto.AntDto scout, ArenaStateDto state, Set<Hex> assignedTargets) {
         Hex startPos = new Hex(scout.q(), scout.r());
-        // Используем специальный набор препятствий, который игнорирует других муравьев.
         Set<Hex> obstacles = buildEscapeObstacleSet(state);
-        // Также нужно избегать клеток, куда уже направлены другие разведчики в этом ходу.
         obstacles.addAll(assignedTargets);
 
         return startPos.getNeighbors().stream()
@@ -212,6 +235,10 @@ public class ScoutStrategy implements AntStrategy {
                 .collect(Collectors.toSet());
         scoutPatrolAssignments.keySet().removeIf(id -> !aliveScoutIds.contains(id));
         previousScoutPositions.keySet().removeIf(id -> !aliveScoutIds.contains(id));
+        scoutInvalidTargets.keySet().removeIf(id -> !aliveScoutIds.contains(id));
+        if (homeGuardScoutId != null && !aliveScoutIds.contains(homeGuardScoutId)) {
+            homeGuardScoutId = null;
+        }
     }
 
     private void updatePreviousPositions(List<ArenaStateDto.AntDto> allScouts) {

@@ -48,7 +48,7 @@ public class WorkerStrategy implements AntStrategy {
             decideActionFor(worker, state, claimedFoodHexes, dangerZones).ifPresent(command -> {
                 commands.add(command);
                 if (command.path() != null && !command.path().isEmpty()) {
-                    Hex targetHex = command.path().get(command.path().size() - 1);
+                    Hex targetHex = command.path().getLast();
                     if (state.food().stream().anyMatch(f -> new Hex(f.q(), f.r()).equals(targetHex))) {
                         claimedFoodHexes.add(targetHex);
                     }
@@ -140,11 +140,9 @@ public class WorkerStrategy implements AntStrategy {
 
     private Optional<MoveCommandDto> createExploreCommand(ArenaStateDto.AntDto worker, ArenaStateDto state) {
         Set<Hex> visibleHexes = calculateCurrentlyVisibleHexes(state);
-        Set<Hex> knownHexes = state.map().stream()
-                .map(cell -> new Hex(cell.q(), cell.r()))
-                .collect(Collectors.toSet());
 
-        Set<Hex> potentialTargets = new HashSet<>(knownHexes);
+        Set<Hex> potentialTargets = state.map().stream()
+                .map(cell -> new Hex(cell.q(), cell.r())).collect(Collectors.toSet());
         potentialTargets.removeAll(visibleHexes);
 
         Map<Hex, HexType> hexTypes = StrategyHelper.getHexTypes(state);
