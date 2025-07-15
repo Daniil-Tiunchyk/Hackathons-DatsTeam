@@ -1,0 +1,40 @@
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.custom-hex {
+  z-index: 1000;
+}
+
+.custom-hex polygon {
+  cursor: pointer;
+  transition: fill 0.3s;
+}
+
+.custom-hex:hover polygon {
+  fill: #848484;
+}
+.custom-hex text {
+  font-size: 2.5px;
+  stroke: none;
+  font-weight: bold;
+}
+
+svg {
+  overflow: visible;
+}
+
+.react-svg-pan-zoom-wrapper {
+  overflow: visible;
+}
+
+.triangle path, .triangle circle {
+  position: absolute;
+  transform: translate(-45%, -50%);
+  left: 50%;
+  top: 50%;
+}
